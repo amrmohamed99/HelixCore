@@ -17,6 +17,7 @@
   <img src="https://img.shields.io/badge/python-3.12%2B-green?style=flat-square" alt="Python 3.12+" />
   <img src="https://img.shields.io/badge/node-20%2B-green?style=flat-square" alt="Node 20+" />
   <a href="https://doi.org/10.5281/zenodo.21646166"><img src="https://zenodo.org/badge/DOI/10.5281/zenodo.21646166.svg" alt="DOI: 10.5281/zenodo.21646166" /></a>
+  <a href="https://doi.org/10.5281/zenodo.21647828"><img src="https://zenodo.org/badge/DOI/10.5281/zenodo.21647828.svg" alt="Evidence DOI: 10.5281/zenodo.21647828" /></a>
 </p>
 
 ---
@@ -280,6 +281,14 @@ archived on Zenodo:
 > Alhfnawy, A. M. (2026). *Helix Core: an open-source desktop platform for
 > computational drug discovery* (Version 3.0.0) [Computer software]. Zenodo.
 > https://doi.org/10.5281/zenodo.21646166
+
+The content-addressed scientific evaluation evidence for v3.0.0—including raw benchmark
+outputs, manifests, validators, provenance records, and checksums—is archived separately:
+
+> Alhfnawy, A. M. (2026). *Helix Core v3.0.0 scientific evaluation evidence:
+> redocking, scalability, workflow fidelity, and structural-alert concordance*
+> (Version 1.0.0) [Data set]. Zenodo.
+> https://doi.org/10.5281/zenodo.21647828
 
 ## License
 
