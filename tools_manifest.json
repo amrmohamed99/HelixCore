@@ -6,7 +6,7 @@
     "platform": "win32-x64",
     "asset": "helixcore-tools-win-x64.zip",
     "release_tag": "v3.0.0",
-    "url": "https://github.com/amrmohamed99/HelixCore-public/releases/download/v3.0.0/helixcore-tools-win-x64.zip",
+    "url": "https://github.com/amrmohamed99/HelixCore/releases/download/v3.0.0/helixcore-tools-win-x64.zip",
     "archive_root": "tools/",
     "archive_sha256": "8b7011ca757c222e295095c8d1efe5cfac53166896ff1bd0bdfb3cb91098f2b5",
     "archive_sha256_note": "SHA-256 of the deterministic v3.0.0 release archive. fetch_tools.py also hashes every member and rejects any file the manifest does not describe, so a matching extraction is byte-identical to this tree.",

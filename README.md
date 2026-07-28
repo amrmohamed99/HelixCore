@@ -112,8 +112,8 @@ automated orchestration.
 
 ```bash
 # Clone
-git clone https://github.com/amrmohamed99/HelixCore-public.git
-cd HelixCore-public
+git clone https://github.com/amrmohamed99/HelixCore.git
+cd HelixCore
 
 # Backend dependencies
 pip install -r backend/requirements.txt

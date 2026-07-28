@@ -66,7 +66,7 @@ DEFAULT_DEST = REPO_ROOT / "tools"
 
 CHUNK = 1 << 20  # 1 MiB
 MAX_ARCHIVE_BYTES = 512 << 20  # refuse absurdly large downloads / zip bombs
-USER_AGENT = "helixcore-fetch-tools/1 (+https://github.com/amrmohamed99/HelixCore-public)"
+USER_AGENT = "helixcore-fetch-tools/1 (+https://github.com/amrmohamed99/HelixCore)"
 
 EXIT_OK = 0
 EXIT_VERIFY_FAILED = 1

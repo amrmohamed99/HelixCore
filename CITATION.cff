@@ -15,7 +15,7 @@ authors:
 version: "3.0.0"
 date-released: 2026-07-28
 license: MIT
-repository-code: "https://github.com/amrmohamed99/HelixCore-public"
+repository-code: "https://github.com/amrmohamed99/HelixCore"
 keywords:
   - drug discovery
   - molecular docking

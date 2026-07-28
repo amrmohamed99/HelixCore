@@ -23,8 +23,8 @@ Requirements: Python 3.12+, Node.js 20+, Windows 10/11 (the bundled `tools/` bin
 Windows builds; see [Bundled Tools](README.md#bundled-tools--third-party-licenses)).
 
 ```bash
-git clone https://github.com/amrmohamed99/HelixCore-public.git
-cd HelixCore-public
+git clone https://github.com/amrmohamed99/HelixCore.git
+cd HelixCore
 pip install -r backend/requirements.txt
 cd frontend && npm install && cd ..
 ```

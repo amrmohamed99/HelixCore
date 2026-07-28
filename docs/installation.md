@@ -66,8 +66,8 @@ that one pair.
 ### 1. Clone and install Python dependencies
 
 ```bash
-git clone https://github.com/amrmohamed99/HelixCore-public.git
-cd HelixCore-public
+git clone https://github.com/amrmohamed99/HelixCore.git
+cd HelixCore
 python -m pip install -r backend/requirements.lock.txt
 ```
 
@@ -143,8 +143,8 @@ The declared environment is `backend/environment.yml` (conda-forge). Micromamba 
 mamba is the fastest route:
 
 ```bash
-git clone https://github.com/amrmohamed99/HelixCore-public.git
-cd HelixCore-public
+git clone https://github.com/amrmohamed99/HelixCore.git
+cd HelixCore
 micromamba env create -f backend/environment.yml
 micromamba activate helix
 python -m pip install -r backend/requirements.lock.txt
