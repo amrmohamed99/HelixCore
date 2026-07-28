@@ -1,0 +1,58 @@
+# Keep the build context small and free of anything that must not ship.
+#
+# INVARIANT — do not add `backend/tests/` or any pattern that matches it.
+# The Linux CI job runs the suite INSIDE this image
+# (`docker run --rm helixcore-backend pytest -q`). Excluding the tests here
+# would not make that job fail; it would make it pass while testing nothing,
+# which is worse than a red build.
+#
+# Note on pattern scope: Docker matches these patterns against the whole path
+# relative to the build context, so a bare `__pycache__/` matches only the one
+# at the root. Anything meant to be pruned at every depth needs a `**/` prefix.
+
+.git
+.github
+.vscode
+.claude
+.agents
+
+# Not part of the backend image
+frontend/
+landing/
+installer.nsi
+launcher.nsi
+build_portable.ps1
+run.ps1
+patch_icon.py
+
+# Windows-only bundled binaries; the image resolves engines from PATH
+tools/
+
+# Build outputs
+build/
+dist/
+release/
+*.spec
+
+# Private / non-distributable local workspaces.
+LicenseServerKit/
+Paper/
+AmrTest/
+E2E/
+graphify-out/
+skills-lock.json
+
+# Caches and local state. Host bytecode must not be baked into a Linux image:
+# it is dead weight and it makes the layer digest depend on the developer's
+# machine, which defeats the point of a reproducible build.
+**/__pycache__/
+**/*.py[cod]
+**/.pytest_cache/
+**/.mypy_cache/
+**/.ruff_cache/
+**/node_modules/
+workspace/
+**/*.log
+
+# Local helper scripts
+_gen_lock.sh

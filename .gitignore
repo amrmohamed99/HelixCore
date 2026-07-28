@@ -1,0 +1,96 @@
+# PyInstaller artifacts
+build/
+dist/
+public-release/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+
+# Nuitka (obsolete but keep ignored)
+nuitka_build_cache/
+nuitka_test_output/
+
+# Credentials (never commit)
+config/client_secret.json
+
+# License server kit — PRIVATE, must never reach the public repo.
+# Contains the (now retired) license-server shared secret.
+LicenseServerKit/
+
+# Temp / workspace files
+*.tmp
+temp_*.pdb
+workspace/
+test_walkthrough/
+
+# Local-only directories (tests, data, paper)
+/AmrTest/
+/E2E/
+Paper/
+skills-lock.json
+
+# Node / Electron
+frontend/node_modules/
+frontend/dist/
+frontend/dist-electron/
+frontend/release/
+frontend/.vite/
+*.tsbuildinfo
+
+# OS files
+Thumbs.db
+.DS_Store
+
+# Audit reports (local only)
+SCIENTIFIC_AUDIT_REPORT.md
+SCIENTIFIC_AUDIT_CURRENT_STATUS.md
+PAPER_APP_REVIEW.md
+scripts/lock_publication_evidence.py
+scripts/update_graphify_publication_checkpoint.py
+
+# Bundled Windows scientific binaries (AutoDock Vina, Open Babel).
+#
+# These do NOT live in git. They are 64 MB of GPL-2.0 executables in an
+# MIT source tree, and nothing in CI, Docker, PyInstaller, or the test suite
+# reads them: the Linux image fetches Vina from upstream by SHA-256 and takes
+# Open Babel from conda-forge, and backend/config.py falls back to PATH.
+# Their only consumers are Windows runtime resolution and the electron-builder
+# `win.extraResources` step.
+#
+# They ship as a versioned GitHub Release asset instead, fetched and verified
+# by `scripts/fetch_tools.py` against `tools_manifest.json`. The GPL-2.0
+# attribution obligation travels inside that asset (`License.txt` +
+# `SOURCE.md`); THIRD_PARTY_LICENSES.md, which IS tracked, points to it.
+tools/
+
+# Marketing site — not part of the application, and landing/.env holds
+# VITE_WEB3FORMS_KEY while landing/.gitignore covers only .env.local.
+landing/
+
+# Tooling caches (local only)
+.pytest_cache/
+graphify-out/
+.graphifyignore
+
+# AI / Copilot config (local only, never commit)
+.agents/
+.claude/
+.vscode/
+.github/copilot-instructions.md
+
+# Local E2E reports and runner state
+frontend/playwright-report/
+frontend/test-results/
+
+# Research-run dashboards and publication-only helpers
+ASTEX_RUN_DASHBOARD.bat
+ASTEX_RUN_DASHBOARD.ps1
+SCALABILITY_RUN_DASHBOARD.bat
+SCALABILITY_RUN_DASHBOARD.ps1
+SCALABILITY_RUN_RESUME.bat
+
+# Marketing-only preview asset
+og-preview.png

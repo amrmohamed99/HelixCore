@@ -1,0 +1,31 @@
+/* Breadcrumb navigation styles */
+
+.breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 0 4px;
+  font-size: 0.72rem;
+  color: var(--text-muted);
+}
+
+.crumbLink {
+  color: var(--text-muted);
+  text-decoration: none;
+  transition: color var(--duration) var(--ease);
+  cursor: pointer;
+}
+
+.crumbLink:hover {
+  color: var(--accent);
+}
+
+.separator {
+  opacity: 0.4;
+  user-select: none;
+}
+
+.current {
+  color: var(--text-secondary);
+  font-weight: 600;
+}

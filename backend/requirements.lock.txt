@@ -1,0 +1,69 @@
+# Helix Core v3.0.0 — pinned backend environment
+#
+# These are the exact direct-dependency versions resolved in the environment that
+# produced the controlled redocking, scalability, and same-engine comparative
+# results reported in the manuscript. `requirements.txt` states supported minimum
+# versions; this file states the reproducible one.
+#
+# Reproduce with:
+#     python -m pip install -r backend/requirements.lock.txt
+#
+# Measurement interpreter: CPython 3.12.0 (64-bit, Windows).
+# Release packaging uses CPython 3.12.1+ in the 3.12 series because the 3.12.0
+# bytecode compiler can produce a broken frozen SciPy module (PyInstaller #8186).
+# This patch-level packaging change does not change the pinned library versions.
+# Non-Python tools are bundled with the application and are not pip-installable.
+# Windows (bundled under tools/):
+#     AutoDock Vina v1.2.6-56-gc28e340
+#     Open Babel 3.1.1  (conda-forge openbabel-3.1.1-py311h6f56430_9; see tools/OpenBabel/SOURCE.md)
+# Linux (resolved from PATH, not bundled):
+#     AutoDock Vina v1.2.6-27-gbe1689c  (official v1.2.6 linux_x86_64 release asset)
+#     Open Babel 3.1.1  (conda-forge openbabel 3.1.1 build _9)
+#
+# Upstream builds the Windows and Linux assets of Vina v1.2.6 from different commits,
+# so the build strings differ by platform even though the release tag is identical.
+#
+# SUPERSEDES the v10 environment, which used Open Babel 2.4.1 on Windows. Every
+# measurement reported in manuscript v10 predates the Open Babel upgrade and must be
+# regenerated before it is cited again.
+#
+# Regenerate after any dependency change, and re-run the controlled studies
+# before citing this file as the environment behind a reported measurement.
+
+fastapi==0.127.0
+uvicorn[standard]==0.40.0
+pydantic==2.11.3
+python-multipart==0.0.21
+
+# Science
+rdkit==2025.3.2
+numpy==2.4.6
+scipy==1.15.3
+
+# Receptor PDBQT preparation
+meeko==0.7.1
+gemmi==0.7.5
+prody==2.6.1
+
+# ML
+scikit-learn==1.8.0
+
+# Monitoring
+psutil==7.2.0
+
+# HTTP
+requests==2.32.5
+
+# SSE streaming
+sse-starlette==3.1.2
+httpx==0.28.1
+
+# WebSocket
+websockets==13.1
+
+# Report Generation
+reportlab==4.4.10
+jinja2==3.1.2
+
+# Database
+aiosqlite==0.22.1

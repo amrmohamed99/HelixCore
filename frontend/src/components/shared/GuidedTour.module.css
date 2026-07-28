@@ -1,0 +1,261 @@
+/* ================================================================
+   GuidedTour — Spotlight tour styles
+   ================================================================ */
+
+/* ---- Root ---- */
+.tourRoot {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  pointer-events: none;
+}
+
+/* ---- Overlay ---- */
+.overlay {
+  position: fixed;
+  inset: 0;
+  pointer-events: auto;
+  animation: fadeIn 0.25s ease;
+}
+
+.fullDim {
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.72);
+}
+
+.maskSvg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* ---- Spotlight ring ---- */
+.spotlight {
+  position: fixed;
+  border-radius: 12px;
+  border: 2px solid var(--accent);
+  box-shadow:
+    0 0 0 4px var(--accent-glow),
+    0 0 30px var(--accent-glow-strong),
+    inset 0 0 20px var(--accent-glow);
+  pointer-events: none;
+  transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  animation: spotPulse 2s ease-in-out infinite;
+}
+
+@keyframes spotPulse {
+  0%, 100% { box-shadow: 0 0 0 4px var(--accent-glow), 0 0 30px var(--accent-glow-strong), inset 0 0 20px var(--accent-glow); }
+  50%      { box-shadow: 0 0 0 6px var(--accent-glow-strong), 0 0 50px var(--accent-glow-strong), inset 0 0 24px var(--accent-glow); }
+}
+
+/* ---- Tooltip card ---- */
+.tooltip {
+  position: fixed;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 20px 22px 16px;
+  pointer-events: auto;
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.55), 0 0 0 1px rgba(255,255,255,0.04);
+  animation: tooltipIn 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 10000;
+  transition: top 0.35s cubic-bezier(0.4,0,0.2,1), left 0.35s cubic-bezier(0.4,0,0.2,1);
+}
+
+@keyframes tooltipIn {
+  from { opacity: 0; transform: translateY(10px) scale(0.96); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+/* ---- Arrow nubs ---- */
+.arrow {
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  transform: rotate(45deg);
+}
+
+/* Arrow faces the element being highlighted */
+.arrow_bottom {
+  top: -8px;
+  left: 50%;
+  margin-left: -7px;
+  border-right: none;
+  border-bottom: none;
+}
+
+.arrow_top {
+  bottom: -8px;
+  left: 50%;
+  margin-left: -7px;
+  border-left: none;
+  border-top: none;
+}
+
+.arrow_left {
+  right: -8px;
+  top: 28px;
+  border-left: none;
+  border-top: none;
+}
+
+.arrow_right {
+  left: -8px;
+  top: 28px;
+  border-right: none;
+  border-bottom: none;
+}
+
+/* ---- Tooltip internals ---- */
+.tooltipHeader {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.tooltipEmoji {
+  font-size: 24px;
+  flex-shrink: 0;
+}
+
+.tooltipTitle {
+  flex: 1;
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0;
+}
+
+.closeBtn {
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  border-radius: 6px;
+  background: transparent;
+  color: var(--text-muted);
+  font-size: 14px;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.closeBtn:hover {
+  background: var(--bg-card-hover);
+  color: var(--text-primary);
+}
+
+.tooltipDesc {
+  font-size: 13.5px;
+  line-height: 1.65;
+  color: var(--text-secondary);
+  margin: 0 0 18px;
+}
+
+/* ---- Footer: Skip | dots | nav ---- */
+.tooltipFooter {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.skipBtn {
+  border: none;
+  background: none;
+  color: var(--text-muted);
+  font-size: 12px;
+  cursor: pointer;
+  padding: 4px 0;
+  transition: color 0.15s ease;
+  white-space: nowrap;
+}
+
+.skipBtn:hover {
+  color: var(--text-secondary);
+}
+
+/* ---- Step dots ---- */
+.dots {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--border);
+  transition: all 0.2s ease;
+}
+
+.dotActive {
+  width: 22px;
+  border-radius: 4px;
+  background: var(--accent);
+}
+
+.dotDone {
+  background: var(--green);
+}
+
+/* ---- Nav buttons ---- */
+.navBtns {
+  display: flex;
+  gap: 6px;
+}
+
+.prevBtn {
+  width: 34px;
+  height: 34px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: transparent;
+  color: var(--text-secondary);
+  font-size: 16px;
+  cursor: pointer;
+  transition: border-color 0.15s ease, background 0.15s ease;
+}
+
+.prevBtn:hover {
+  border-color: var(--text-secondary);
+  background: var(--bg-card-hover);
+}
+
+.nextBtn {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 0 18px;
+  height: 34px;
+  border: none;
+  border-radius: 8px;
+  background: var(--accent);
+  color: #fff;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s ease;
+  white-space: nowrap;
+}
+
+.nextBtn:hover {
+  background: var(--accent-hover);
+}
+
+/* ---- Animations ---- */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}

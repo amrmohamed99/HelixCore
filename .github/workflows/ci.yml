@@ -1,0 +1,325 @@
+name: CI
+
+# Action versions: every action below runs on the Node 24 runtime. The previous
+# pins (checkout@v4, setup-node@v4, setup-python@v5, upload-artifact@v4,
+# setup-micromamba@v2) are Node 20 actions, two to three majors behind, and none
+# of them is deprecated today — all of those majors were still receiving patch
+# releases as of 2026-07-20. The reason to move is the runtime: a workflow that
+# has to survive an archival re-run should not sit on a Node version GitHub is
+# retiring. Held at v6 (v3 for setup-micromamba) rather than v7 because most of
+# the v7 line is only days old; v7 is a lift for later, not for the freeze.
+
+on:
+  push:
+    branches: [main]
+    # Tags are the archival artifact. A green run has to be attached to the
+    # exact commit the manuscript cites, not only to the branch head.
+    tags: ['v*']
+  pull_request:
+  workflow_dispatch:
+
+# Cancel superseded pull-request runs; never cancel a run on main or on a tag,
+# because that run is the record for that commit and a cancelled run leaves the
+# commit with no result at all. `github.head_ref` is set only for pull_request
+# events, so pushes fall back to a group that is unique per run.
+concurrency:
+  group: ${{ github.workflow }}-${{ github.head_ref || github.run_id }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  # --------------------------------------------------------------------- #
+  #  Linux backend — runs inside the same image reviewers are told to use  #
+  # --------------------------------------------------------------------- #
+  backend-linux:
+    name: Backend (Ubuntu, container)
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v6
+
+      # Building the image is itself part of the test: it proves the published
+      # reproduction path works from a cold cache, which is the Phase 1.2
+      # acceptance criterion. `--pull` refuses to reuse a local base layer, so
+      # the pinned digest is fetched and verified rather than assumed.
+      - name: Build backend image
+        shell: bash
+        run: docker build --pull -t helixcore-backend .
+
+      - name: Verify the docking engine is the official release asset
+        shell: bash
+        run: |
+          version="$(docker run --rm --entrypoint vina helixcore-backend --version 2>&1)"
+          printf 'Resolved engine:\n%s\n' "$version"
+          # The conda-forge build reports "f458505-mod" and is NOT comparable to
+          # the Windows results. Fail loudly rather than measure with it.
+          case "$version" in
+            *-mod*)   echo "::error::Modified AutoDock Vina build in the image: $version"; exit 1 ;;
+            *v1.2.6*) echo "OK — official v1.2.6 release asset" ;;
+            *)        echo "::error::Unexpected AutoDock Vina build: $version"; exit 1 ;;
+          esac
+
+      # environment.yml states intent; this records what the solver actually
+      # resolved. Captured before the suite runs so the record survives a red
+      # test job — that is precisely when it is needed.
+      - name: Record the resolved container environment
+        shell: bash
+        run: |
+          docker run --rm helixcore-backend micromamba list > container-conda-packages.txt
+          docker run --rm helixcore-backend python -m pip list --format=freeze > container-pip-packages.txt
+          echo "conda packages: $(wc -l < container-conda-packages.txt) lines"
+          echo "pip packages:   $(wc -l < container-pip-packages.txt) lines"
+
+      - name: Upload the resolved container environment
+        uses: actions/upload-artifact@v6
+        with:
+          name: container-environment
+          path: |
+            container-conda-packages.txt
+            container-pip-packages.txt
+          retention-days: 90
+
+      # -rs prints the reason for every skip so a shrinking suite cannot pass
+      # unnoticed.
+      - name: Run test suite
+        run: docker run --rm helixcore-backend pytest -q -rs
+
+  # --------------------------------------------------------------------- #
+  #  Windows backend — the platform the bundled binaries target            #
+  # --------------------------------------------------------------------- #
+  backend-windows:
+    name: Backend (Windows)
+    runs-on: windows-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v6
+
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+          cache: pip
+          cache-dependency-path: backend/requirements.lock.txt
+
+      - name: Install pinned dependencies
+        run: python -m pip install -r backend/requirements.lock.txt
+
+      # requirements.lock.txt states the RUNTIME environment behind the reported
+      # measurements and deliberately carries no test tooling, so pytest is not
+      # installed by the step above and `python -m pytest` would fail on a clean
+      # runner. Installed separately, and pinned, to keep the two sets apart.
+      - name: Install the test runner
+        run: python -m pip install pytest==8.3.5 pytest-asyncio==1.3.0
+
+      # This job is the fresh-clone canary: tools/ is untracked and is not
+      # fetched here, so the suite runs with no AutoDock Vina and no Open Babel.
+      # That is intentional, and it was verified rather than assumed — running
+      # the suite with HELIX_TOOLS_DIR pointed at an empty directory and both
+      # engines removed from PATH gives 154 passed, 2 skipped. The two skips are
+      # the parametrisations of test_the_resolved_engine_on_this_host, which
+      # calls pytest.skip on EngineStatus.MISSING. Nothing else shells out to a
+      # binary; the Vina score parser in test_contracts.py is fed fixture text.
+      #
+      # Printing the resolver's own answer first makes that premise auditable.
+      # If a future runner image ever ships an Open Babel on PATH, get_obabel()
+      # returns it, the status becomes MISMATCH rather than MISSING, and the
+      # suite fails complaining about a version nobody asked for — unreadable
+      # unless the log already says which binary was picked up and from where.
+      - name: Show which engines the runner resolves
+        run: |
+          python -c "from backend import config; print('vina  ->', config.find_vina()); print('obabel->', config.get_obabel())"
+
+      # -rs prints the reason for every skip, so reduced coverage is visible in
+      # the log instead of hiding inside a green tick.
+      - name: Run test suite
+        run: python -m pytest -q -rs
+
+  # --------------------------------------------------------------------- #
+  #  Frontend — renderer plus the Electron main and preload bundles        #
+  # --------------------------------------------------------------------- #
+  frontend:
+    name: Frontend build (${{ matrix.os }})
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 30
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+    defaults:
+      run:
+        working-directory: frontend
+    steps:
+      - uses: actions/checkout@v6
+
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '22'
+          cache: npm
+          cache-dependency-path: frontend/package-lock.json
+
+      - name: Install
+        run: npm ci
+
+      - name: Build renderer, main, and preload
+        run: npm run build
+
+      # `npm run build` is a bare `vite build`; the Electron main and preload
+      # bundles are emitted by vite-plugin-electron as a side effect. If that
+      # plugin config regresses, the renderer still builds and this job would
+      # stay green while the E2E job mysteriously fails to launch anything.
+      - name: Confirm every entry point was emitted
+        shell: bash
+        run: |
+          for f in dist/index.html dist-electron/main.js dist-electron/preload.js; do
+            test -f "$f" || { echo "::error::build did not emit $f"; exit 1; }
+            echo "ok $f"
+          done
+
+  # --------------------------------------------------------------------- #
+  #  End-to-end — real Electron under a virtual display                    #
+  # --------------------------------------------------------------------- #
+  e2e-linux:
+    name: E2E (Ubuntu, Electron)
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v6
+
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '22'
+          cache: npm
+          cache-dependency-path: frontend/package-lock.json
+
+      # v3.1.0, pinned by commit for archival re-runs. generate-run-shell is
+      # disabled because this workflow activates through explicit bash login
+      # shells; it also avoids the action's partial-setup cleanup ENOENT.
+      - uses: mamba-org/setup-micromamba@ce51e99f4bb8a82ab7158c4dc59ef4634c59c4f9
+        with:
+          environment-file: backend/environment.yml
+          cache-environment: true
+          generate-run-shell: false
+          micromamba-version: '2.8.1-0'
+
+      # environment.yml owns the native Linux layer (notably Open Babel).
+      # The manuscript's exact Python versions come from the same pip lock used
+      # on Windows. SciPy 1.15.3 exists on PyPI but was never published on
+      # conda-forge, so keeping the layers separate preserves that exact pin.
+      - name: Install pinned backend Python dependencies
+        shell: bash -el {0}
+        run: |
+          python3 -m pip install --disable-pip-version-check \
+            -r backend/requirements.lock.txt
+          python3 -m pip check
+
+      # setup-micromamba copies the mamba init block into ~/.bash_profile and
+      # appends `micromamba activate <env>` to it, so the environment — and
+      # therefore CONDA_PREFIX — exists only in steps that ask for a login shell
+      # (`bash -el {0}`). The Playwright step below depends on that: Electron
+      # spawns `python3 -m uvicorn backend.main:app` and inherits this PATH.
+      # Assert it here, because otherwise a change in that mechanism surfaces
+      # forty minutes later as an unexplained Electron timeout with no error.
+      #
+      # Why the backend is Python here and not the packaged binary: main.ts sets
+      # `isDev = !app.isPackaged`, and Playwright's `electron.launch()` runs an
+      # unpackaged app, so isDev is true no matter what NODE_ENV the fixture
+      # sets. The dev branch spawns `python3 -m uvicorn`; the production branch
+      # would look for a PyInstaller `backend/backend` that this job never
+      # builds. So the micromamba environment is genuinely the thing under test.
+      - name: Confirm the micromamba environment activates in login shells
+        shell: bash -el {0}
+        run: |
+          echo "CONDA_PREFIX=${CONDA_PREFIX:-<unset>}"
+          test -n "${CONDA_PREFIX:-}" || {
+            echo "::error::micromamba environment is not active in 'bash -el' shells"; exit 1; }
+          command -v python3
+          command -v obabel
+          # Record the Open Babel banner: the 3.1.1 build self-reports "3.1.0"
+          # (documented upstream quirk), so the raw string belongs in the log
+          # rather than a claim about it.
+          obabel -V
+          python3 -c "import uvicorn, fastapi; print('uvicorn', uvicorn.__version__, 'fastapi', fastapi.__version__)"
+
+      # The suite launches the built Electron main entry, which spawns the
+      # backend; the engines must therefore be resolvable on PATH in this job.
+      # Vina goes into a directory this job owns and is exported through
+      # $GITHUB_PATH rather than written into "$CONDA_PREFIX/bin". Writing it
+      # into the prefix put a binary that environment.yml does not declare
+      # inside the environment that `cache-environment: true` then saves and
+      # replays on later runs, so the cached environment stopped matching its
+      # own manifest. It also made this step depend on the activation asserted
+      # above, which it has no reason to need.
+      - name: Install the official AutoDock Vina release asset
+        shell: bash
+        run: |
+          mkdir -p "$HOME/.local/bin"
+          curl -fsSL -o "$HOME/.local/bin/vina" \
+            https://github.com/ccsb-scripps/AutoDock-Vina/releases/download/v1.2.6/vina_1.2.6_linux_x86_64
+          echo "06dfe473434e666723436f6bc9379d6ea7ba75a19203feb00c1196ec3a1593e0  $HOME/.local/bin/vina" | sha256sum -c -
+          chmod +x "$HOME/.local/bin/vina"
+          "$HOME/.local/bin/vina" --version
+          echo "$HOME/.local/bin" >> "$GITHUB_PATH"
+
+      # The step above proves the download matched its hash. It does NOT prove
+      # that this is the vina the backend will run: tools/ does not exist in a
+      # CI checkout, so backend/config.find_vina() falls through to shutil.which()
+      # and the answer is decided entirely by PATH order inside the activated
+      # environment. Any conda package that ever pulled in the conda-forge
+      # `vina` would land earlier on PATH than $HOME/.local/bin and silently win.
+      #
+      # That question can only be answered in the same `bash -el` context the
+      # Playwright step uses, which is why this is a separate step rather than a
+      # line appended above. It mirrors the assertion in backend-linux, `-mod`
+      # arm first so a locally patched build carrying a real release tag
+      # ("v1.2.6-mod") is refused instead of matching the v1.2.6 arm.
+      - name: Verify the engine the E2E run will actually resolve
+        shell: bash -el {0}
+        run: |
+          command -v vina || { echo "::error::vina is not on PATH in a login shell"; exit 1; }
+          version="$(vina --version 2>&1)"
+          printf 'Resolved engine: %s\n' "$version"
+          case "$version" in
+            *-mod*)   echo "::error::Modified AutoDock Vina build resolved: $version"; exit 1 ;;
+            *v1.2.6*) echo "OK — official v1.2.6 release asset" ;;
+            *)        echo "::error::Unexpected AutoDock Vina build: $version"; exit 1 ;;
+          esac
+
+      # xvfb supplies the display Electron needs on a headless runner. Sidebar
+      # and status icons are emoji glyphs; without a colour-emoji font every one
+      # renders as a tofu box. Both are named explicitly rather than assumed to
+      # be present in the runner image; the font mirrors the deb dependency.
+      # Recommends are deliberately left enabled: xvfb-run shells out to xauth,
+      # and Xvfb needs xfonts-base, both of which are only Recommends of xvfb.
+      - name: Install desktop runtime dependencies
+        shell: bash
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y xvfb fonts-noto-color-emoji
+
+      - name: Install frontend dependencies
+        working-directory: frontend
+        run: npm ci
+
+      - name: Build frontend
+        working-directory: frontend
+        run: npm run build
+
+      # Reporters come from playwright.config.ts (list for the log, html for the
+      # artifact). Passing --reporter=list here would suppress the html reporter
+      # and leave the upload step below with an empty directory on exactly the
+      # runs where the report matters.
+      - name: Run Playwright Electron suite
+        working-directory: frontend
+        shell: bash -el {0}
+        run: xvfb-run --auto-servernum npx playwright test
+
+      - name: Upload report on failure
+        if: failure()
+        uses: actions/upload-artifact@v6
+        with:
+          name: playwright-report
+          path: |
+            frontend/playwright-report/
+            frontend/test-results/
+          retention-days: 7

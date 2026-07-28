@@ -1,0 +1,71 @@
+/* ================================================================
+   Alert — inline notification card styles
+   ================================================================ */
+
+.alert {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 18px;
+  border-radius: var(--radius);
+  font-size: 0.84rem;
+  line-height: 1.4;
+  border: 1px solid var(--border);
+  background: var(--bg-card);
+}
+
+/* ---- Variants ---- */
+.error {
+  border-color: var(--rose);
+  background: var(--rose-dim);
+}
+.error .icon { color: var(--rose); }
+.error .text { color: var(--rose); }
+
+.warning {
+  border-color: var(--amber);
+  background: var(--amber-dim);
+}
+.warning .icon { color: var(--amber); }
+.warning .text { color: var(--amber); }
+
+.success {
+  border-color: var(--green);
+  background: var(--green-dim);
+}
+.success .icon { color: var(--green); }
+.success .text { color: var(--green); }
+
+.info {
+  border-color: var(--accent);
+  background: var(--accent-glow);
+}
+.info .icon { color: var(--accent); }
+.info .text { color: var(--accent); }
+
+/* ---- Parts ---- */
+.icon {
+  font-weight: 700;
+  font-size: 0.95rem;
+  flex-shrink: 0;
+}
+
+.text {
+  flex: 1;
+}
+
+.dismiss {
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  font-size: 1.2rem;
+  cursor: pointer;
+  padding: 0 4px;
+  line-height: 1;
+  transition: color var(--duration) var(--ease);
+  flex-shrink: 0;
+}
+
+.dismiss:hover {
+  color: var(--text-primary);
+}

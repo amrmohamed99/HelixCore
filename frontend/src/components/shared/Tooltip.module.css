@@ -1,0 +1,45 @@
+/* Tooltip — CSS for portal-based tooltip */
+
+.wrapper {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+}
+
+.tip {
+  position: fixed;
+  z-index: 9999;
+  padding: 8px 14px;
+  border-radius: var(--radius-sm);
+  background: var(--bg-card);
+  border: 1px solid var(--border-hover);
+  box-shadow: var(--shadow);
+  color: var(--text-secondary);
+  font-size: 0.92rem;
+  font-weight: 500;
+  line-height: 1.5;
+  white-space: normal;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  max-width: clamp(200px, 50vw, 420px);
+  width: max-content;
+  pointer-events: none;
+  transition: opacity 0.15s var(--ease);
+}
+
+/* Inline info SVG icon for ⓘ triggers inside labels */
+.infoTrigger {
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  margin-left: 4px;
+  color: var(--text-muted);
+  opacity: 0.45;
+  cursor: help;
+  vertical-align: middle;
+  transition: opacity 0.15s var(--ease), color 0.15s var(--ease);
+}
+.wrapper:hover .infoTrigger {
+  opacity: 1;
+  color: var(--accent);
+}

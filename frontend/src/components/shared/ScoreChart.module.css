@@ -1,0 +1,48 @@
+/* ================================================================
+   ScoreChart — Bar chart styles
+   ================================================================ */
+
+.wrapper {
+  padding: 16px 0;
+}
+
+.title {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 12px;
+  padding-left: 4px;
+}
+
+.svg {
+  width: 100%;
+  max-width: 580px;
+  height: auto;
+}
+
+.label {
+  font-size: 11px;
+  fill: var(--text-secondary);
+  font-family: var(--font-mono);
+}
+
+.value {
+  font-size: 10px;
+  fill: var(--text-muted);
+  font-family: var(--font-mono);
+}
+
+.unit {
+  font-size: 10px;
+  fill: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.bar {
+  transition: opacity 0.15s ease;
+}
+
+.bar:hover {
+  opacity: 1 !important;
+}

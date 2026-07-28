@@ -1,0 +1,239 @@
+.sidebar {
+  width: var(--sidebar-width);
+  background: var(--bg-sidebar);
+  border-right: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  transition: width 0.2s var(--ease);
+}
+
+.collapsed {
+  width: 52px;
+}
+
+.collapsed .navItem {
+  justify-content: center;
+  padding: 9px 0;
+}
+
+.collapsed .navItemActive::before {
+  top: 8px;
+  bottom: 8px;
+}
+
+.collapsed .navEmoji {
+  width: auto;
+}
+
+.collapsed .category + .category {
+  margin-top: 6px;
+  padding-top: 6px;
+  border-top: 1px solid var(--border);
+}
+
+.nav {
+  flex: 1;
+  padding: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.category {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.category + .category {
+  margin-top: 10px;
+}
+
+.categoryTitle {
+  padding: 6px 12px 4px;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  user-select: none;
+}
+
+.navItem {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 12px;
+  border-radius: var(--radius-sm);
+  color: var(--text-secondary);
+  font-size: 0.82rem;
+  font-weight: 500;
+  text-decoration: none;
+  transition: all var(--duration) var(--ease);
+  position: relative;
+}
+
+.navItem:hover {
+  background: var(--bg-card);
+  color: var(--text-primary);
+}
+
+.navItemActive {
+  background: var(--accent-glow);
+  color: var(--accent);
+  font-weight: 600;
+}
+
+.navItemActive::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 6px;
+  bottom: 6px;
+  width: 3px;
+  border-radius: 0 3px 3px 0;
+  background: var(--accent);
+}
+
+.navEmoji {
+  font-size: 1rem;
+  width: 22px;
+  text-align: center;
+  flex-shrink: 0;
+}
+
+.navLabel {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.newBadge {
+  font-size: 0.55rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  padding: 1px 5px;
+  border-radius: 4px;
+  background: var(--red, #e53e3e);
+  color: #fff;
+  margin-left: auto;
+  flex-shrink: 0;
+  line-height: 1.4;
+  text-transform: uppercase;
+}
+
+.navBadge {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  margin-left: auto;
+  flex-shrink: 0;
+}
+
+.footer {
+  padding: 8px;
+  border-top: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.kernelToggle {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 12px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border);
+  background: var(--bg-card);
+  color: var(--text-secondary);
+  font-family: var(--font-sans);
+  font-size: 0.82rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all var(--duration) var(--ease);
+}
+
+.kernelToggle:hover {
+  border-color: var(--border-hover);
+  color: var(--text-primary);
+}
+
+.kernelDot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  margin-left: auto;
+}
+
+.tourBtn {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 12px;
+  border-radius: var(--radius-sm);
+  border: 1px solid color-mix(in srgb, var(--accent) 40%, transparent);
+  background: var(--accent-glow);
+  color: var(--accent);
+  font-family: var(--font-sans);
+  font-size: 0.82rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all var(--duration) var(--ease);
+}
+
+.tourBtn:hover {
+  border-color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 16%, transparent);
+}
+
+.collapsed .tourBtn {
+  justify-content: center;
+  padding: 9px 0;
+}
+
+.collapseBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6px;
+  border-radius: var(--radius-sm);
+  border: 1px solid transparent;
+  background: none;
+  color: var(--text-muted);
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all var(--duration) var(--ease);
+}
+
+.collapseBtn:hover {
+  border-color: var(--border);
+  background: var(--bg-card);
+  color: var(--text-primary);
+}
+
+.collapseIcon {
+  display: inline-block;
+  transition: transform 0.2s var(--ease);
+}
+
+.expandIcon {
+  display: inline-block;
+  transform: rotate(180deg);
+  transition: transform 0.2s var(--ease);
+}
+
+/* Kernel toggle in collapsed mode */
+.collapsed .kernelToggle {
+  justify-content: center;
+  padding: 9px 0;
+}
+
+.collapsed .kernelDot {
+  margin-left: 0;
+}

@@ -1,0 +1,27 @@
+cff-version: 1.2.0
+message: "If you use Helix Core in your research, please cite it using this metadata."
+title: "Helix Core: an open-source desktop platform for computational drug discovery"
+abstract: >-
+  Helix Core is a desktop application that integrates structure preparation,
+  molecular docking (AutoDock Vina), post-docking analysis, descriptor-based
+  compound triage, molecular design, and results management into a single
+  graphical interface built on RDKit, Open Babel, and Meeko.
+type: software
+authors:
+  - given-names: "Amr M."
+    family-names: "Alhfnawy"
+    email: "AAlhfnawy@nu.edu.eg"
+    affiliation: "Nile University"
+version: "3.0.0"
+date-released: 2026-07-28
+license: MIT
+repository-code: "https://github.com/amrmohamed99/HelixCore-public"
+keywords:
+  - drug discovery
+  - molecular docking
+  - cheminformatics
+  - virtual screening
+  - AutoDock Vina
+  - RDKit
+  - ADMET
+# A software/paper DOI will be added once the release is archived (e.g. via Zenodo).

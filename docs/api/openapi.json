@@ -1,0 +1,6707 @@
+{
+  "components": {
+    "schemas": {
+      "ADMETProfile": {
+        "properties": {
+          "bbb_permeable": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "deprecated": true,
+            "description": "Deprecated alias of bbb_triage_flag, kept for backward compatibility.",
+            "title": "Bbb Permeable"
+          },
+          "bbb_triage": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/BBBTriage"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "The thresholds, descriptor values and per-rule verdicts behind bbb_triage_flag."
+          },
+          "bbb_triage_flag": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Verdict of the three-threshold BBB triage filter. Not a trained model.",
+            "title": "Bbb Triage Flag"
+          },
+          "bertz_ct": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Bertz Ct"
+          },
+          "esol_logS": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Esol Logs"
+          },
+          "hba": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Hba"
+          },
+          "hbd": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Hbd"
+          },
+          "logp": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Logp"
+          },
+          "mw": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Mw"
+          },
+          "name": {
+            "title": "Name",
+            "type": "string"
+          },
+          "qed": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Qed"
+          },
+          "ro5_violations": {
+            "default": 0,
+            "title": "Ro5 Violations",
+            "type": "integer"
+          },
+          "rotatable_bonds": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Rotatable Bonds"
+          },
+          "rule_of_5": {
+            "default": "Unknown",
+            "title": "Rule Of 5",
+            "type": "string"
+          },
+          "sa_score": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Sa Score"
+          },
+          "smiles": {
+            "title": "Smiles",
+            "type": "string"
+          },
+          "tpsa": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Tpsa"
+          }
+        },
+        "required": [
+          "name",
+          "smiles"
+        ],
+        "title": "ADMETProfile",
+        "type": "object"
+      },
+      "ADMETRequest": {
+        "properties": {
+          "file_path": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "File Path"
+          },
+          "ro5": {
+            "$ref": "#/components/schemas/Ro5Thresholds",
+            "default": {
+              "hba": 10,
+              "hbd": 5,
+              "logp": 5.0,
+              "max_violations": 1,
+              "mw": 500.0
+            }
+          },
+          "smiles": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Smiles"
+          }
+        },
+        "title": "ADMETRequest",
+        "type": "object"
+      },
+      "ADMETResponse": {
+        "properties": {
+          "csv_path": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Csv Path"
+          },
+          "profiles": {
+            "default": [],
+            "items": {
+              "$ref": "#/components/schemas/ADMETProfile"
+            },
+            "title": "Profiles",
+            "type": "array"
+          }
+        },
+        "title": "ADMETResponse",
+        "type": "object"
+      },
+      "ActivityEntry": {
+        "description": "A single activity log entry.",
+        "properties": {
+          "action": {
+            "description": "Short action description",
+            "title": "Action",
+            "type": "string"
+          },
+          "details": {
+            "anyOf": [
+              {
+                "additionalProperties": true,
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Additional structured data",
+            "title": "Details"
+          },
+          "duration_ms": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Duration of the action in ms",
+            "title": "Duration Ms"
+          },
+          "page": {
+            "default": "",
+            "description": "Page where the action occurred",
+            "title": "Page",
+            "type": "string"
+          }
+        },
+        "required": [
+          "action"
+        ],
+        "title": "ActivityEntry",
+        "type": "object"
+      },
+      "AnalogCompound": {
+        "properties": {
+          "mw": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Mw"
+          },
+          "name": {
+            "title": "Name",
+            "type": "string"
+          },
+          "similarity": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Similarity"
+          },
+          "smiles": {
+            "title": "Smiles",
+            "type": "string"
+          }
+        },
+        "required": [
+          "name",
+          "smiles"
+        ],
+        "title": "AnalogCompound",
+        "type": "object"
+      },
+      "AnalogRequest": {
+        "properties": {
+          "max_analogs": {
+            "default": 20,
+            "title": "Max Analogs",
+            "type": "integer"
+          },
+          "method": {
+            "default": "fragment",
+            "title": "Method",
+            "type": "string"
+          },
+          "name": {
+            "default": "parent",
+            "title": "Name",
+            "type": "string"
+          },
+          "smiles": {
+            "title": "Smiles",
+            "type": "string"
+          }
+        },
+        "required": [
+          "smiles"
+        ],
+        "title": "AnalogRequest",
+        "type": "object"
+      },
+      "AnalogResponse": {
+        "properties": {
+          "analogs": {
+            "default": [],
+            "items": {
+              "$ref": "#/components/schemas/AnalogCompound"
+            },
+            "title": "Analogs",
+            "type": "array"
+          },
+          "count": {
+            "default": 0,
+            "title": "Count",
+            "type": "integer"
+          },
+          "parent_smiles": {
+            "title": "Parent Smiles",
+            "type": "string"
+          }
+        },
+        "required": [
+          "parent_smiles"
+        ],
+        "title": "AnalogResponse",
+        "type": "object"
+      },
+      "AnalyzePDBRequest": {
+        "properties": {
+          "pdb_id": {
+            "default": "",
+            "title": "Pdb Id",
+            "type": "string"
+          },
+          "pdb_path": {
+            "default": "",
+            "title": "Pdb Path",
+            "type": "string"
+          }
+        },
+        "title": "AnalyzePDBRequest",
+        "type": "object"
+      },
+      "AutoGridRequest": {
+        "properties": {
+          "padding": {
+            "default": 10.0,
+            "title": "Padding",
+            "type": "number"
+          },
+          "receptor_path": {
+            "title": "Receptor Path",
+            "type": "string"
+          }
+        },
+        "required": [
+          "receptor_path"
+        ],
+        "title": "AutoGridRequest",
+        "type": "object"
+      },
+      "BBBTriage": {
+        "description": "Transparent result of the BBB triage filter: verdict plus the rules that produced it.",
+        "properties": {
+          "caveat": {
+            "default": "BBB triage flag — a three-threshold descriptor filter (MW, TPSA, LogP), not a trained blood-brain-barrier permeability model. It is a coarse triage aid with known false negatives: caffeine is CNS-active yet falls below the LogP floor and is flagged as non-permeant. Do not report it as a permeability prediction.",
+            "title": "Caveat",
+            "type": "string"
+          },
+          "criteria": {
+            "items": {
+              "$ref": "#/components/schemas/BBBTriageCriterion"
+            },
+            "title": "Criteria",
+            "type": "array"
+          },
+          "flag": {
+            "default": false,
+            "title": "Flag",
+            "type": "boolean"
+          }
+        },
+        "title": "BBBTriage",
+        "type": "object"
+      },
+      "BBBTriageCriterion": {
+        "description": "One threshold of the BBB triage filter and the descriptor it was applied to.",
+        "properties": {
+          "name": {
+            "title": "Name",
+            "type": "string"
+          },
+          "operator": {
+            "default": "<",
+            "title": "Operator",
+            "type": "string"
+          },
+          "passed": {
+            "default": false,
+            "title": "Passed",
+            "type": "boolean"
+          },
+          "threshold": {
+            "default": "",
+            "title": "Threshold",
+            "type": "string"
+          },
+          "value": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Value"
+          }
+        },
+        "required": [
+          "name"
+        ],
+        "title": "BBBTriageCriterion",
+        "type": "object"
+      },
+      "BatchPipelineRequest": {
+        "properties": {
+          "config": {
+            "title": "Config",
+            "type": "string"
+          },
+          "force_field": {
+            "default": "MMFF94",
+            "title": "Force Field",
+            "type": "string"
+          },
+          "receptor": {
+            "title": "Receptor",
+            "type": "string"
+          },
+          "run_admet": {
+            "default": false,
+            "title": "Run Admet",
+            "type": "boolean"
+          },
+          "run_filters": {
+            "default": false,
+            "title": "Run Filters",
+            "type": "boolean"
+          },
+          "smiles_file": {
+            "title": "Smiles File",
+            "type": "string"
+          }
+        },
+        "required": [
+          "smiles_file",
+          "receptor",
+          "config"
+        ],
+        "title": "BatchPipelineRequest",
+        "type": "object"
+      },
+      "BatchPipelineResponse": {
+        "properties": {
+          "best_score": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Best Score"
+          },
+          "failed_docked": {
+            "default": 0,
+            "title": "Failed Docked",
+            "type": "integer"
+          },
+          "message": {
+            "default": "",
+            "title": "Message",
+            "type": "string"
+          },
+          "results_dir": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Results Dir"
+          },
+          "steps": {
+            "default": [],
+            "items": {
+              "$ref": "#/components/schemas/BatchPipelineStep"
+            },
+            "title": "Steps",
+            "type": "array"
+          },
+          "total_docked": {
+            "default": 0,
+            "title": "Total Docked",
+            "type": "integer"
+          }
+        },
+        "title": "BatchPipelineResponse",
+        "type": "object"
+      },
+      "BatchPipelineStep": {
+        "properties": {
+          "count": {
+            "default": 0,
+            "title": "Count",
+            "type": "integer"
+          },
+          "message": {
+            "default": "",
+            "title": "Message",
+            "type": "string"
+          },
+          "status": {
+            "title": "Status",
+            "type": "string"
+          },
+          "step": {
+            "title": "Step",
+            "type": "string"
+          }
+        },
+        "required": [
+          "step",
+          "status"
+        ],
+        "title": "BatchPipelineStep",
+        "type": "object"
+      },
+      "BatchRequest": {
+        "properties": {
+          "smiles_file": {
+            "title": "Smiles File",
+            "type": "string"
+          }
+        },
+        "required": [
+          "smiles_file"
+        ],
+        "title": "BatchRequest",
+        "type": "object"
+      },
+      "BatchResponse": {
+        "properties": {
+          "failed": {
+            "title": "Failed",
+            "type": "integer"
+          },
+          "failures": {
+            "items": {
+              "$ref": "#/components/schemas/ProcessingFailure"
+            },
+            "title": "Failures",
+            "type": "array"
+          },
+          "generated": {
+            "title": "Generated",
+            "type": "integer"
+          },
+          "output_dir": {
+            "title": "Output Dir",
+            "type": "string"
+          }
+        },
+        "required": [
+          "output_dir",
+          "generated",
+          "failed"
+        ],
+        "title": "BatchResponse",
+        "type": "object"
+      },
+      "CSVReportRequest": {
+        "properties": {
+          "res_dir": {
+            "title": "Res Dir",
+            "type": "string"
+          },
+          "ro5": {
+            "$ref": "#/components/schemas/Ro5Thresholds",
+            "default": {
+              "hba": 10,
+              "hbd": 5,
+              "logp": 5.0,
+              "max_violations": 1,
+              "mw": 500.0
+            }
+          },
+          "src_dir": {
+            "default": "",
+            "title": "Src Dir",
+            "type": "string"
+          },
+          "top_n": {
+            "default": 10,
+            "title": "Top N",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "res_dir"
+        ],
+        "title": "CSVReportRequest",
+        "type": "object"
+      },
+      "CSVReportResponse": {
+        "properties": {
+          "csv_path": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Csv Path"
+          },
+          "rows": {
+            "default": [],
+            "items": {
+              "$ref": "#/components/schemas/CSVRow"
+            },
+            "title": "Rows",
+            "type": "array"
+          }
+        },
+        "title": "CSVReportResponse",
+        "type": "object"
+      },
+      "CSVRow": {
+        "properties": {
+          "hba": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Hba"
+          },
+          "hbd": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Hbd"
+          },
+          "ligand": {
+            "title": "Ligand",
+            "type": "string"
+          },
+          "logp": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Logp"
+          },
+          "mw": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Mw"
+          },
+          "rank": {
+            "title": "Rank",
+            "type": "integer"
+          },
+          "rule_of_5": {
+            "default": "Unknown",
+            "title": "Rule Of 5",
+            "type": "string"
+          },
+          "score": {
+            "title": "Score",
+            "type": "number"
+          },
+          "tpsa": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Tpsa"
+          }
+        },
+        "required": [
+          "rank",
+          "ligand",
+          "score"
+        ],
+        "title": "CSVRow",
+        "type": "object"
+      },
+      "Candidate": {
+        "properties": {
+          "dir": {
+            "title": "Dir",
+            "type": "string"
+          },
+          "name": {
+            "title": "Name",
+            "type": "string"
+          },
+          "score": {
+            "title": "Score",
+            "type": "number"
+          }
+        },
+        "required": [
+          "name",
+          "score",
+          "dir"
+        ],
+        "title": "Candidate",
+        "type": "object"
+      },
+      "Cluster": {
+        "properties": {
+          "cluster_id": {
+            "title": "Cluster Id",
+            "type": "integer"
+          },
+          "members": {
+            "default": [],
+            "items": {
+              "$ref": "#/components/schemas/ClusterMember"
+            },
+            "title": "Members",
+            "type": "array"
+          },
+          "size": {
+            "title": "Size",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "cluster_id",
+          "size"
+        ],
+        "title": "Cluster",
+        "type": "object"
+      },
+      "ClusterMember": {
+        "properties": {
+          "is_centroid": {
+            "default": false,
+            "title": "Is Centroid",
+            "type": "boolean"
+          },
+          "name": {
+            "title": "Name",
+            "type": "string"
+          },
+          "score": {
+            "title": "Score",
+            "type": "number"
+          },
+          "smiles": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Smiles"
+          }
+        },
+        "required": [
+          "name",
+          "score"
+        ],
+        "title": "ClusterMember",
+        "type": "object"
+      },
+      "ClusterRequest": {
+        "properties": {
+          "cutoff": {
+            "default": 0.4,
+            "title": "Cutoff",
+            "type": "number"
+          },
+          "method": {
+            "default": "Morgan",
+            "title": "Method",
+            "type": "string"
+          },
+          "results_dir": {
+            "title": "Results Dir",
+            "type": "string"
+          },
+          "src_dir": {
+            "default": "",
+            "title": "Src Dir",
+            "type": "string"
+          }
+        },
+        "required": [
+          "results_dir"
+        ],
+        "title": "ClusterRequest",
+        "type": "object"
+      },
+      "ClusterResponse": {
+        "properties": {
+          "clusters": {
+            "default": [],
+            "items": {
+              "$ref": "#/components/schemas/Cluster"
+            },
+            "title": "Clusters",
+            "type": "array"
+          },
+          "num_clusters": {
+            "default": 0,
+            "title": "Num Clusters",
+            "type": "integer"
+          },
+          "singletons": {
+            "default": 0,
+            "title": "Singletons",
+            "type": "integer"
+          },
+          "total_compounds": {
+            "default": 0,
+            "title": "Total Compounds",
+            "type": "integer"
+          }
+        },
+        "title": "ClusterResponse",
+        "type": "object"
+      },
+      "CompareRequest": {
+        "description": "Given a list of SMILES, compute properties for side-by-side comparison.",
+        "properties": {
+          "names": {
+            "default": [],
+            "items": {
+              "type": "string"
+            },
+            "title": "Names",
+            "type": "array"
+          },
+          "ro5_hba": {
+            "default": 10,
+            "title": "Ro5 Hba",
+            "type": "integer"
+          },
+          "ro5_hbd": {
+            "default": 5,
+            "title": "Ro5 Hbd",
+            "type": "integer"
+          },
+          "ro5_logp": {
+            "default": 5,
+            "title": "Ro5 Logp",
+            "type": "number"
+          },
+          "ro5_max_violations": {
+            "default": 1,
+            "title": "Ro5 Max Violations",
+            "type": "integer"
+          },
+          "ro5_mw": {
+            "default": 500,
+            "title": "Ro5 Mw",
+            "type": "number"
+          },
+          "smiles_list": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Smiles List",
+            "type": "array"
+          }
+        },
+        "required": [
+          "smiles_list"
+        ],
+        "title": "CompareRequest",
+        "type": "object"
+      },
+      "CompareResponse": {
+        "description": "Side-by-side comparison result.",
+        "properties": {
+          "compounds": {
+            "items": {
+              "$ref": "#/components/schemas/CompoundProfile"
+            },
+            "title": "Compounds",
+            "type": "array"
+          },
+          "property_ranges": {
+            "additionalProperties": true,
+            "title": "Property Ranges",
+            "type": "object"
+          }
+        },
+        "required": [
+          "compounds",
+          "property_ranges"
+        ],
+        "title": "CompareResponse",
+        "type": "object"
+      },
+      "CompoundProfile": {
+        "description": "Full profile for one compound.",
+        "properties": {
+          "hba": {
+            "title": "Hba",
+            "type": "integer"
+          },
+          "hbd": {
+            "title": "Hbd",
+            "type": "integer"
+          },
+          "heavy_atoms": {
+            "title": "Heavy Atoms",
+            "type": "integer"
+          },
+          "logp": {
+            "title": "Logp",
+            "type": "number"
+          },
+          "mw": {
+            "title": "Mw",
+            "type": "number"
+          },
+          "name": {
+            "title": "Name",
+            "type": "string"
+          },
+          "qed": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Qed"
+          },
+          "rings": {
+            "title": "Rings",
+            "type": "integer"
+          },
+          "ro5_violations": {
+            "title": "Ro5 Violations",
+            "type": "integer"
+          },
+          "rotatable_bonds": {
+            "title": "Rotatable Bonds",
+            "type": "integer"
+          },
+          "rule_of_5": {
+            "title": "Rule Of 5",
+            "type": "string"
+          },
+          "sa_score": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Sa Score"
+          },
+          "smiles": {
+            "title": "Smiles",
+            "type": "string"
+          },
+          "tpsa": {
+            "title": "Tpsa",
+            "type": "number"
+          }
+        },
+        "required": [
+          "name",
+          "smiles",
+          "mw",
+          "logp",
+          "hbd",
+          "hba",
+          "tpsa",
+          "rotatable_bonds",
+          "rings",
+          "heavy_atoms",
+          "rule_of_5",
+          "ro5_violations"
+        ],
+        "title": "CompoundProfile",
+        "type": "object"
+      },
+      "ConsensusRequest": {
+        "properties": {
+          "results_dir": {
+            "title": "Results Dir",
+            "type": "string"
+          },
+          "src_dir": {
+            "default": "",
+            "title": "Src Dir",
+            "type": "string"
+          }
+        },
+        "required": [
+          "results_dir"
+        ],
+        "title": "ConsensusRequest",
+        "type": "object"
+      },
+      "ConsensusResponse": {
+        "properties": {
+          "csv_path": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Csv Path"
+          },
+          "results": {
+            "default": [],
+            "items": {
+              "$ref": "#/components/schemas/ConsensusResult"
+            },
+            "title": "Results",
+            "type": "array"
+          }
+        },
+        "title": "ConsensusResponse",
+        "type": "object"
+      },
+      "ConsensusResult": {
+        "properties": {
+          "consensus_rank": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Consensus Rank"
+          },
+          "contact_rank": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Contact Rank"
+          },
+          "contact_score": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Contact Score"
+          },
+          "energy_rank": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Energy Rank"
+          },
+          "ligand": {
+            "title": "Ligand",
+            "type": "string"
+          },
+          "mmff_energy": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Mmff Energy"
+          },
+          "vina_rank": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Vina Rank"
+          },
+          "vina_score": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Vina Score"
+          }
+        },
+        "required": [
+          "ligand"
+        ],
+        "title": "ConsensusResult",
+        "type": "object"
+      },
+      "ConvertRequest": {
+        "properties": {
+          "directory": {
+            "title": "Directory",
+            "type": "string"
+          }
+        },
+        "required": [
+          "directory"
+        ],
+        "title": "ConvertRequest",
+        "type": "object"
+      },
+      "ConvertResponse": {
+        "properties": {
+          "converted": {
+            "title": "Converted",
+            "type": "integer"
+          },
+          "failed": {
+            "default": 0,
+            "title": "Failed",
+            "type": "integer"
+          },
+          "failures": {
+            "items": {
+              "$ref": "#/components/schemas/ProcessingFailure"
+            },
+            "title": "Failures",
+            "type": "array"
+          },
+          "output_dir": {
+            "title": "Output Dir",
+            "type": "string"
+          }
+        },
+        "required": [
+          "output_dir",
+          "converted"
+        ],
+        "title": "ConvertResponse",
+        "type": "object"
+      },
+      "DockingRequest": {
+        "properties": {
+          "config_path": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Config Path"
+          },
+          "exhaustiveness": {
+            "default": 8,
+            "title": "Exhaustiveness",
+            "type": "integer"
+          },
+          "grid": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/GridBox"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "ligands_dir": {
+            "title": "Ligands Dir",
+            "type": "string"
+          },
+          "receptor": {
+            "title": "Receptor",
+            "type": "string"
+          },
+          "seed": {
+            "default": 42,
+            "description": "Deterministic AutoDock Vina random seed",
+            "maximum": 2147483647.0,
+            "minimum": 1.0,
+            "title": "Seed",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "ligands_dir",
+          "receptor"
+        ],
+        "title": "DockingRequest",
+        "type": "object"
+      },
+      "DockingResponse": {
+        "properties": {
+          "results": {
+            "default": [],
+            "items": {
+              "$ref": "#/components/schemas/DockingResult"
+            },
+            "title": "Results",
+            "type": "array"
+          },
+          "results_dir": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Results Dir"
+          }
+        },
+        "title": "DockingResponse",
+        "type": "object"
+      },
+      "DockingResult": {
+        "properties": {
+          "error_detail": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Error Detail"
+          },
+          "ligand": {
+            "title": "Ligand",
+            "type": "string"
+          },
+          "output_path": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Output Path"
+          },
+          "score": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Score"
+          },
+          "status": {
+            "title": "Status",
+            "type": "string"
+          }
+        },
+        "required": [
+          "ligand",
+          "status"
+        ],
+        "title": "DockingResult",
+        "type": "object"
+      },
+      "DrugInfo": {
+        "properties": {
+          "affinity_type": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Affinity Type"
+          },
+          "affinity_value": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Affinity Value"
+          },
+          "chembl_id": {
+            "title": "Chembl Id",
+            "type": "string"
+          },
+          "name": {
+            "title": "Name",
+            "type": "string"
+          },
+          "smiles": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Smiles"
+          },
+          "source": {
+            "title": "Source",
+            "type": "string"
+          }
+        },
+        "required": [
+          "name",
+          "chembl_id",
+          "source"
+        ],
+        "title": "DrugInfo",
+        "type": "object"
+      },
+      "DruggabilityRequest": {
+        "properties": {
+          "ligand_chain": {
+            "default": "",
+            "maxLength": 1,
+            "title": "Ligand Chain",
+            "type": "string"
+          },
+          "ligand_icode": {
+            "default": "",
+            "maxLength": 1,
+            "title": "Ligand Icode",
+            "type": "string"
+          },
+          "ligand_name": {
+            "default": "",
+            "title": "Ligand Name",
+            "type": "string"
+          },
+          "ligand_resseq": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Ligand Resseq"
+          },
+          "pdb_path": {
+            "title": "Pdb Path",
+            "type": "string"
+          }
+        },
+        "required": [
+          "pdb_path"
+        ],
+        "title": "DruggabilityRequest",
+        "type": "object"
+      },
+      "DruggabilityResponse": {
+        "properties": {
+          "confidence": {
+            "default": "low",
+            "title": "Confidence",
+            "type": "string"
+          },
+          "druggable": {
+            "default": false,
+            "title": "Druggable",
+            "type": "boolean"
+          },
+          "hydrophobicity_ratio": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Hydrophobicity Ratio"
+          },
+          "notes": {
+            "default": [],
+            "items": {
+              "type": "string"
+            },
+            "title": "Notes",
+            "type": "array"
+          },
+          "residue_count": {
+            "default": 0,
+            "title": "Residue Count",
+            "type": "integer"
+          },
+          "volume": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Volume"
+          }
+        },
+        "title": "DruggabilityResponse",
+        "type": "object"
+      },
+      "EnergyComponent": {
+        "properties": {
+          "component": {
+            "title": "Component",
+            "type": "string"
+          },
+          "value": {
+            "title": "Value",
+            "type": "number"
+          }
+        },
+        "required": [
+          "component",
+          "value"
+        ],
+        "title": "EnergyComponent",
+        "type": "object"
+      },
+      "ExportTopRequest": {
+        "properties": {
+          "results_dir": {
+            "title": "Results Dir",
+            "type": "string"
+          },
+          "src_dir": {
+            "title": "Src Dir",
+            "type": "string"
+          },
+          "top_n": {
+            "default": 10,
+            "title": "Top N",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "src_dir",
+          "results_dir"
+        ],
+        "title": "ExportTopRequest",
+        "type": "object"
+      },
+      "FetchPDBRequest": {
+        "properties": {
+          "output_dir": {
+            "title": "Output Dir",
+            "type": "string"
+          },
+          "pdb_id": {
+            "description": "4-character PDB accession code",
+            "maxLength": 4,
+            "minLength": 4,
+            "title": "Pdb Id",
+            "type": "string"
+          }
+        },
+        "required": [
+          "pdb_id",
+          "output_dir"
+        ],
+        "title": "FetchPDBRequest",
+        "type": "object"
+      },
+      "FetchPDBResponse": {
+        "properties": {
+          "message": {
+            "title": "Message",
+            "type": "string"
+          },
+          "pdb_path": {
+            "title": "Pdb Path",
+            "type": "string"
+          }
+        },
+        "required": [
+          "pdb_path",
+          "message"
+        ],
+        "title": "FetchPDBResponse",
+        "type": "object"
+      },
+      "FilterRequest": {
+        "properties": {
+          "covalent_mode": {
+            "default": false,
+            "title": "Covalent Mode",
+            "type": "boolean"
+          },
+          "input_path": {
+            "title": "Input Path",
+            "type": "string"
+          }
+        },
+        "required": [
+          "input_path"
+        ],
+        "title": "FilterRequest",
+        "type": "object"
+      },
+      "FilterResponse": {
+        "properties": {
+          "compounds": {
+            "default": [],
+            "items": {
+              "$ref": "#/components/schemas/FilteredCompound"
+            },
+            "title": "Compounds",
+            "type": "array"
+          },
+          "flagged": {
+            "default": 0,
+            "title": "Flagged",
+            "type": "integer"
+          },
+          "passed": {
+            "default": 0,
+            "title": "Passed",
+            "type": "integer"
+          },
+          "report_path": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Report Path"
+          },
+          "total": {
+            "default": 0,
+            "title": "Total",
+            "type": "integer"
+          }
+        },
+        "title": "FilterResponse",
+        "type": "object"
+      },
+      "FilteredCompound": {
+        "properties": {
+          "alert_free": {
+            "default": true,
+            "title": "Alert Free",
+            "type": "boolean"
+          },
+          "alerts": {
+            "default": [],
+            "items": {
+              "type": "string"
+            },
+            "title": "Alerts",
+            "type": "array"
+          },
+          "name": {
+            "title": "Name",
+            "type": "string"
+          },
+          "pains_free": {
+            "default": true,
+            "title": "Pains Free",
+            "type": "boolean"
+          },
+          "pains_matches": {
+            "default": [],
+            "items": {
+              "type": "string"
+            },
+            "title": "Pains Matches",
+            "type": "array"
+          },
+          "passed": {
+            "default": true,
+            "title": "Passed",
+            "type": "boolean"
+          },
+          "smiles": {
+            "title": "Smiles",
+            "type": "string"
+          }
+        },
+        "required": [
+          "name",
+          "smiles"
+        ],
+        "title": "FilteredCompound",
+        "type": "object"
+      },
+      "FragmentDecomposeRequest": {
+        "properties": {
+          "method": {
+            "default": "brics",
+            "description": "'brics' | 'recap' | 'murcko'",
+            "title": "Method",
+            "type": "string"
+          },
+          "smiles": {
+            "description": "SMILES of molecule to decompose",
+            "title": "Smiles",
+            "type": "string"
+          }
+        },
+        "required": [
+          "smiles"
+        ],
+        "title": "FragmentDecomposeRequest",
+        "type": "object"
+      },
+      "FragmentDecomposeResponse": {
+        "properties": {
+          "count": {
+            "default": 0,
+            "title": "Count",
+            "type": "integer"
+          },
+          "fragments": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Fragments",
+            "type": "array"
+          },
+          "message": {
+            "default": "",
+            "title": "Message",
+            "type": "string"
+          },
+          "method": {
+            "default": "brics",
+            "title": "Method",
+            "type": "string"
+          },
+          "smiles": {
+            "title": "Smiles",
+            "type": "string"
+          }
+        },
+        "required": [
+          "smiles"
+        ],
+        "title": "FragmentDecomposeResponse",
+        "type": "object"
+      },
+      "FragmentGrowRequest": {
+        "properties": {
+          "core": {
+            "description": "Core fragment SMILES",
+            "title": "Core",
+            "type": "string"
+          },
+          "growth_vectors": {
+            "default": 3,
+            "description": "Number of growth directions",
+            "maximum": 10.0,
+            "minimum": 1.0,
+            "title": "Growth Vectors",
+            "type": "integer"
+          },
+          "max_results": {
+            "default": 50,
+            "maximum": 500.0,
+            "minimum": 1.0,
+            "title": "Max Results",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "core"
+        ],
+        "title": "FragmentGrowRequest",
+        "type": "object"
+      },
+      "FragmentGrowResponse": {
+        "properties": {
+          "count": {
+            "default": 0,
+            "title": "Count",
+            "type": "integer"
+          },
+          "grown": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Grown",
+            "type": "array"
+          },
+          "message": {
+            "default": "",
+            "title": "Message",
+            "type": "string"
+          }
+        },
+        "title": "FragmentGrowResponse",
+        "type": "object"
+      },
+      "FragmentLibraryEntry": {
+        "properties": {
+          "category": {
+            "default": "",
+            "title": "Category",
+            "type": "string"
+          },
+          "mw": {
+            "default": 0,
+            "title": "Mw",
+            "type": "number"
+          },
+          "name": {
+            "default": "",
+            "title": "Name",
+            "type": "string"
+          },
+          "rule_of_3": {
+            "default": false,
+            "title": "Rule Of 3",
+            "type": "boolean"
+          },
+          "smiles": {
+            "title": "Smiles",
+            "type": "string"
+          }
+        },
+        "required": [
+          "smiles"
+        ],
+        "title": "FragmentLibraryEntry",
+        "type": "object"
+      },
+      "FragmentLibraryResponse": {
+        "properties": {
+          "categories": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Categories",
+            "type": "array"
+          },
+          "fragments": {
+            "items": {
+              "$ref": "#/components/schemas/FragmentLibraryEntry"
+            },
+            "title": "Fragments",
+            "type": "array"
+          },
+          "total": {
+            "default": 0,
+            "title": "Total",
+            "type": "integer"
+          }
+        },
+        "title": "FragmentLibraryResponse",
+        "type": "object"
+      },
+      "FragmentLinkRequest": {
+        "properties": {
+          "fragments": {
+            "description": "SMILES of fragments to link",
+            "items": {
+              "type": "string"
+            },
+            "minItems": 2,
+            "title": "Fragments",
+            "type": "array"
+          },
+          "max_results": {
+            "default": 50,
+            "maximum": 500.0,
+            "minimum": 1.0,
+            "title": "Max Results",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "fragments"
+        ],
+        "title": "FragmentLinkRequest",
+        "type": "object"
+      },
+      "FragmentLinkResponse": {
+        "properties": {
+          "count": {
+            "default": 0,
+            "title": "Count",
+            "type": "integer"
+          },
+          "message": {
+            "default": "",
+            "title": "Message",
+            "type": "string"
+          },
+          "products": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Products",
+            "type": "array"
+          }
+        },
+        "title": "FragmentLinkResponse",
+        "type": "object"
+      },
+      "GridBox": {
+        "properties": {
+          "center_x": {
+            "title": "Center X",
+            "type": "number"
+          },
+          "center_y": {
+            "title": "Center Y",
+            "type": "number"
+          },
+          "center_z": {
+            "title": "Center Z",
+            "type": "number"
+          },
+          "size_x": {
+            "maximum": 126.0,
+            "minimum": 1.0,
+            "title": "Size X",
+            "type": "number"
+          },
+          "size_y": {
+            "maximum": 126.0,
+            "minimum": 1.0,
+            "title": "Size Y",
+            "type": "number"
+          },
+          "size_z": {
+            "maximum": 126.0,
+            "minimum": 1.0,
+            "title": "Size Z",
+            "type": "number"
+          }
+        },
+        "required": [
+          "center_x",
+          "center_y",
+          "center_z",
+          "size_x",
+          "size_y",
+          "size_z"
+        ],
+        "title": "GridBox",
+        "type": "object"
+      },
+      "GridBoxResponse": {
+        "properties": {
+          "grid": {
+            "$ref": "#/components/schemas/GridBox"
+          },
+          "ligand_atom_count": {
+            "default": 0,
+            "title": "Ligand Atom Count",
+            "type": "integer"
+          },
+          "output_path": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Output Path"
+          },
+          "selected_ligand": {
+            "anyOf": [
+              {
+                "additionalProperties": true,
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Selected Ligand"
+          }
+        },
+        "required": [
+          "grid"
+        ],
+        "title": "GridBoxResponse",
+        "type": "object"
+      },
+      "HTTPValidationError": {
+        "properties": {
+          "detail": {
+            "items": {
+              "$ref": "#/components/schemas/ValidationError"
+            },
+            "title": "Detail",
+            "type": "array"
+          }
+        },
+        "title": "HTTPValidationError",
+        "type": "object"
+      },
+      "IUPACResponse": {
+        "properties": {
+          "common_name": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Common Name"
+          },
+          "iupac_name": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Iupac Name"
+          },
+          "smiles": {
+            "title": "Smiles",
+            "type": "string"
+          }
+        },
+        "required": [
+          "smiles"
+        ],
+        "title": "IUPACResponse",
+        "type": "object"
+      },
+      "Interaction": {
+        "description": "A single interaction *label* on one receptor-atom/ligand-atom pair.\n\nClassification is multi-label: a charge-complementary pair that also sits\ninside the hydrogen-bond distance yields two entries with the same\n``residue``/``receptor_atom``/``ligand_atom`` and different ``type``.",
+        "properties": {
+          "distance": {
+            "title": "Distance",
+            "type": "number"
+          },
+          "ligand_atom": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Ligand Atom"
+          },
+          "receptor_atom": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Receptor Atom"
+          },
+          "residue": {
+            "title": "Residue",
+            "type": "string"
+          },
+          "type": {
+            "title": "Type",
+            "type": "string"
+          }
+        },
+        "required": [
+          "type",
+          "residue",
+          "distance"
+        ],
+        "title": "Interaction",
+        "type": "object"
+      },
+      "InteractionRequest": {
+        "properties": {
+          "cutoff": {
+            "default": 4.0,
+            "title": "Cutoff",
+            "type": "number"
+          },
+          "ligand_path": {
+            "title": "Ligand Path",
+            "type": "string"
+          },
+          "receptor_path": {
+            "title": "Receptor Path",
+            "type": "string"
+          }
+        },
+        "required": [
+          "receptor_path",
+          "ligand_path"
+        ],
+        "title": "InteractionRequest",
+        "type": "object"
+      },
+      "InteractionResponse": {
+        "description": "Interaction counts under multi-label classification.\n\n``total`` remains ``len(interactions)`` as it always has, but the list is now\nmulti-label, so ``total`` counts label assignments rather than atom pairs.\n``total_single_label`` reproduces the pre-multi-label number (one label per\natom pair, H-bond > hydrophobic > salt bridge) for continuity with figures\npublished before this change.",
+        "properties": {
+          "dual_labeled_pairs": {
+            "default": 0,
+            "title": "Dual Labeled Pairs",
+            "type": "integer"
+          },
+          "h_bonds": {
+            "default": 0,
+            "title": "H Bonds",
+            "type": "integer"
+          },
+          "hydrophobic": {
+            "default": 0,
+            "title": "Hydrophobic",
+            "type": "integer"
+          },
+          "interactions": {
+            "default": [],
+            "items": {
+              "$ref": "#/components/schemas/Interaction"
+            },
+            "title": "Interactions",
+            "type": "array"
+          },
+          "salt_bridges": {
+            "default": 0,
+            "title": "Salt Bridges",
+            "type": "integer"
+          },
+          "salt_bridges_single_label": {
+            "default": 0,
+            "title": "Salt Bridges Single Label",
+            "type": "integer"
+          },
+          "total": {
+            "default": 0,
+            "title": "Total",
+            "type": "integer"
+          },
+          "total_single_label": {
+            "default": 0,
+            "title": "Total Single Label",
+            "type": "integer"
+          }
+        },
+        "title": "InteractionResponse",
+        "type": "object"
+      },
+      "JobControlResponse": {
+        "properties": {
+          "job": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/JobSnapshot"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "message": {
+            "title": "Message",
+            "type": "string"
+          },
+          "success": {
+            "title": "Success",
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "success",
+          "message"
+        ],
+        "title": "JobControlResponse",
+        "type": "object"
+      },
+      "JobSnapshot": {
+        "properties": {
+          "current": {
+            "default": 0,
+            "title": "Current",
+            "type": "integer"
+          },
+          "id": {
+            "title": "Id",
+            "type": "string"
+          },
+          "message": {
+            "default": "",
+            "title": "Message",
+            "type": "string"
+          },
+          "name": {
+            "title": "Name",
+            "type": "string"
+          },
+          "progress": {
+            "default": 0,
+            "title": "Progress",
+            "type": "integer"
+          },
+          "started_at": {
+            "title": "Started At",
+            "type": "number"
+          },
+          "status": {
+            "title": "Status",
+            "type": "string"
+          },
+          "total": {
+            "default": 0,
+            "title": "Total",
+            "type": "integer"
+          },
+          "updated_at": {
+            "title": "Updated At",
+            "type": "number"
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "status",
+          "started_at",
+          "updated_at"
+        ],
+        "title": "JobSnapshot",
+        "type": "object"
+      },
+      "LoadResultsResponse": {
+        "properties": {
+          "candidates": {
+            "default": [],
+            "items": {
+              "$ref": "#/components/schemas/Candidate"
+            },
+            "title": "Candidates",
+            "type": "array"
+          }
+        },
+        "title": "LoadResultsResponse",
+        "type": "object"
+      },
+      "MinimizeRequest": {
+        "properties": {
+          "directory": {
+            "title": "Directory",
+            "type": "string"
+          },
+          "force_field": {
+            "default": "MMFF94",
+            "title": "Force Field",
+            "type": "string"
+          }
+        },
+        "required": [
+          "directory"
+        ],
+        "title": "MinimizeRequest",
+        "type": "object"
+      },
+      "MinimizeResponse": {
+        "properties": {
+          "failed": {
+            "title": "Failed",
+            "type": "integer"
+          },
+          "failures": {
+            "items": {
+              "$ref": "#/components/schemas/ProcessingFailure"
+            },
+            "title": "Failures",
+            "type": "array"
+          },
+          "output_dir": {
+            "title": "Output Dir",
+            "type": "string"
+          },
+          "processed": {
+            "title": "Processed",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "output_dir",
+          "processed",
+          "failed"
+        ],
+        "title": "MinimizeResponse",
+        "type": "object"
+      },
+      "MultiTargetRequest": {
+        "properties": {
+          "config_paths": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Config per receptor (or single shared)",
+            "title": "Config Paths"
+          },
+          "exhaustiveness": {
+            "default": 8,
+            "title": "Exhaustiveness",
+            "type": "integer"
+          },
+          "grids": {
+            "anyOf": [
+              {
+                "items": {
+                  "additionalProperties": true,
+                  "type": "object"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Grids"
+          },
+          "ligands_dir": {
+            "description": "Directory of PDBQT ligand files",
+            "title": "Ligands Dir",
+            "type": "string"
+          },
+          "mode": {
+            "default": "sequential",
+            "description": "'sequential' | 'parallel'",
+            "title": "Mode",
+            "type": "string"
+          },
+          "receptors": {
+            "description": "List of receptor file paths",
+            "items": {
+              "type": "string"
+            },
+            "minItems": 1,
+            "title": "Receptors",
+            "type": "array"
+          },
+          "seed": {
+            "default": 42,
+            "description": "Deterministic AutoDock Vina random seed",
+            "maximum": 2147483647.0,
+            "minimum": 1.0,
+            "title": "Seed",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "ligands_dir",
+          "receptors"
+        ],
+        "title": "MultiTargetRequest",
+        "type": "object"
+      },
+      "MultiTargetResponse": {
+        "properties": {
+          "message": {
+            "default": "",
+            "title": "Message",
+            "type": "string"
+          },
+          "results": {
+            "items": {
+              "$ref": "#/components/schemas/MultiTargetResult"
+            },
+            "title": "Results",
+            "type": "array"
+          },
+          "results_dir": {
+            "default": "",
+            "title": "Results Dir",
+            "type": "string"
+          },
+          "selectivity_matrix": {
+            "additionalProperties": {
+              "additionalProperties": {
+                "anyOf": [
+                  {
+                    "type": "number"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "type": "object"
+            },
+            "title": "Selectivity Matrix",
+            "type": "object"
+          }
+        },
+        "title": "MultiTargetResponse",
+        "type": "object"
+      },
+      "MultiTargetResult": {
+        "properties": {
+          "ligand": {
+            "title": "Ligand",
+            "type": "string"
+          },
+          "output_path": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Output Path"
+          },
+          "receptor": {
+            "title": "Receptor",
+            "type": "string"
+          },
+          "score": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Score"
+          },
+          "status": {
+            "default": "ok",
+            "title": "Status",
+            "type": "string"
+          }
+        },
+        "required": [
+          "receptor",
+          "ligand"
+        ],
+        "title": "MultiTargetResult",
+        "type": "object"
+      },
+      "OraclePrediction": {
+        "properties": {
+          "confidence": {
+            "default": "low",
+            "title": "Confidence",
+            "type": "string"
+          },
+          "ligand": {
+            "title": "Ligand",
+            "type": "string"
+          },
+          "method": {
+            "title": "Method",
+            "type": "string"
+          },
+          "predicted_pKd": {
+            "title": "Predicted Pkd",
+            "type": "number"
+          },
+          "vina_score": {
+            "title": "Vina Score",
+            "type": "number"
+          }
+        },
+        "required": [
+          "ligand",
+          "vina_score",
+          "predicted_pKd",
+          "method"
+        ],
+        "title": "OraclePrediction",
+        "type": "object"
+      },
+      "OracleRequest": {
+        "properties": {
+          "dock_dir": {
+            "title": "Dock Dir",
+            "type": "string"
+          },
+          "model_path": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Model Path"
+          }
+        },
+        "required": [
+          "dock_dir"
+        ],
+        "title": "OracleRequest",
+        "type": "object"
+      },
+      "OracleResponse": {
+        "properties": {
+          "csv_path": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Csv Path"
+          },
+          "predictions": {
+            "default": [],
+            "items": {
+              "$ref": "#/components/schemas/OraclePrediction"
+            },
+            "title": "Predictions",
+            "type": "array"
+          }
+        },
+        "title": "OracleResponse",
+        "type": "object"
+      },
+      "PharmGenerateRequest": {
+        "properties": {
+          "include_3d": {
+            "default": false,
+            "description": "Generate 3D conformer and extract 3D features",
+            "title": "Include 3D",
+            "type": "boolean"
+          },
+          "smiles": {
+            "description": "SMILES string of the reference molecule",
+            "title": "Smiles",
+            "type": "string"
+          }
+        },
+        "required": [
+          "smiles"
+        ],
+        "title": "PharmGenerateRequest",
+        "type": "object"
+      },
+      "PharmGenerateResponse": {
+        "properties": {
+          "feature_counts": {
+            "additionalProperties": {
+              "type": "integer"
+            },
+            "title": "Feature Counts",
+            "type": "object"
+          },
+          "features": {
+            "default": [],
+            "items": {
+              "$ref": "#/components/schemas/PharmacophoreFeature"
+            },
+            "title": "Features",
+            "type": "array"
+          },
+          "message": {
+            "default": "",
+            "title": "Message",
+            "type": "string"
+          },
+          "smiles": {
+            "title": "Smiles",
+            "type": "string"
+          },
+          "svg": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "2D SVG with pharmacophore overlays",
+            "title": "Svg"
+          }
+        },
+        "required": [
+          "smiles"
+        ],
+        "title": "PharmGenerateResponse",
+        "type": "object"
+      },
+      "PharmLoadResponse": {
+        "properties": {
+          "features": {
+            "default": [],
+            "items": {
+              "$ref": "#/components/schemas/PharmacophoreFeature"
+            },
+            "title": "Features",
+            "type": "array"
+          },
+          "name": {
+            "title": "Name",
+            "type": "string"
+          },
+          "path": {
+            "title": "Path",
+            "type": "string"
+          },
+          "reference_smiles": {
+            "title": "Reference Smiles",
+            "type": "string"
+          }
+        },
+        "required": [
+          "name",
+          "reference_smiles",
+          "path"
+        ],
+        "title": "PharmLoadResponse",
+        "type": "object"
+      },
+      "PharmSaveRequest": {
+        "properties": {
+          "features": {
+            "default": [],
+            "items": {
+              "$ref": "#/components/schemas/PharmacophoreFeature"
+            },
+            "title": "Features",
+            "type": "array"
+          },
+          "name": {
+            "description": "Pharmacophore model name",
+            "title": "Name",
+            "type": "string"
+          },
+          "output_dir": {
+            "title": "Output Dir",
+            "type": "string"
+          },
+          "reference_smiles": {
+            "title": "Reference Smiles",
+            "type": "string"
+          }
+        },
+        "required": [
+          "name",
+          "reference_smiles",
+          "output_dir"
+        ],
+        "title": "PharmSaveRequest",
+        "type": "object"
+      },
+      "PharmSaveResponse": {
+        "properties": {
+          "message": {
+            "default": "",
+            "title": "Message",
+            "type": "string"
+          },
+          "path": {
+            "title": "Path",
+            "type": "string"
+          }
+        },
+        "required": [
+          "path"
+        ],
+        "title": "PharmSaveResponse",
+        "type": "object"
+      },
+      "PharmScreenHit": {
+        "properties": {
+          "matched_features": {
+            "default": 0,
+            "title": "Matched Features",
+            "type": "integer"
+          },
+          "name": {
+            "title": "Name",
+            "type": "string"
+          },
+          "score": {
+            "title": "Score",
+            "type": "number"
+          },
+          "smiles": {
+            "title": "Smiles",
+            "type": "string"
+          }
+        },
+        "required": [
+          "name",
+          "smiles",
+          "score"
+        ],
+        "title": "PharmScreenHit",
+        "type": "object"
+      },
+      "PharmScreenRequest": {
+        "properties": {
+          "library_source": {
+            "description": ".smi/.sdf file path or directory of .mol files",
+            "title": "Library Source",
+            "type": "string"
+          },
+          "mode": {
+            "default": "2d",
+            "description": "'2d' (fingerprint) or '3d' (alignment)",
+            "title": "Mode",
+            "type": "string"
+          },
+          "reference_smiles": {
+            "description": "SMILES of the reference compound",
+            "title": "Reference Smiles",
+            "type": "string"
+          },
+          "threshold": {
+            "default": 0.5,
+            "description": "Similarity threshold for hits",
+            "maximum": 1.0,
+            "minimum": 0.0,
+            "title": "Threshold",
+            "type": "number"
+          }
+        },
+        "required": [
+          "reference_smiles",
+          "library_source"
+        ],
+        "title": "PharmScreenRequest",
+        "type": "object"
+      },
+      "PharmScreenResponse": {
+        "properties": {
+          "hits": {
+            "default": [],
+            "items": {
+              "$ref": "#/components/schemas/PharmScreenHit"
+            },
+            "title": "Hits",
+            "type": "array"
+          },
+          "message": {
+            "default": "",
+            "title": "Message",
+            "type": "string"
+          },
+          "mode": {
+            "default": "2d",
+            "title": "Mode",
+            "type": "string"
+          },
+          "total_screened": {
+            "default": 0,
+            "title": "Total Screened",
+            "type": "integer"
+          },
+          "warning": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Warning"
+          }
+        },
+        "title": "PharmScreenResponse",
+        "type": "object"
+      },
+      "PharmacophoreFeature": {
+        "description": "Single pharmacophore feature with type, position, and radius.",
+        "properties": {
+          "atoms": {
+            "description": "Atom indices involved",
+            "items": {
+              "type": "integer"
+            },
+            "title": "Atoms",
+            "type": "array"
+          },
+          "radius": {
+            "default": 1.0,
+            "title": "Radius",
+            "type": "number"
+          },
+          "type": {
+            "description": "HBD | HBA | Hydrophobic | Aromatic | PosIonizable | NegIonizable",
+            "title": "Type",
+            "type": "string"
+          },
+          "x": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "X"
+          },
+          "y": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Y"
+          },
+          "z": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Z"
+          }
+        },
+        "required": [
+          "type"
+        ],
+        "title": "PharmacophoreFeature",
+        "type": "object"
+      },
+      "PipelineRequest": {
+        "properties": {
+          "config": {
+            "title": "Config",
+            "type": "string"
+          },
+          "name": {
+            "default": "ligand",
+            "title": "Name",
+            "type": "string"
+          },
+          "receptor": {
+            "title": "Receptor",
+            "type": "string"
+          },
+          "smiles": {
+            "title": "Smiles",
+            "type": "string"
+          }
+        },
+        "required": [
+          "smiles",
+          "receptor",
+          "config"
+        ],
+        "title": "PipelineRequest",
+        "type": "object"
+      },
+      "PipelineResponse": {
+        "properties": {
+          "message": {
+            "title": "Message",
+            "type": "string"
+          },
+          "output_path": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Output Path"
+          },
+          "score": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Score"
+          }
+        },
+        "required": [
+          "message"
+        ],
+        "title": "PipelineResponse",
+        "type": "object"
+      },
+      "PocketAnalysisRequest": {
+        "properties": {
+          "ligand_chain": {
+            "default": "",
+            "description": "Optional exact ligand chain ID",
+            "maxLength": 1,
+            "title": "Ligand Chain",
+            "type": "string"
+          },
+          "ligand_icode": {
+            "default": "",
+            "description": "Optional ligand insertion code",
+            "maxLength": 1,
+            "title": "Ligand Icode",
+            "type": "string"
+          },
+          "ligand_name": {
+            "default": "",
+            "title": "Ligand Name",
+            "type": "string"
+          },
+          "ligand_resseq": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Optional exact ligand residue sequence number",
+            "title": "Ligand Resseq"
+          },
+          "padding": {
+            "default": 8.0,
+            "maximum": 50.0,
+            "minimum": 0.0,
+            "title": "Padding",
+            "type": "number"
+          },
+          "pdb_path": {
+            "title": "Pdb Path",
+            "type": "string"
+          }
+        },
+        "required": [
+          "pdb_path"
+        ],
+        "title": "PocketAnalysisRequest",
+        "type": "object"
+      },
+      "PocketAnalysisResponse": {
+        "properties": {
+          "contact_count": {
+            "default": 0,
+            "title": "Contact Count",
+            "type": "integer"
+          },
+          "ligand_atom_count": {
+            "default": 0,
+            "title": "Ligand Atom Count",
+            "type": "integer"
+          },
+          "residues": {
+            "default": [],
+            "items": {
+              "type": "string"
+            },
+            "title": "Residues",
+            "type": "array"
+          },
+          "selected_ligand": {
+            "anyOf": [
+              {
+                "additionalProperties": true,
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Selected Ligand"
+          }
+        },
+        "title": "PocketAnalysisResponse",
+        "type": "object"
+      },
+      "PoseDecompRequest": {
+        "properties": {
+          "log_path": {
+            "title": "Log Path",
+            "type": "string"
+          }
+        },
+        "required": [
+          "log_path"
+        ],
+        "title": "PoseDecompRequest",
+        "type": "object"
+      },
+      "PoseDecompResponse": {
+        "properties": {
+          "components": {
+            "default": [],
+            "items": {
+              "$ref": "#/components/schemas/EnergyComponent"
+            },
+            "title": "Components",
+            "type": "array"
+          },
+          "ligand": {
+            "title": "Ligand",
+            "type": "string"
+          },
+          "total_score": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Total Score"
+          }
+        },
+        "required": [
+          "ligand"
+        ],
+        "title": "PoseDecompResponse",
+        "type": "object"
+      },
+      "PrepareReceptorRequest": {
+        "properties": {
+          "add_hydrogens": {
+            "default": true,
+            "title": "Add Hydrogens",
+            "type": "boolean"
+          },
+          "keep_chain": {
+            "default": "",
+            "title": "Keep Chain",
+            "type": "string"
+          },
+          "pdb_path": {
+            "title": "Pdb Path",
+            "type": "string"
+          },
+          "remove_ions": {
+            "default": true,
+            "title": "Remove Ions",
+            "type": "boolean"
+          },
+          "remove_ligands": {
+            "default": true,
+            "title": "Remove Ligands",
+            "type": "boolean"
+          },
+          "remove_water": {
+            "default": true,
+            "title": "Remove Water",
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "pdb_path"
+        ],
+        "title": "PrepareReceptorRequest",
+        "type": "object"
+      },
+      "PrepareReceptorResponse": {
+        "properties": {
+          "clean_pdb_path": {
+            "title": "Clean Pdb Path",
+            "type": "string"
+          },
+          "integrity": {
+            "anyOf": [
+              {
+                "additionalProperties": true,
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Integrity"
+          },
+          "message": {
+            "default": "",
+            "title": "Message",
+            "type": "string"
+          },
+          "output_path": {
+            "title": "Output Path",
+            "type": "string"
+          },
+          "prep_engine": {
+            "default": "meeko",
+            "title": "Prep Engine",
+            "type": "string"
+          },
+          "removed_ions": {
+            "default": 0,
+            "title": "Removed Ions",
+            "type": "integer"
+          },
+          "removed_ligands": {
+            "default": 0,
+            "title": "Removed Ligands",
+            "type": "integer"
+          },
+          "removed_waters": {
+            "default": 0,
+            "title": "Removed Waters",
+            "type": "integer"
+          },
+          "warnings": {
+            "default": [],
+            "items": {
+              "type": "string"
+            },
+            "title": "Warnings",
+            "type": "array"
+          }
+        },
+        "required": [
+          "output_path",
+          "clean_pdb_path"
+        ],
+        "title": "PrepareReceptorResponse",
+        "type": "object"
+      },
+      "ProcessingFailure": {
+        "properties": {
+          "detail": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Detail"
+          },
+          "item": {
+            "title": "Item",
+            "type": "string"
+          },
+          "reason": {
+            "title": "Reason",
+            "type": "string"
+          }
+        },
+        "required": [
+          "item",
+          "reason"
+        ],
+        "title": "ProcessingFailure",
+        "type": "object"
+      },
+      "Project": {
+        "properties": {
+          "created": {
+            "default": "",
+            "title": "Created",
+            "type": "string"
+          },
+          "grid_config": {
+            "default": "",
+            "title": "Grid Config",
+            "type": "string"
+          },
+          "id": {
+            "default": "",
+            "title": "Id",
+            "type": "string"
+          },
+          "ligand_source": {
+            "default": "",
+            "title": "Ligand Source",
+            "type": "string"
+          },
+          "name": {
+            "title": "Name",
+            "type": "string"
+          },
+          "notes": {
+            "default": "",
+            "title": "Notes",
+            "type": "string"
+          },
+          "page_inputs": {
+            "additionalProperties": true,
+            "default": {},
+            "title": "Page Inputs",
+            "type": "object"
+          },
+          "pdb_id": {
+            "default": "",
+            "title": "Pdb Id",
+            "type": "string"
+          },
+          "pipeline_state": {
+            "additionalProperties": true,
+            "default": {},
+            "title": "Pipeline State",
+            "type": "object"
+          },
+          "receptor_path": {
+            "default": "",
+            "title": "Receptor Path",
+            "type": "string"
+          },
+          "session_data": {
+            "additionalProperties": true,
+            "default": {},
+            "title": "Session Data",
+            "type": "object"
+          },
+          "target_name": {
+            "default": "",
+            "title": "Target Name",
+            "type": "string"
+          },
+          "updated": {
+            "default": "",
+            "title": "Updated",
+            "type": "string"
+          }
+        },
+        "required": [
+          "name"
+        ],
+        "title": "Project",
+        "type": "object"
+      },
+      "ReportRequest": {
+        "properties": {
+          "author": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Author"
+          },
+          "custom_text": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Free-form notes to include",
+            "title": "Custom Text"
+          },
+          "format": {
+            "default": "both",
+            "description": "'pdf' | 'html' | 'both'",
+            "title": "Format",
+            "type": "string"
+          },
+          "output_dir": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Directory to save reports",
+            "title": "Output Dir"
+          },
+          "project_name": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Project Name"
+          },
+          "results_dir": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Auto-collect from docking results dir",
+            "title": "Results Dir"
+          },
+          "sections": {
+            "anyOf": [
+              {
+                "items": {
+                  "additionalProperties": true,
+                  "type": "object"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Custom sections to include",
+            "title": "Sections"
+          },
+          "title": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Report title",
+            "title": "Title"
+          }
+        },
+        "title": "ReportRequest",
+        "type": "object"
+      },
+      "ReportResponse": {
+        "properties": {
+          "message": {
+            "default": "",
+            "title": "Message",
+            "type": "string"
+          },
+          "paths": {
+            "description": "Generated report file paths",
+            "items": {
+              "type": "string"
+            },
+            "title": "Paths",
+            "type": "array"
+          }
+        },
+        "title": "ReportResponse",
+        "type": "object"
+      },
+      "ResolveRequest": {
+        "properties": {
+          "input": {
+            "description": "SMILES, InChI, compound name, CAS number, or MOL block",
+            "title": "Input",
+            "type": "string"
+          }
+        },
+        "required": [
+          "input"
+        ],
+        "title": "ResolveRequest",
+        "type": "object"
+      },
+      "ResolveResponse": {
+        "properties": {
+          "input_type": {
+            "title": "Input Type",
+            "type": "string"
+          },
+          "name": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Name"
+          },
+          "smiles": {
+            "title": "Smiles",
+            "type": "string"
+          },
+          "success": {
+            "default": true,
+            "title": "Success",
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "smiles",
+          "input_type"
+        ],
+        "title": "ResolveResponse",
+        "type": "object"
+      },
+      "Ro5Thresholds": {
+        "properties": {
+          "hba": {
+            "default": 10,
+            "title": "Hba",
+            "type": "integer"
+          },
+          "hbd": {
+            "default": 5,
+            "title": "Hbd",
+            "type": "integer"
+          },
+          "logp": {
+            "default": 5,
+            "title": "Logp",
+            "type": "number"
+          },
+          "max_violations": {
+            "default": 1,
+            "title": "Max Violations",
+            "type": "integer"
+          },
+          "mw": {
+            "default": 500,
+            "title": "Mw",
+            "type": "number"
+          }
+        },
+        "title": "Ro5Thresholds",
+        "type": "object"
+      },
+      "ScaffoldHopRequest": {
+        "properties": {
+          "library_path": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Path to library .smi/.sdf file",
+            "title": "Library Path"
+          },
+          "max_results": {
+            "default": 50,
+            "maximum": 500.0,
+            "minimum": 1.0,
+            "title": "Max Results",
+            "type": "integer"
+          },
+          "method": {
+            "default": "murcko",
+            "description": "'murcko' | 'mcs' | 'rgroup' | 'mmp'",
+            "title": "Method",
+            "type": "string"
+          },
+          "smiles": {
+            "description": "SMILES of the reference compound",
+            "title": "Smiles",
+            "type": "string"
+          }
+        },
+        "required": [
+          "smiles"
+        ],
+        "title": "ScaffoldHopRequest",
+        "type": "object"
+      },
+      "ScaffoldHopResponse": {
+        "properties": {
+          "count": {
+            "default": 0,
+            "title": "Count",
+            "type": "integer"
+          },
+          "message": {
+            "default": "",
+            "title": "Message",
+            "type": "string"
+          },
+          "method": {
+            "title": "Method",
+            "type": "string"
+          },
+          "reference": {
+            "title": "Reference",
+            "type": "string"
+          },
+          "reference_scaffold": {
+            "default": "",
+            "title": "Reference Scaffold",
+            "type": "string"
+          },
+          "results": {
+            "items": {
+              "$ref": "#/components/schemas/ScaffoldHopResult"
+            },
+            "title": "Results",
+            "type": "array"
+          }
+        },
+        "required": [
+          "reference",
+          "method"
+        ],
+        "title": "ScaffoldHopResponse",
+        "type": "object"
+      },
+      "ScaffoldHopResult": {
+        "properties": {
+          "name": {
+            "default": "",
+            "title": "Name",
+            "type": "string"
+          },
+          "scaffold": {
+            "default": "",
+            "title": "Scaffold",
+            "type": "string"
+          },
+          "similarity": {
+            "default": 0.0,
+            "title": "Similarity",
+            "type": "number"
+          },
+          "smiles": {
+            "title": "Smiles",
+            "type": "string"
+          }
+        },
+        "required": [
+          "smiles"
+        ],
+        "title": "ScaffoldHopResult",
+        "type": "object"
+      },
+      "SimilarityHit": {
+        "properties": {
+          "name": {
+            "title": "Name",
+            "type": "string"
+          },
+          "score": {
+            "title": "Score",
+            "type": "string"
+          },
+          "smiles": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Smiles"
+          }
+        },
+        "required": [
+          "name",
+          "score"
+        ],
+        "title": "SimilarityHit",
+        "type": "object"
+      },
+      "SimilarityRequest": {
+        "properties": {
+          "database": {
+            "default": "PubChem",
+            "title": "Database",
+            "type": "string"
+          },
+          "local_db_path": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Local Db Path"
+          },
+          "method": {
+            "default": "Morgan",
+            "title": "Method",
+            "type": "string"
+          },
+          "query": {
+            "title": "Query",
+            "type": "string"
+          }
+        },
+        "required": [
+          "query"
+        ],
+        "title": "SimilarityRequest",
+        "type": "object"
+      },
+      "SimilarityResponse": {
+        "properties": {
+          "hits": {
+            "default": [],
+            "items": {
+              "$ref": "#/components/schemas/SimilarityHit"
+            },
+            "title": "Hits",
+            "type": "array"
+          },
+          "report_path": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Report Path"
+          }
+        },
+        "title": "SimilarityResponse",
+        "type": "object"
+      },
+      "UniprotInfo": {
+        "properties": {
+          "accession": {
+            "title": "Accession",
+            "type": "string"
+          },
+          "bio_processes": {
+            "default": [],
+            "items": {
+              "type": "string"
+            },
+            "title": "Bio Processes",
+            "type": "array"
+          },
+          "chembl_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Chembl Id"
+          },
+          "entry_name": {
+            "default": "Unknown",
+            "title": "Entry Name",
+            "type": "string"
+          },
+          "function": {
+            "title": "Function",
+            "type": "string"
+          },
+          "gene": {
+            "title": "Gene",
+            "type": "string"
+          },
+          "network_image_url": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Network Image Url"
+          },
+          "organism": {
+            "title": "Organism",
+            "type": "string"
+          },
+          "pathways": {
+            "default": [],
+            "items": {
+              "type": "string"
+            },
+            "title": "Pathways",
+            "type": "array"
+          }
+        },
+        "required": [
+          "accession",
+          "gene",
+          "organism",
+          "function"
+        ],
+        "title": "UniprotInfo",
+        "type": "object"
+      },
+      "ValidationError": {
+        "properties": {
+          "loc": {
+            "items": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "integer"
+                }
+              ]
+            },
+            "title": "Location",
+            "type": "array"
+          },
+          "msg": {
+            "title": "Message",
+            "type": "string"
+          },
+          "type": {
+            "title": "Error Type",
+            "type": "string"
+          }
+        },
+        "required": [
+          "loc",
+          "msg",
+          "type"
+        ],
+        "title": "ValidationError",
+        "type": "object"
+      },
+      "WatchlistItem": {
+        "properties": {
+          "added": {
+            "default": "",
+            "title": "Added",
+            "type": "string"
+          },
+          "id": {
+            "default": "",
+            "title": "Id",
+            "type": "string"
+          },
+          "name": {
+            "title": "Name",
+            "type": "string"
+          },
+          "notes": {
+            "default": "",
+            "title": "Notes",
+            "type": "string"
+          },
+          "score": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Score"
+          },
+          "smiles": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Smiles"
+          },
+          "source": {
+            "default": "",
+            "title": "Source",
+            "type": "string"
+          }
+        },
+        "required": [
+          "name"
+        ],
+        "title": "WatchlistItem",
+        "type": "object"
+      }
+    }
+  },
+  "info": {
+    "description": "Drug Discovery Suite — REST + WebSocket API",
+    "title": "Helix Core Backend",
+    "version": "3.0.0"
+  },
+  "openapi": "3.1.0",
+  "paths": {
+    "/api/activity/clear": {
+      "post": {
+        "description": "Clear all activity log entries.",
+        "operationId": "clear_activity_api_activity_clear_post",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "summary": "Clear Activity",
+        "tags": [
+          "Activity Log"
+        ]
+      }
+    },
+    "/api/activity/export": {
+      "get": {
+        "description": "Return the raw JSONL content for download.",
+        "operationId": "export_activity_api_activity_export_get",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "summary": "Export Activity",
+        "tags": [
+          "Activity Log"
+        ]
+      }
+    },
+    "/api/activity/list": {
+      "get": {
+        "description": "Read activity entries with pagination and optional page filter.",
+        "operationId": "list_activities_api_activity_list_get",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "page",
+            "required": false,
+            "schema": {
+              "default": 1,
+              "minimum": 1,
+              "title": "Page",
+              "type": "integer"
+            }
+          },
+          {
+            "in": "query",
+            "name": "per_page",
+            "required": false,
+            "schema": {
+              "default": 50,
+              "maximum": 200,
+              "minimum": 1,
+              "title": "Per Page",
+              "type": "integer"
+            }
+          },
+          {
+            "in": "query",
+            "name": "filterPage",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Filterpage"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "List Activities",
+        "tags": [
+          "Activity Log"
+        ]
+      }
+    },
+    "/api/activity/log": {
+      "post": {
+        "description": "Append an activity entry to the log file.",
+        "operationId": "log_activity_api_activity_log_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ActivityEntry"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Log Activity",
+        "tags": [
+          "Activity Log"
+        ]
+      }
+    },
+    "/api/admet/batch": {
+      "post": {
+        "description": "Compute ADMET profiles for a list of SMILES strings.\n\nExpects ``{\"smiles_list\": [\"CCO\", \"c1ccccc1\", ...]}``",
+        "operationId": "batch_admet_api_admet_batch_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "additionalProperties": true,
+                "title": "Req",
+                "type": "object"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ADMETResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Batch Admet",
+        "tags": [
+          "ADMET Profiler"
+        ]
+      }
+    },
+    "/api/admet/profile": {
+      "post": {
+        "description": "Compute extended ADMET profile for SMILES or a file of molecules.",
+        "operationId": "compute_admet_api_admet_profile_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ADMETRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ADMETResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Compute Admet",
+        "tags": [
+          "ADMET Profiler"
+        ]
+      }
+    },
+    "/api/analogs/generate": {
+      "post": {
+        "description": "Generate analogs using multiple enumeration strategies.",
+        "operationId": "generate_analogs_api_analogs_generate_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AnalogRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AnalogResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Generate Analogs",
+        "tags": [
+          "Analog Generator"
+        ]
+      }
+    },
+    "/api/batch/generate": {
+      "post": {
+        "description": "Generate 3D PDB files from a SMILES list.",
+        "operationId": "generate_batch_api_batch_generate_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BatchRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BatchResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Generate Batch",
+        "tags": [
+          "Batch Generator"
+        ]
+      }
+    },
+    "/api/cluster/analyze": {
+      "post": {
+        "description": "Cluster docking results by Tanimoto similarity and pick diverse representatives.",
+        "operationId": "cluster_compounds_api_cluster_analyze_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ClusterRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ClusterResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Cluster Compounds",
+        "tags": [
+          "Chemical Clustering"
+        ]
+      }
+    },
+    "/api/compare/compare": {
+      "post": {
+        "description": "Compare multiple compounds by computing their molecular properties.",
+        "operationId": "compare_compounds_api_compare_compare_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CompareRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CompareResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Compare Compounds",
+        "tags": [
+          "Compound Comparison"
+        ]
+      }
+    },
+    "/api/convert/": {
+      "post": {
+        "description": "Convert all .pdb files in a directory to .pdbqt using OpenBabel.",
+        "operationId": "convert_api_convert__post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ConvertRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ConvertResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Convert",
+        "tags": [
+          "Converter"
+        ]
+      }
+    },
+    "/api/docking/auto-grid": {
+      "post": {
+        "description": "Calculate grid box from all ATOM/HETATM coordinates in a receptor file.",
+        "operationId": "auto_calculate_grid_api_docking_auto_grid_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AutoGridRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GridBox"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Auto Calculate Grid",
+        "tags": [
+          "Virtual Screening"
+        ]
+      }
+    },
+    "/api/docking/decompose": {
+      "post": {
+        "description": "Parse a Vina log file and extract energy decomposition components.",
+        "operationId": "decompose_pose_api_docking_decompose_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PoseDecompRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PoseDecompResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Decompose Pose",
+        "tags": [
+          "Virtual Screening"
+        ]
+      }
+    },
+    "/api/docking/multi-target": {
+      "post": {
+        "description": "Dock ligands against multiple receptors and build a selectivity matrix.",
+        "operationId": "multi_target_docking_api_docking_multi_target_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/MultiTargetRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MultiTargetResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Multi Target Docking",
+        "tags": [
+          "Virtual Screening"
+        ]
+      }
+    },
+    "/api/docking/run": {
+      "post": {
+        "description": "Run sequential Vina docking on all .pdbqt ligands in a folder.",
+        "operationId": "run_docking_api_docking_run_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DockingRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DockingResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Run Docking",
+        "tags": [
+          "Virtual Screening"
+        ]
+      }
+    },
+    "/api/docking/run-ws": {
+      "post": {
+        "description": "Run Vina docking with real-time WebSocket progress updates.\n\nSame as /run but emits per-ligand progress via the WS manager.\nThe task_id is returned in the response so the client can track it.",
+        "operationId": "run_docking_ws_api_docking_run_ws_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DockingRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DockingResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Run Docking Ws",
+        "tags": [
+          "Virtual Screening"
+        ]
+      }
+    },
+    "/api/fetch/controls/{pdb_id}": {
+      "get": {
+        "description": "Search ChEMBL for approved drugs or high-affinity binders.",
+        "operationId": "find_drug_controls_api_fetch_controls__pdb_id__get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "pdb_id",
+            "required": true,
+            "schema": {
+              "title": "Pdb Id",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/DrugInfo"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ],
+                  "title": "Response Find Drug Controls Api Fetch Controls  Pdb Id  Get"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Find Drug Controls",
+        "tags": [
+          "PDB Fetcher"
+        ]
+      }
+    },
+    "/api/fetch/pdb": {
+      "post": {
+        "description": "Download a PDB from RCSB and save the unmodified structure.",
+        "operationId": "fetch_pdb_api_fetch_pdb_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/FetchPDBRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FetchPDBResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Fetch Pdb",
+        "tags": [
+          "PDB Fetcher"
+        ]
+      }
+    },
+    "/api/fetch/uniprot/{pdb_id}": {
+      "get": {
+        "description": "Fetch UniProt data for a PDB accession.",
+        "operationId": "get_uniprot_info_api_fetch_uniprot__pdb_id__get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "pdb_id",
+            "required": true,
+            "schema": {
+              "title": "Pdb Id",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UniprotInfo"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Get Uniprot Info",
+        "tags": [
+          "PDB Fetcher"
+        ]
+      }
+    },
+    "/api/filters/scan": {
+      "post": {
+        "description": "Scan compounds for PAINS and structural alerts.",
+        "operationId": "scan_compounds_api_filters_scan_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/FilterRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FilterResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Scan Compounds",
+        "tags": [
+          "Compound Filters"
+        ]
+      }
+    },
+    "/api/fragments/decompose": {
+      "post": {
+        "description": "Decompose a molecule into fragments using BRICS, RECAP, or Murcko scaffolding.",
+        "operationId": "decompose_molecule_api_fragments_decompose_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/FragmentDecomposeRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FragmentDecomposeResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Decompose Molecule",
+        "tags": [
+          "Fragment Design"
+        ]
+      }
+    },
+    "/api/fragments/grow": {
+      "post": {
+        "description": "Grow a core fragment by adding common substituents at attachment points.",
+        "operationId": "grow_fragment_api_fragments_grow_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/FragmentGrowRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FragmentGrowResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Grow Fragment",
+        "tags": [
+          "Fragment Design"
+        ]
+      }
+    },
+    "/api/fragments/library": {
+      "get": {
+        "description": "Return the curated fragment library, optionally filtered by category.",
+        "operationId": "get_fragment_library_api_fragments_library_get",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "category",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Category"
+            }
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "required": false,
+            "schema": {
+              "default": 200,
+              "title": "Limit",
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FragmentLibraryResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Get Fragment Library",
+        "tags": [
+          "Fragment Design"
+        ]
+      }
+    },
+    "/api/fragments/link": {
+      "post": {
+        "description": "Link two or more fragments together using BRICS rules.",
+        "operationId": "link_fragments_api_fragments_link_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/FragmentLinkRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FragmentLinkResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Link Fragments",
+        "tags": [
+          "Fragment Design"
+        ]
+      }
+    },
+    "/api/health": {
+      "get": {
+        "description": "Health check endpoint used by the Electron shell.",
+        "operationId": "health_check_api_health_get",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "summary": "Health Check"
+      }
+    },
+    "/api/interactions/analyze": {
+      "post": {
+        "description": "Detect protein-ligand interactions from PDBQT pose files.",
+        "operationId": "analyze_interactions_api_interactions_analyze_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/InteractionRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InteractionResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Analyze Interactions",
+        "tags": [
+          "Interaction Profiler"
+        ]
+      }
+    },
+    "/api/interactions/network": {
+      "post": {
+        "description": "Build a force-directed graph from protein-ligand interactions.",
+        "operationId": "interaction_network_api_interactions_network_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/InteractionRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Interaction Network",
+        "tags": [
+          "Interaction Profiler"
+        ]
+      }
+    },
+    "/api/jobs/current": {
+      "get": {
+        "description": "Return the active or just-finished global task.",
+        "operationId": "current_job_api_jobs_current_get",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/JobSnapshot"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ],
+                  "title": "Response Current Job Api Jobs Current Get"
+                }
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "summary": "Current Job",
+        "tags": [
+          "Jobs"
+        ]
+      }
+    },
+    "/api/jobs/{job_id}/pause": {
+      "post": {
+        "description": "Pause the active task at the next safe checkpoint.",
+        "operationId": "pause_job_api_jobs__job_id__pause_post",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "job_id",
+            "required": true,
+            "schema": {
+              "title": "Job Id",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/JobControlResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Pause Job",
+        "tags": [
+          "Jobs"
+        ]
+      }
+    },
+    "/api/jobs/{job_id}/resume": {
+      "post": {
+        "description": "Resume a paused task.",
+        "operationId": "resume_job_api_jobs__job_id__resume_post",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "job_id",
+            "required": true,
+            "schema": {
+              "title": "Job Id",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/JobControlResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Resume Job",
+        "tags": [
+          "Jobs"
+        ]
+      }
+    },
+    "/api/jobs/{job_id}/terminate": {
+      "post": {
+        "description": "Terminate the active task and keep any files already produced.",
+        "operationId": "terminate_job_api_jobs__job_id__terminate_post",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "job_id",
+            "required": true,
+            "schema": {
+              "title": "Job Id",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/JobControlResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Terminate Job",
+        "tags": [
+          "Jobs"
+        ]
+      }
+    },
+    "/api/minimize/": {
+      "post": {
+        "description": "Optimize 3D geometry of .sdf/.pdb files using the specified force field.",
+        "operationId": "minimize_api_minimize__post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/MinimizeRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MinimizeResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Minimize",
+        "tags": [
+          "Minimization"
+        ]
+      }
+    },
+    "/api/oracle/predict": {
+      "post": {
+        "description": "Run AI-based affinity rescoring on docking results.",
+        "operationId": "predict_api_oracle_predict_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OracleRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OracleResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Predict",
+        "tags": [
+          "Oracle AI"
+        ]
+      }
+    },
+    "/api/pharmacophore/generate": {
+      "post": {
+        "description": "Extract pharmacophore features from a SMILES string and return SVG overlay.",
+        "operationId": "generate_pharmacophore_api_pharmacophore_generate_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PharmGenerateRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PharmGenerateResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Generate Pharmacophore",
+        "tags": [
+          "Pharmacophore"
+        ]
+      }
+    },
+    "/api/pharmacophore/load": {
+      "get": {
+        "description": "Load a pharmacophore model from a JSON file.",
+        "operationId": "load_pharmacophore_api_pharmacophore_load_get",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "path",
+            "required": true,
+            "schema": {
+              "title": "Path",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PharmLoadResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Load Pharmacophore",
+        "tags": [
+          "Pharmacophore"
+        ]
+      }
+    },
+    "/api/pharmacophore/save": {
+      "post": {
+        "description": "Save a pharmacophore model as JSON.",
+        "operationId": "save_pharmacophore_api_pharmacophore_save_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PharmSaveRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PharmSaveResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Save Pharmacophore",
+        "tags": [
+          "Pharmacophore"
+        ]
+      }
+    },
+    "/api/pharmacophore/screen": {
+      "post": {
+        "description": "Screen a compound library against a reference pharmacophore.",
+        "operationId": "screen_library_api_pharmacophore_screen_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PharmScreenRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PharmScreenResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Screen Library",
+        "tags": [
+          "Pharmacophore"
+        ]
+      }
+    },
+    "/api/pipeline/batch": {
+      "post": {
+        "description": "Batch pipeline: SMILES file → 3D gen → minimize → convert → dock all.",
+        "operationId": "batch_pipeline_api_pipeline_batch_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BatchPipelineRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BatchPipelineResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Batch Pipeline",
+        "tags": [
+          "Auto-Pipeline"
+        ]
+      }
+    },
+    "/api/pipeline/batch-stream": {
+      "post": {
+        "description": "SSE-streamed batch pipeline with per-compound progress.",
+        "operationId": "batch_pipeline_stream_api_pipeline_batch_stream_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BatchPipelineRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Batch Pipeline Stream",
+        "tags": [
+          "Auto-Pipeline"
+        ]
+      }
+    },
+    "/api/pipeline/run": {
+      "post": {
+        "description": "Full end-to-end pipeline: SMILES → 3D PDB → PDBQT → Vina docking.",
+        "operationId": "run_pipeline_api_pipeline_run_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PipelineRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PipelineResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Run Pipeline",
+        "tags": [
+          "Auto-Pipeline"
+        ]
+      }
+    },
+    "/api/pipeline/run-stream": {
+      "post": {
+        "description": "SSE-streamed single pipeline: SMILES → 3D → PDBQT → Vina docking with live progress.",
+        "operationId": "run_pipeline_stream_api_pipeline_run_stream_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PipelineRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Run Pipeline Stream",
+        "tags": [
+          "Auto-Pipeline"
+        ]
+      }
+    },
+    "/api/pocket/analyze": {
+      "post": {
+        "description": "Find residues within 5 Å of a ligand in a protein-ligand complex.",
+        "operationId": "analyze_pocket_api_pocket_analyze_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PocketAnalysisRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PocketAnalysisResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Analyze Pocket",
+        "tags": [
+          "Pocket Analyzer"
+        ]
+      }
+    },
+    "/api/pocket/druggability": {
+      "post": {
+        "description": "Heuristic druggability assessment of a binding pocket.",
+        "operationId": "assess_druggability_api_pocket_druggability_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DruggabilityRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DruggabilityResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Assess Druggability",
+        "tags": [
+          "Pocket Analyzer"
+        ]
+      }
+    },
+    "/api/pocket/grid": {
+      "post": {
+        "description": "Calculate a grid box around the binding pocket (< 5 Å from ligand).",
+        "operationId": "calculate_grid_api_pocket_grid_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PocketAnalysisRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GridBoxResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Calculate Grid",
+        "tags": [
+          "Pocket Analyzer"
+        ]
+      }
+    },
+    "/api/prepare/analyze": {
+      "post": {
+        "description": "Analyze a PDB file — list chains, ligands, waters, and ions.",
+        "operationId": "analyze_pdb_api_prepare_analyze_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AnalyzePDBRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Analyze Pdb",
+        "tags": [
+          "Receptor Preparation"
+        ]
+      }
+    },
+    "/api/prepare/run": {
+      "post": {
+        "description": "Clean a PDB and convert to PDBQT for docking.",
+        "operationId": "prepare_receptor_api_prepare_run_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PrepareReceptorRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PrepareReceptorResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Prepare Receptor",
+        "tags": [
+          "Receptor Preparation"
+        ]
+      }
+    },
+    "/api/projects/delete/{project_id}": {
+      "delete": {
+        "description": "Delete a project by ID.",
+        "operationId": "delete_project_api_projects_delete__project_id__delete",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "project_id",
+            "required": true,
+            "schema": {
+              "title": "Project Id",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Delete Project",
+        "tags": [
+          "Project Management"
+        ]
+      }
+    },
+    "/api/projects/list": {
+      "get": {
+        "description": "List all saved projects.",
+        "operationId": "list_projects_api_projects_list_get",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "summary": "List Projects",
+        "tags": [
+          "Project Management"
+        ]
+      }
+    },
+    "/api/projects/load/{project_id}": {
+      "get": {
+        "description": "Load a single project by ID.",
+        "operationId": "load_project_api_projects_load__project_id__get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "project_id",
+            "required": true,
+            "schema": {
+              "title": "Project Id",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Load Project",
+        "tags": [
+          "Project Management"
+        ]
+      }
+    },
+    "/api/projects/save": {
+      "post": {
+        "description": "Create or overwrite a named project.",
+        "operationId": "save_project_api_projects_save_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Project"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Save Project",
+        "tags": [
+          "Project Management"
+        ]
+      }
+    },
+    "/api/report/download": {
+      "get": {
+        "description": "Download a generated report file.",
+        "operationId": "download_report_api_report_download_get",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "path",
+            "required": true,
+            "schema": {
+              "title": "Path",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Download Report",
+        "tags": [
+          "Report Generation"
+        ]
+      }
+    },
+    "/api/report/generate": {
+      "post": {
+        "description": "Generate a PDF or HTML report from screening results.",
+        "operationId": "generate_report_api_report_generate_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ReportRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReportResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Generate Report",
+        "tags": [
+          "Report Generation"
+        ]
+      }
+    },
+    "/api/resolve/batch": {
+      "post": {
+        "description": "Resolve multiple molecular identifiers in one call.\n\nRequest body: { \"inputs\": [\"aspirin\", \"InChI=1S/...\", \"CC(=O)O\", \"50-78-2\"] }\nReturns: { \"results\": [...], \"resolved\": N, \"failed\": N }",
+        "operationId": "resolve_batch_api_resolve_batch_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "additionalProperties": true,
+                "title": "Payload",
+                "type": "object"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": true,
+                  "title": "Response Resolve Batch Api Resolve Batch Post",
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Resolve Batch",
+        "tags": [
+          "Molecule Resolver"
+        ]
+      }
+    },
+    "/api/resolve/molecule": {
+      "post": {
+        "description": "Resolve a molecular identifier (SMILES, InChI, name, CAS, MOL block) to canonical SMILES.",
+        "operationId": "resolve_molecule_api_resolve_molecule_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ResolveRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResolveResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Resolve Molecule",
+        "tags": [
+          "Molecule Resolver"
+        ]
+      }
+    },
+    "/api/results/consensus": {
+      "post": {
+        "description": "Multi-method consensus ranking: Vina score + MMFF energy + contact count.",
+        "operationId": "consensus_scoring_api_results_consensus_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ConsensusRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ConsensusResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Consensus Scoring",
+        "tags": [
+          "Results Explorer"
+        ]
+      }
+    },
+    "/api/results/csv-report": {
+      "post": {
+        "description": "Generate a CSV report with docking scores + ADMET properties.",
+        "operationId": "csv_report_api_results_csv_report_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CSVReportRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CSVReportResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Csv Report",
+        "tags": [
+          "Results Explorer"
+        ]
+      }
+    },
+    "/api/results/export-sdf": {
+      "post": {
+        "description": "Convert a list of compounds from a source directory to a combined SDF file.\n\nBody: { \"names\": [\"mol1\", \"mol2\"], \"src_dir\": \"path\" }\nReturns: { \"sdf_path\": \"...\", \"count\": N }",
+        "operationId": "export_sdf_api_results_export_sdf_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "additionalProperties": true,
+                "title": "Req",
+                "type": "object"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Export Sdf",
+        "tags": [
+          "Results Explorer"
+        ]
+      }
+    },
+    "/api/results/export-top": {
+      "post": {
+        "description": "Export top N docked results + original ligands into separate folders.",
+        "operationId": "export_top_hits_api_results_export_top_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ExportTopRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Export Top Hits",
+        "tags": [
+          "Results Explorer"
+        ]
+      }
+    },
+    "/api/results/iupac": {
+      "get": {
+        "description": "Resolve SMILES to IUPAC/common name via PubChem.",
+        "operationId": "resolve_iupac_api_results_iupac_get",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "smiles",
+            "required": true,
+            "schema": {
+              "title": "Smiles",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IUPACResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Resolve Iupac",
+        "tags": [
+          "Results Explorer"
+        ]
+      }
+    },
+    "/api/results/load": {
+      "get": {
+        "description": "Scan a results directory and return ranked candidates.",
+        "operationId": "load_results_api_results_load_get",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "dir",
+            "required": true,
+            "schema": {
+              "title": "Dir",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LoadResultsResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Load Results",
+        "tags": [
+          "Results Explorer"
+        ]
+      }
+    },
+    "/api/results/load-csv": {
+      "get": {
+        "description": "Load and parse an existing Report CSV for charting.",
+        "operationId": "load_csv_api_results_load_csv_get",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "path",
+            "required": true,
+            "schema": {
+              "title": "Path",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CSVReportResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Load Csv",
+        "tags": [
+          "Results Explorer"
+        ]
+      }
+    },
+    "/api/scaffold/hop": {
+      "post": {
+        "description": "Perform scaffold hopping using the specified method.",
+        "operationId": "scaffold_hop_api_scaffold_hop_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ScaffoldHopRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ScaffoldHopResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Scaffold Hop",
+        "tags": [
+          "Scaffold Hopping"
+        ]
+      }
+    },
+    "/api/similarity/search": {
+      "post": {
+        "description": "Run similarity search against PubChem, ChEMBL, or local database.",
+        "operationId": "similarity_search_api_similarity_search_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SimilarityRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SimilarityResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Similarity Search",
+        "tags": [
+          "Similarity Search"
+        ]
+      }
+    },
+    "/api/system/mol-svg": {
+      "get": {
+        "description": "Render a molecule as SVG — accepts SMILES, InChI, compound name, or CAS number.",
+        "operationId": "molecule_svg_api_system_mol_svg_get",
+        "parameters": [
+          {
+            "description": "SMILES string to render",
+            "in": "query",
+            "name": "smiles",
+            "required": true,
+            "schema": {
+              "description": "SMILES string to render",
+              "title": "Smiles",
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "width",
+            "required": false,
+            "schema": {
+              "default": 250,
+              "maximum": 800,
+              "minimum": 50,
+              "title": "Width",
+              "type": "integer"
+            }
+          },
+          {
+            "in": "query",
+            "name": "height",
+            "required": false,
+            "schema": {
+              "default": 200,
+              "maximum": 800,
+              "minimum": 50,
+              "title": "Height",
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Molecule Svg",
+        "tags": [
+          "System"
+        ]
+      }
+    },
+    "/api/system/stats": {
+      "get": {
+        "description": "Return CPU and RAM utilization.",
+        "operationId": "system_stats_api_system_stats_get",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "summary": "System Stats",
+        "tags": [
+          "System"
+        ]
+      }
+    },
+    "/api/system/structure-file": {
+      "get": {
+        "description": "Serve a local structure file (PDB/PDBQT/MOL2/SDF/CIF) as plain text for the 3D viewer.",
+        "operationId": "serve_structure_file_api_system_structure_file_get",
+        "parameters": [
+          {
+            "description": "Absolute path to a structure file",
+            "in": "query",
+            "name": "path",
+            "required": true,
+            "schema": {
+              "description": "Absolute path to a structure file",
+              "title": "Path",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Serve Structure File",
+        "tags": [
+          "System"
+        ]
+      }
+    },
+    "/api/watchlist/add": {
+      "post": {
+        "description": "Add a compound to the watchlist.",
+        "operationId": "add_to_watchlist_api_watchlist_add_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/WatchlistItem"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Add To Watchlist",
+        "tags": [
+          "Compound Watchlist"
+        ]
+      }
+    },
+    "/api/watchlist/list": {
+      "get": {
+        "description": "Return all items on the watchlist.",
+        "operationId": "list_watchlist_api_watchlist_list_get",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "summary": "List Watchlist",
+        "tags": [
+          "Compound Watchlist"
+        ]
+      }
+    },
+    "/api/watchlist/remove/{item_id}": {
+      "delete": {
+        "description": "Remove a compound from the watchlist by ID.",
+        "operationId": "remove_from_watchlist_api_watchlist_remove__item_id__delete",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "item_id",
+            "required": true,
+            "schema": {
+              "title": "Item Id",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Remove From Watchlist",
+        "tags": [
+          "Compound Watchlist"
+        ]
+      }
+    },
+    "/api/watchlist/update": {
+      "put": {
+        "description": "Update an existing watchlist item (notes, tags, flag).",
+        "operationId": "update_watchlist_item_api_watchlist_update_put",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/WatchlistItem"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Update Watchlist Item",
+        "tags": [
+          "Compound Watchlist"
+        ]
+      }
+    }
+  }
+}

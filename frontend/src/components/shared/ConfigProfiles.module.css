@@ -1,0 +1,151 @@
+/* ================================================================
+   ConfigProfiles — Dropdown profile manager styles
+   ================================================================ */
+
+.wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+.toggle {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: var(--bg-input);
+  color: var(--text-secondary);
+  font-size: 12px;
+  cursor: pointer;
+  transition: border-color 0.15s ease, background 0.15s ease;
+}
+
+.toggle:hover {
+  border-color: var(--accent);
+  background: var(--bg-card-hover);
+}
+
+.count {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 18px;
+  height: 18px;
+  border-radius: 9px;
+  background: var(--accent);
+  color: #fff;
+  font-size: 10px;
+  font-weight: 600;
+}
+
+.dropdown {
+  position: absolute;
+  top: calc(100% + 6px);
+  right: 0;
+  width: 260px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  box-shadow: var(--shadow-lg);
+  z-index: 50;
+  overflow: hidden;
+}
+
+.saveRow {
+  display: flex;
+  gap: 4px;
+  padding: 8px;
+  border-bottom: 1px solid var(--border);
+}
+
+.input {
+  flex: 1;
+  padding: 5px 8px;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  background: var(--bg-input);
+  color: var(--text-primary);
+  font-size: 12px;
+  outline: none;
+}
+
+.input:focus {
+  border-color: var(--accent);
+}
+
+.saveBtn {
+  padding: 4px 8px;
+  border: none;
+  border-radius: 4px;
+  background: var(--accent);
+  cursor: pointer;
+  font-size: 14px;
+  transition: opacity 0.15s ease;
+}
+
+.saveBtn:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+
+.empty {
+  padding: 16px;
+  text-align: center;
+  color: var(--text-muted);
+  font-size: 12px;
+}
+
+.list {
+  list-style: none;
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid var(--border);
+}
+
+.item:last-child {
+  border-bottom: none;
+}
+
+.loadBtn {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 10px;
+  border: none;
+  background: none;
+  color: var(--text-primary);
+  font-size: 12px;
+  cursor: pointer;
+  text-align: left;
+  transition: background 0.12s ease;
+}
+
+.loadBtn:hover {
+  background: var(--bg-card-hover);
+}
+
+.date {
+  font-size: 10px;
+  color: var(--text-muted);
+}
+
+.deleteBtn {
+  padding: 8px 10px;
+  border: none;
+  background: none;
+  color: var(--text-muted);
+  cursor: pointer;
+  font-size: 12px;
+  transition: color 0.12s ease;
+}
+
+.deleteBtn:hover {
+  color: var(--red);
+}

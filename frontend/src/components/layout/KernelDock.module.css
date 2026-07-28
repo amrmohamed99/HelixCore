@@ -1,0 +1,162 @@
+.dock {
+  height: var(--dock-height);
+  background: var(--bg-dock);
+  border-top: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 6px 14px;
+  border-bottom: 1px solid var(--border);
+  flex-shrink: 0;
+}
+
+.headerLeft {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.headerDot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+}
+
+.headerTitle {
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--text-secondary);
+}
+
+.logCount {
+  font-size: 0.65rem;
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+}
+
+.headerRight {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.filterInput {
+  width: 160px;
+  padding: 3px 8px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border);
+  background: var(--bg-input);
+  color: var(--text-secondary);
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  outline: none;
+  transition: border-color var(--duration) var(--ease);
+}
+
+.filterInput:focus {
+  border-color: var(--accent);
+}
+
+.filterInput::placeholder {
+  color: var(--text-muted);
+}
+
+.headerBtn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 0.75rem;
+  padding: 2px 6px;
+  border-radius: var(--radius-sm);
+  color: var(--text-muted);
+  transition: all var(--duration) var(--ease);
+}
+
+.headerBtn:hover {
+  background: var(--bg-card);
+  color: var(--text-primary);
+}
+
+.logsContainer {
+  flex: 1;
+  overflow-y: auto;
+  padding: 8px 14px;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  line-height: 1.7;
+}
+
+.logLine {
+  display: flex;
+  gap: 12px;
+  padding: 1px 0;
+}
+
+.logTime {
+  color: var(--text-muted);
+  flex-shrink: 0;
+  min-width: 70px;
+}
+
+.logMsg {
+  color: var(--text-secondary);
+  word-break: break-all;
+}
+
+.empty {
+  color: var(--text-muted);
+  font-style: italic;
+  padding: 16px 0;
+}
+
+/* Tab buttons */
+
+.tabBtn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+  padding: 2px 8px;
+  border-radius: var(--radius-sm);
+  transition: all var(--duration) var(--ease);
+}
+
+.tabBtn:hover {
+  color: var(--text-secondary);
+}
+
+.tabBtnActive {
+  color: var(--accent);
+  background: rgba(var(--accent-rgb, 51, 133, 255), 0.1);
+}
+
+/* Activity-specific */
+
+.activityPage {
+  font-size: 0.65rem;
+  font-weight: 600;
+  color: var(--accent);
+  background: rgba(var(--accent-rgb, 51, 133, 255), 0.1);
+  padding: 1px 6px;
+  border-radius: 3px;
+  flex-shrink: 0;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.activityDuration {
+  font-size: 0.65rem;
+  color: var(--text-muted);
+  flex-shrink: 0;
+  margin-left: auto;
+}

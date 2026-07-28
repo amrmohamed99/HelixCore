@@ -1,0 +1,791 @@
+{
+  "manifest_version": 1,
+  "description": "Expected contents of the Helix Core Windows tool bundle (tools/). These binaries are not tracked in git; they ship as a GitHub Release asset and are restored by scripts/fetch_tools.py, which verifies every file below by SHA-256 before unpacking. Regenerate with: python scripts/fetch_tools.py --write-manifest",
+  "bundle": {
+    "name": "helixcore-tools-win-x64",
+    "platform": "win32-x64",
+    "asset": "helixcore-tools-win-x64.zip",
+    "release_tag": "v3.0.0",
+    "url": "https://github.com/amrmohamed99/HelixCore-public/releases/download/v3.0.0/helixcore-tools-win-x64.zip",
+    "archive_root": "tools/",
+    "archive_sha256": "8b7011ca757c222e295095c8d1efe5cfac53166896ff1bd0bdfb3cb91098f2b5",
+    "archive_sha256_note": "SHA-256 of the deterministic v3.0.0 release archive. fetch_tools.py also hashes every member and rejects any file the manifest does not describe, so a matching extraction is byte-identical to this tree.",
+    "include": [
+      "vina.exe",
+      "LICENSE.AutoDock-Vina.txt",
+      "OpenBabel/"
+    ],
+    "exclude": [
+      "OpenBabel241/"
+    ],
+    "exclude_note": "tools/OpenBabel241/ is the superseded Open Babel 2.4.1 bundle, kept locally only to reproduce pre-v11 measurements. It is not part of the shipped asset.",
+    "file_count": 185,
+    "total_bytes": 33036926
+  },
+  "components": [
+    {
+      "name": "AutoDock Vina",
+      "version": "1.2.6",
+      "build": "v1.2.6-56-gc28e340",
+      "license": "Apache-2.0",
+      "path": "vina.exe",
+      "upstream": "https://github.com/ccsb-scripps/AutoDock-Vina",
+      "origin": "Official upstream release asset vina_1.2.6_win.exe from https://github.com/ccsb-scripps/AutoDock-Vina/releases/tag/v1.2.6",
+      "license_file": "LICENSE.AutoDock-Vina.txt",
+      "license_note": "The unmodified Apache-2.0 license from the v1.2.6 source tag is carried inside the bundle and verified by this manifest."
+    },
+    {
+      "name": "Open Babel",
+      "version": "3.1.1",
+      "license": "GPL-2.0-only",
+      "path": "OpenBabel/",
+      "upstream": "https://github.com/openbabel/openbabel",
+      "origin": "conda-forge package openbabel-3.1.1-py311h6f56430_9 (win-64), ICU DLLs removed",
+      "license_file": "OpenBabel/License.txt",
+      "source_offer": "OpenBabel/SOURCE.md",
+      "license_note": "GPL-2.0 requires that License.txt and the written source offer in SOURCE.md travel with these binaries. Both are inside the asset and are listed in 'files' below, so fetch_tools.py refuses any bundle that omits them."
+    }
+  ],
+  "files": {
+    "LICENSE.AutoDock-Vina.txt": {
+      "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+      "bytes": 11358
+    },
+    "OpenBabel/License.txt": {
+      "sha256": "3b77707d49d9eb2145ed73fb73232c8e71a423f5827e40d970edf3903e364bb2",
+      "bytes": 15426
+    },
+    "OpenBabel/SOURCE.md": {
+      "sha256": "9b6f79c915e523c5144b039bf02ded842686ba6402da653c2093d850d235848e",
+      "bytes": 2012
+    },
+    "OpenBabel/THIRD_PARTY_NOTICES.md": {
+      "sha256": "5deae7fb494a14e4d887cdff5e760be7a05edbdb22e3c562f61e9ba4df9ac13d",
+      "bytes": 2299
+    },
+    "OpenBabel/api-ms-win-core-console-l1-1-0.dll": {
+      "sha256": "015bd08815c7b934a8952c3a7578e9ce59f21136e8a880d42bbd414bec2c6058",
+      "bytes": 22872
+    },
+    "OpenBabel/api-ms-win-core-console-l1-2-0.dll": {
+      "sha256": "dcb4b82b6177fae57fdf0f3e05ab62ff75e05560b54547c16d6a1d83b33e07d4",
+      "bytes": 22872
+    },
+    "OpenBabel/api-ms-win-core-datetime-l1-1-0.dll": {
+      "sha256": "5534812cdbdae94ba45cb216e5eb9af686b853948df54365103555abbbaf9d9a",
+      "bytes": 22896
+    },
+    "OpenBabel/api-ms-win-core-debug-l1-1-0.dll": {
+      "sha256": "837d2b1b2cd03e03fc6ccb050698b6b5763af17c201304872342a5eae9e0a2d2",
+      "bytes": 22872
+    },
+    "OpenBabel/api-ms-win-core-errorhandling-l1-1-0.dll": {
+      "sha256": "de43b165f568c276c00e95acd454e3092f352a18e95874595f4f4658c06d2ec7",
+      "bytes": 22872
+    },
+    "OpenBabel/api-ms-win-core-fibers-l1-1-0.dll": {
+      "sha256": "3cebc45bf479ad74cfabf2c6bfd4994d7ad639ed1221025981d19cedf9ce0416",
+      "bytes": 22872
+    },
+    "OpenBabel/api-ms-win-core-fibers-l1-1-1.dll": {
+      "sha256": "5ef70308bcca628ce6b0e2856b15b1c7ae340c3f9bbbc4c1071d8c191a34a5c3",
+      "bytes": 22872
+    },
+    "OpenBabel/api-ms-win-core-file-l1-1-0.dll": {
+      "sha256": "250ac829f2617bcac1c6e5b8c4f630462e20765863ba573526a3e11bbfb94a9a",
+      "bytes": 27008
+    },
+    "OpenBabel/api-ms-win-core-file-l1-2-0.dll": {
+      "sha256": "ae14079a114733f60ce87b92cba42acd8083c2cd67594e53bc37dc0b97a4b465",
+      "bytes": 22888
+    },
+    "OpenBabel/api-ms-win-core-file-l2-1-0.dll": {
+      "sha256": "914bf26a298713119477ea0a8e7bd43171b91344ebe24fb47ad77c49686e3d87",
+      "bytes": 22912
+    },
+    "OpenBabel/api-ms-win-core-handle-l1-1-0.dll": {
+      "sha256": "ab5489955e371b15f77906c08ec3c7affe2c7a46a08c514ca628768b4478974b",
+      "bytes": 22896
+    },
+    "OpenBabel/api-ms-win-core-heap-l1-1-0.dll": {
+      "sha256": "c70f9644d8377fa39c5b71f2e9734c1400d7598904fdeb772e8502099982dcb7",
+      "bytes": 22872
+    },
+    "OpenBabel/api-ms-win-core-interlocked-l1-1-0.dll": {
+      "sha256": "f8129710188e407bb0e6f46d30aeba277d67b947ece5fe09e883fde2323f3ae6",
+      "bytes": 22888
+    },
+    "OpenBabel/api-ms-win-core-kernel32-legacy-l1-1-1.dll": {
+      "sha256": "5200b16cb2ddc61cfc07373a9a84aa85a3ab50806ca96c879c883275832944c1",
+      "bytes": 22888
+    },
+    "OpenBabel/api-ms-win-core-libraryloader-l1-1-0.dll": {
+      "sha256": "48786fb88b001dcd1f63acea903d3ca9cc0b3060d5a325e3f2f3cbc3bfd53166",
+      "bytes": 22872
+    },
+    "OpenBabel/api-ms-win-core-localization-l1-2-0.dll": {
+      "sha256": "9ec3898f7eba91faa28b51616c211a2689e3a13aeef8de6e13cb674e49d689eb",
+      "bytes": 22872
+    },
+    "OpenBabel/api-ms-win-core-memory-l1-1-0.dll": {
+      "sha256": "3a6cbc524c99e1cd80d5368f5601402a37ad602528b1ab628093573ef638eb3b",
+      "bytes": 22896
+    },
+    "OpenBabel/api-ms-win-core-namedpipe-l1-1-0.dll": {
+      "sha256": "97145ef89c44949fcf0f04ac834a8bc7d687ef49ee73ae9fc32f3c11136b7201",
+      "bytes": 22888
+    },
+    "OpenBabel/api-ms-win-core-processenvironment-l1-1-0.dll": {
+      "sha256": "8bc7c10b1851aea644e9c9f381cdb935e091fee6b0be3d3aedc6fffaac96adb7",
+      "bytes": 22872
+    },
+    "OpenBabel/api-ms-win-core-processthreads-l1-1-0.dll": {
+      "sha256": "d8030b777617c71f0f94564607699dbf7561487d779db9756aed378c5675213f",
+      "bytes": 22912
+    },
+    "OpenBabel/api-ms-win-core-processthreads-l1-1-1.dll": {
+      "sha256": "f5e676713340f73a03a3d41a6ec9883b431da7d16c7f07bd0a920fb80e6c0753",
+      "bytes": 22872
+    },
+    "OpenBabel/api-ms-win-core-profile-l1-1-0.dll": {
+      "sha256": "f023d47e44d3eea6b0743580f57e8c6ba81e79d5ebfa7da26250076c647b980e",
+      "bytes": 22872
+    },
+    "OpenBabel/api-ms-win-core-rtlsupport-l1-1-0.dll": {
+      "sha256": "9746d8930704153578a628c010638a5f818ffe5a927e25591b108e256dc6afca",
+      "bytes": 22888
+    },
+    "OpenBabel/api-ms-win-core-string-l1-1-0.dll": {
+      "sha256": "7c53ae24c982d16ffd1bf7f918d115b11b7f30e57bc7feaa18cb9781e4abb926",
+      "bytes": 22896
+    },
+    "OpenBabel/api-ms-win-core-synch-l1-1-0.dll": {
+      "sha256": "56d9d62ca5dba79a6581b8d574a7d8b2a64a5ecb71e47dcf06ed0285708b1859",
+      "bytes": 22896
+    },
+    "OpenBabel/api-ms-win-core-synch-l1-2-0.dll": {
+      "sha256": "f6482bbec5612c39ecb4822787a333f2b7570f7a5f922a4059be41ba957bb372",
+      "bytes": 22888
+    },
+    "OpenBabel/api-ms-win-core-sysinfo-l1-1-0.dll": {
+      "sha256": "272d02765fdd3582618236c2d309abba069642f9bc1062ede069d0c144e17007",
+      "bytes": 22896
+    },
+    "OpenBabel/api-ms-win-core-sysinfo-l1-2-0.dll": {
+      "sha256": "8a0900788859d0eb51c2f48f50cc6ed376a120b518100fa20e11d7702ccde260",
+      "bytes": 22912
+    },
+    "OpenBabel/api-ms-win-core-timezone-l1-1-0.dll": {
+      "sha256": "ff35de6c03812b332e140f17dade25c5dd4775156da9eeb1eaae3fddd27236ec",
+      "bytes": 22896
+    },
+    "OpenBabel/api-ms-win-core-util-l1-1-0.dll": {
+      "sha256": "191ef3e98641a57296f19d572d8eb62489470ff1ef6030d136af170c2f835173",
+      "bytes": 22896
+    },
+    "OpenBabel/api-ms-win-crt-conio-l1-1-0.dll": {
+      "sha256": "54ee5ec719a051496ff60aa00dbeaa94b9a7d2cdac27fe9b7317f1a666b6a2aa",
+      "bytes": 22872
+    },
+    "OpenBabel/api-ms-win-crt-convert-l1-1-0.dll": {
+      "sha256": "8b94662429171019fcd63c70bbf2095a075170599704a5e7dcdbe3da13f3a429",
+      "bytes": 26992
+    },
+    "OpenBabel/api-ms-win-crt-environment-l1-1-0.dll": {
+      "sha256": "39e5929593709e8af3bc9e0a75ec1155778d6f4a247f4cdfc58928ad6db88434",
+      "bytes": 22912
+    },
+    "OpenBabel/api-ms-win-crt-filesystem-l1-1-0.dll": {
+      "sha256": "5a8ecebac32edf4e1f3c5c6c1c8ea1a1add6cda4f9c9cb26f752fb295bea6865",
+      "bytes": 22872
+    },
+    "OpenBabel/api-ms-win-crt-heap-l1-1-0.dll": {
+      "sha256": "c71080cbcb43bf1f8f3e391deb12a582eb0abefc80946f340675a2c616e4feb4",
+      "bytes": 22872
+    },
+    "OpenBabel/api-ms-win-crt-locale-l1-1-0.dll": {
+      "sha256": "6c68648e524187e03c4ad9aaa4a99113c6ee9f29fb39cc0ed93f951975138e63",
+      "bytes": 22896
+    },
+    "OpenBabel/api-ms-win-crt-math-l1-1-0.dll": {
+      "sha256": "d4fbcccbe29371cbce431e43b2eb4f7ba9a6f04a3d740a071f02457a505e9dc8",
+      "bytes": 31064
+    },
+    "OpenBabel/api-ms-win-crt-multibyte-l1-1-0.dll": {
+      "sha256": "41b98a59bea1c86ab3b2357acb77de4eae7ff1132f130b1d9669ab9c2b456a2a",
+      "bytes": 31064
+    },
+    "OpenBabel/api-ms-win-crt-private-l1-1-0.dll": {
+      "sha256": "29bf3d90617d3781d19b332d6ceb9f20ba5ce082ec74bf6c34d5d4aee56e48a1",
+      "bytes": 76120
+    },
+    "OpenBabel/api-ms-win-crt-process-l1-1-0.dll": {
+      "sha256": "47c1935942e3ac0812e4dcf18c0e265e565f0194a3349111c299712f5565f7ac",
+      "bytes": 22896
+    },
+    "OpenBabel/api-ms-win-crt-runtime-l1-1-0.dll": {
+      "sha256": "72adc1b3677e0814d9c4ebf0964000e84bb2acf67336c8963061665e44f78029",
+      "bytes": 26968
+    },
+    "OpenBabel/api-ms-win-crt-stdio-l1-1-0.dll": {
+      "sha256": "900afc3989673c9bb1a687ed38c192f46db9e6ba6d11a668898a539e7fc23798",
+      "bytes": 26968
+    },
+    "OpenBabel/api-ms-win-crt-string-l1-1-0.dll": {
+      "sha256": "fcf12466cc12fd3b73611fc0763a5a1f9d44e90349513c34a0c83b0f36421793",
+      "bytes": 26968
+    },
+    "OpenBabel/api-ms-win-crt-time-l1-1-0.dll": {
+      "sha256": "886e57c4a6adb299b38f02945369f590a67da4e79a798359fc60aaa067212d7c",
+      "bytes": 22912
+    },
+    "OpenBabel/api-ms-win-crt-utility-l1-1-0.dll": {
+      "sha256": "5f8f26b216ade615b67a41f6fbbb910972fc6153315a65bb8f09912be50215b1",
+      "bytes": 22912
+    },
+    "OpenBabel/cairo-gobject.dll": {
+      "sha256": "807bcd54731473a0a6441e7515203e1d3d4ba2676f285473858abd56788d05ea",
+      "bytes": 28160
+    },
+    "OpenBabel/cairo-script-interpreter.dll": {
+      "sha256": "9fa86e79a41db036895213a53c105c0df6949a9f255f68ec2fdbab22b59be791",
+      "bytes": 136704
+    },
+    "OpenBabel/cairo.dll": {
+      "sha256": "b13e3b0d401d73a38f9aa7228d723dae2d4c8f3fd7216c3442ee2c22d873b54a",
+      "bytes": 1040896
+    },
+    "OpenBabel/charset.dll": {
+      "sha256": "c2e0e0c3746cd0adea79cd97ca45d5ae0a4b1cf4ee13d638606d93541964d71c",
+      "bytes": 12800
+    },
+    "OpenBabel/concrt140.dll": {
+      "sha256": "a5b9af428829ab7b61ceae9d88a37ce1053551379ee007d8df53a7ba4d33c251",
+      "bytes": 374352
+    },
+    "OpenBabel/data/MACCS.txt": {
+      "sha256": "d22edb5b565a3f69383153061d8d7baa9bc5e8a61ffee557c1d47a58ef32be47",
+      "bytes": 8890
+    },
+    "OpenBabel/data/SMARTS_InteLigand.txt": {
+      "sha256": "21ea618cc4559a0def4294a5c467f37d81cff6b847d0fb307fdac12474faf6be",
+      "bytes": 39230
+    },
+    "OpenBabel/data/UFF.prm": {
+      "sha256": "934cb0e2ee1ef2102b2ae8dba74b1e9853b299bd7e26f695fb1fe6e55727bdc5",
+      "bytes": 12573
+    },
+    "OpenBabel/data/atomization-energies.txt": {
+      "sha256": "02eec2180ca2d4fbb0cb25c5b6eee469d51d5d4874f6f7af62f24f58bfaf8da6",
+      "bytes": 690432
+    },
+    "OpenBabel/data/atomtyp.txt": {
+      "sha256": "78e52637266ca914232a64f4979b03e0bc8be0a91b7036ec38039f2876be080a",
+      "bytes": 10155
+    },
+    "OpenBabel/data/babel_povray3.inc": {
+      "sha256": "585957ee8a4f30256e5fe2b4aea705810dc855d443c85237898c2bc6809a78bb",
+      "bytes": 31822
+    },
+    "OpenBabel/data/bondtyp.txt": {
+      "sha256": "f1d76f8940c110fda173f2443b16bcd761fc63c60a51ff0951fb6bd1eb0c347a",
+      "bytes": 5881
+    },
+    "OpenBabel/data/eem.txt": {
+      "sha256": "77ca01de68bd9f7f3fe670fce72734ed141b4ddd6e93b4f487b92c81f6bfc969",
+      "bytes": 444
+    },
+    "OpenBabel/data/eem2015ba.txt": {
+      "sha256": "a9c45387ba0748b2c2e1f15024ec5e11ae7e321f0c21e9aaa1648729b15a6e6d",
+      "bytes": 460
+    },
+    "OpenBabel/data/eem2015bm.txt": {
+      "sha256": "5cd23a80a45be1e927b066d46fa64dd4b6a2c49655da8907818626f350cb2a39",
+      "bytes": 460
+    },
+    "OpenBabel/data/eem2015bn.txt": {
+      "sha256": "552f9d48b5d5b90c5a70add7e9ee32cf632fce2006265bfcb5056d256f90544e",
+      "bytes": 460
+    },
+    "OpenBabel/data/eem2015ha.txt": {
+      "sha256": "f2ba63c3bf502a42602100da961797cbf9beca2ca640efd7057469a75364abcf",
+      "bytes": 460
+    },
+    "OpenBabel/data/eem2015hm.txt": {
+      "sha256": "2a7b5e741641e5cc565c222df62078dc49623febfca34ea98e0fcf311845c76c",
+      "bytes": 460
+    },
+    "OpenBabel/data/eem2015hn.txt": {
+      "sha256": "82f89746a16059382d7b2b81c771480aa79f6f35e25b415e9c789ac5c50ec249",
+      "bytes": 460
+    },
+    "OpenBabel/data/eqeqIonizations.txt": {
+      "sha256": "4da54f80d7711f002037f877d39297f0b3e9f3f652a49be9c542a870a41449cd",
+      "bytes": 4874
+    },
+    "OpenBabel/data/gaff.dat": {
+      "sha256": "96f034d4e61164bc17e78514fba3822707e9ff74d9992daa1ea906ff3f7e2e4b",
+      "bytes": 338592
+    },
+    "OpenBabel/data/gaff.prm": {
+      "sha256": "1899ca340376fe22fca0ba61572fcc408fb32e000783fb5819eff5a6dda443c1",
+      "bytes": 24540
+    },
+    "OpenBabel/data/ghemical.prm": {
+      "sha256": "bd353c9a56b74cdaac6c96ecb8c3c5111f267141c90093e2484f0558866df197",
+      "bytes": 16754
+    },
+    "OpenBabel/data/logp.txt": {
+      "sha256": "340dc83b23d813854e66096f9819e57bbac3c9af3044f9246dd07aacf66e64bf",
+      "bytes": 4357
+    },
+    "OpenBabel/data/mmff94.ff": {
+      "sha256": "9d15146b0fee2ca59def0524c39c0595a8374ac173fa0a2fd4c4b3e524a83c8e",
+      "bytes": 565
+    },
+    "OpenBabel/data/mmff94s.ff": {
+      "sha256": "5175113fb3ce7eee6ef86655eb1444f64d8efa846953e40820244a0f81257fe2",
+      "bytes": 569
+    },
+    "OpenBabel/data/mmffang.par": {
+      "sha256": "f92d3da67485547b911b00f2dbdec2006266abe6141651dc735927618903e000",
+      "bytes": 100427
+    },
+    "OpenBabel/data/mmffbndk.par": {
+      "sha256": "8a12815fb74f9b51acf0c35670d5994d77b8f86a2e2258c9bd31b2fd76dc4972",
+      "bytes": 2314
+    },
+    "OpenBabel/data/mmffbond.par": {
+      "sha256": "d5c35449f9f0e8f837085bcb151d218a29135ff4752cd978f07b945b28b31ea0",
+      "bytes": 18856
+    },
+    "OpenBabel/data/mmffchg.par": {
+      "sha256": "5981e35adb32044b59981571a1ad35311b6b7d52ea22726e3c94c1846cd8c9cc",
+      "bytes": 14158
+    },
+    "OpenBabel/data/mmffdef.par": {
+      "sha256": "6c84f481e7739bc3a32e42f1fd166b6f33b337ca8dee4d3f61f889c6affd5e99",
+      "bytes": 11165
+    },
+    "OpenBabel/data/mmffdfsb.par": {
+      "sha256": "7be7c5cffc48887510f64ce60a86828cc29199ae2d1c63d1ea48a90b4b6457d6",
+      "bytes": 1308
+    },
+    "OpenBabel/data/mmffoop.par": {
+      "sha256": "04e1214e822c2963167b0b480c4defb4ea45db4f39908be12ec183094fbacf33",
+      "bytes": 5047
+    },
+    "OpenBabel/data/mmffpbci.par": {
+      "sha256": "2b5e7300b076687c0cb68eeaa5dda8d9bf525fc4e45e3033c2a386e3ed8b3edc",
+      "bytes": 4322
+    },
+    "OpenBabel/data/mmffprop.par": {
+      "sha256": "858af09bf8abe7d962f159ee6c359fb8d45534143e978c90df4d0c76a096e501",
+      "bytes": 4567
+    },
+    "OpenBabel/data/mmffs_oop.par": {
+      "sha256": "7285a78b193b6a70c614a83f22c551cb46dbb91062ec235443c3d8967aa4dc58",
+      "bytes": 5074
+    },
+    "OpenBabel/data/mmffs_tor.par": {
+      "sha256": "90b279dac10f571c653acec129465b3bfcfc5a33ea5b1b9203bf619bf29f52b7",
+      "bytes": 55852
+    },
+    "OpenBabel/data/mmffstbn.par": {
+      "sha256": "20210a8d42f03a31d8014766417a547de28eba876767be174e1ada4a06597bbe",
+      "bytes": 12192
+    },
+    "OpenBabel/data/mmfftor.par": {
+      "sha256": "7a177831ef85766cbf9353706e76f72d572b7b8ec7d255a029653b56fe84ef70",
+      "bytes": 55768
+    },
+    "OpenBabel/data/mmffvdw.par": {
+      "sha256": "49533f22d26a4b1e309de17eaf771c2fde708b377f29b9dab8867c5e714d9657",
+      "bytes": 5942
+    },
+    "OpenBabel/data/mpC.txt": {
+      "sha256": "3fb20d9a0ce5a1e840e4e85e2a61388fd47f1040953c4470cd4be51111e39be4",
+      "bytes": 3386
+    },
+    "OpenBabel/data/mr.txt": {
+      "sha256": "71cac51e068a3613465c903afa4a06fd71455e5b94b67fc8cd55e00b3551d7ab",
+      "bytes": 4127
+    },
+    "OpenBabel/data/patterns.txt": {
+      "sha256": "1b7807112a55ea3dfd6737b64804cc30e99595b052f26496d86e32808638c12b",
+      "bytes": 3756
+    },
+    "OpenBabel/data/phmodel.txt": {
+      "sha256": "fb291c7f8042c9fd3a8efda5f7ec5d4cec21886188785f6c8584af86b21f0ab5",
+      "bytes": 7130
+    },
+    "OpenBabel/data/plugindefines.txt": {
+      "sha256": "5e829d7d047d25b1cc764a2738004f866832408565ac1be6e95f7ce750b98fb5",
+      "bytes": 2400
+    },
+    "OpenBabel/data/psa.txt": {
+      "sha256": "2ce26ce9a9765557c6616360d03492b4af8de0d436ec38327044972ca944d8a8",
+      "bytes": 2418
+    },
+    "OpenBabel/data/qeq.txt": {
+      "sha256": "c818e1cb262232016e14c21b42a43b3baa47742558ddb298d32e258c22ac1e83",
+      "bytes": 3096
+    },
+    "OpenBabel/data/resdata.txt": {
+      "sha256": "c1e604b1733a7fa9677634e181a95e5c3b29fa6ad2b008bc67724adf6dde3ff5",
+      "bytes": 14696
+    },
+    "OpenBabel/data/rigid-fragments-index.txt": {
+      "sha256": "9bbf52de0818b6114fc926947602e9ea09baac0a738e08364197b8b82414ad12",
+      "bytes": 157957
+    },
+    "OpenBabel/data/rigid-fragments.txt": {
+      "sha256": "fdf554f5d0fd81c3c22f2870376ba5b29785195a6414135bb5ce2a4301bdf0f8",
+      "bytes": 1936876
+    },
+    "OpenBabel/data/ring-fragments.txt": {
+      "sha256": "b5bb4eae05393f236a021a861dd0950a81eef6575a2a157cdc3a02319ed954f8",
+      "bytes": 758529
+    },
+    "OpenBabel/data/ringtyp.txt": {
+      "sha256": "3a8ebab29679c243a2791720267f600428afc0be6dec151875ea00dc617837e8",
+      "bytes": 3003
+    },
+    "OpenBabel/data/space-groups.txt": {
+      "sha256": "365650c92fb6aba77fc1c9771376fb920b06934ef344a0851ad27d22226d0e8b",
+      "bytes": 105886
+    },
+    "OpenBabel/data/splash.png": {
+      "sha256": "ff5b3e16271806e5c86a377bd8551b7aa7a22a1cad93ac9647c96b68ffe8998a",
+      "bytes": 53685
+    },
+    "OpenBabel/data/superatom.txt": {
+      "sha256": "9155e6e4d2d735c8dab737973b7046022f08660405418bed2618e1583de6b792",
+      "bytes": 6704
+    },
+    "OpenBabel/data/svgformat.script": {
+      "sha256": "9120ba817decb8d721e048e2742be53096e62434ca4c245f64141f502a7dd1b6",
+      "bytes": 1916
+    },
+    "OpenBabel/data/templates.sdf": {
+      "sha256": "274e64a378d1720b8b695395ea067683fc2e0ad4a91426d80ab07c9996ee6999",
+      "bytes": 1849
+    },
+    "OpenBabel/data/torlib.txt": {
+      "sha256": "f3b2df788ef0a7dca48cf7ed336bd4c3d72055b7ef95294a124a8e37f9791435",
+      "bytes": 9963
+    },
+    "OpenBabel/data/torsion.txt": {
+      "sha256": "b7eff1925172c7732de433c70002f846ccc85c1c5104fcd441185b695d11a077",
+      "bytes": 29869
+    },
+    "OpenBabel/data/types.txt": {
+      "sha256": "164d02da573ed800441412380e163889bc7e0063657ea0f7cdc14e00c13965ac",
+      "bytes": 10975
+    },
+    "OpenBabel/ffi-8.dll": {
+      "sha256": "21388a6f7825705dae4490ce706d03f70d9088f4086e683488b7b99e245b761f",
+      "bytes": 27136
+    },
+    "OpenBabel/fontconfig-1.dll": {
+      "sha256": "55c307998b73779e612a4a4b30f204f3ce8c36148a1d611ab2b74f1aa73b3618",
+      "bytes": 444928
+    },
+    "OpenBabel/formats_cairo.obf": {
+      "sha256": "f7d2c37d0e4dc13f736cb18f4e7667575b041fae363200746413019be674b778",
+      "bytes": 37376
+    },
+    "OpenBabel/formats_common.obf": {
+      "sha256": "c23d68f63a4003468283997fa6a8c07d0c203b13d6c2a6ceec225d77eaf5c64b",
+      "bytes": 326144
+    },
+    "OpenBabel/formats_compchem.obf": {
+      "sha256": "030a7676239df062ee6567045b9ee76610868d14918159413204598db4f1b49d",
+      "bytes": 532992
+    },
+    "OpenBabel/formats_json.obf": {
+      "sha256": "cb4b1c8bbda6e1fa79e925f42ae8193f0589507833135e5b965b6acb574dd75f",
+      "bytes": 132608
+    },
+    "OpenBabel/formats_misc.obf": {
+      "sha256": "15e4724982f3d6add54080c8f215e200ea16fa6c885a1e59ea51b96f9debdd4b",
+      "bytes": 1122816
+    },
+    "OpenBabel/formats_utility.obf": {
+      "sha256": "17aa011d1896693df0f387d12e57391c059d2e72f9577c2274ae0087a86a0395",
+      "bytes": 169984
+    },
+    "OpenBabel/formats_xml.obf": {
+      "sha256": "991d475a5f611571636d67498948efab22c65ee13ce775a50776698a9d329a69",
+      "bytes": 186368
+    },
+    "OpenBabel/freetype.dll": {
+      "sha256": "55bd6c66de863928f9678eb9daa189fbed75e037453b2d259e15e6af94d64a86",
+      "bytes": 684032
+    },
+    "OpenBabel/gio-2.0-0.dll": {
+      "sha256": "06bb7f28ea75ac06aba8ad5ac182a014a641dfe8b0b2ed8811d4301e431152b4",
+      "bytes": 1612800
+    },
+    "OpenBabel/girepository-2.0-0.dll": {
+      "sha256": "724af02aea7e1c26c981ddd03d2fab46584b6b00b03bfa12a8423f4e11d686a4",
+      "bytes": 138240
+    },
+    "OpenBabel/glib-2.0-0.dll": {
+      "sha256": "18f8023b4dd585a83d18f8c08915f40aa2afdd3b260b9389f183af18712c08e2",
+      "bytes": 1354240
+    },
+    "OpenBabel/gmodule-2.0-0.dll": {
+      "sha256": "53c96f0b56d3218c19dcf32b8ebba8f5f584713f292f945e708de49b475eaac1",
+      "bytes": 19968
+    },
+    "OpenBabel/gobject-2.0-0.dll": {
+      "sha256": "eca56dc8e5f023e55cc133b1b1aa451ce1108ede3ac908141e6fbc70d1ff64c2",
+      "bytes": 319488
+    },
+    "OpenBabel/gthread-2.0-0.dll": {
+      "sha256": "3ccddc61b8f68ebd778a151e48e4a19ad3c455112256c8e13a5b3be6f3baf833",
+      "bytes": 10752
+    },
+    "OpenBabel/iconv.dll": {
+      "sha256": "772ed247d3d4a6d5625b737dfd1c1d238f74d1c48e560b2d551edfe734a34a1d",
+      "bytes": 1086464
+    },
+    "OpenBabel/inchi.dll": {
+      "sha256": "136a5a6a9129e94a5139113d513e4e0ec71af8cb0c7e38d497b6510a5d19d277",
+      "bytes": 908288
+    },
+    "OpenBabel/intl-8.dll": {
+      "sha256": "eeb01a2fa6b9744a1946f45bb55c1b45481b877472472bbce794829f96644336",
+      "bytes": 222720
+    },
+    "OpenBabel/libbz2.dll": {
+      "sha256": "894dbcd41ee025e020c9083f03e69f64a13c6a7fab36125b2bd29ddd803e4a72",
+      "bytes": 77824
+    },
+    "OpenBabel/libexpat.dll": {
+      "sha256": "8f322ea819d3e90490d8931634e6b681ed10b8b86b2b6e4a762b600c7030f351",
+      "bytes": 266752
+    },
+    "OpenBabel/liblzma.dll": {
+      "sha256": "64eb6567bead1a5b7386bd7acd1cdd9db8f9a03133eef7ae8208ae555738d680",
+      "bytes": 188416
+    },
+    "OpenBabel/libpng16.dll": {
+      "sha256": "c3fc74e2bfa2d944cbea22e1db31f06247a54634f8f489f04b5ceec921118f3f",
+      "bytes": 198656
+    },
+    "OpenBabel/libxml2.dll": {
+      "sha256": "2ca354ef6db6e1e0388068ff9a05e391e0a402aef09feaede8ea1ad093d9399b",
+      "bytes": 1316864
+    },
+    "OpenBabel/licenses/bzip2/LICENSE": {
+      "sha256": "c6dbbf828498be844a89eaa3b84adbab3199e342eb5cb2ed2f0d4ba7ec0f38a3",
+      "bytes": 1896
+    },
+    "OpenBabel/licenses/cairo/COPYING": {
+      "sha256": "67228a9f7c5f9b67c58f556f1be178f62da4d9e2e6285318d8c74d567255abdf",
+      "bytes": 1576
+    },
+    "OpenBabel/licenses/cairo/COPYING-LGPL-2.1": {
+      "sha256": "9e9e8608c4cdda51a78cc3a385f4ec9a2e4c96d5ecad74ac8bca5fca3e563b7d",
+      "bytes": 26533
+    },
+    "OpenBabel/licenses/cairo/COPYING-MPL-1.1": {
+      "sha256": "53692a2ed6c6a2c6ec9b32dd0b820dfae91e0a1fcdf625ca9ed0bdf8705fcc4f",
+      "bytes": 25755
+    },
+    "OpenBabel/licenses/fontconfig/COPYING": {
+      "sha256": "51a51aa9823704fd90bccc616cdd17ebabb5b2b3e9cbde886ca02c7002288067",
+      "bytes": 8616
+    },
+    "OpenBabel/licenses/freetype/docs/FTL.TXT": {
+      "sha256": "08c135755dd589039470f1fdbb400daaabaaa50d0b366d19cebff4d22986baa1",
+      "bytes": 6743
+    },
+    "OpenBabel/licenses/freetype/docs/GPLv2.TXT": {
+      "sha256": "c4120c6752c910c299e3bd9cb3a46ff262c268303ca2069b61f92f10a5656c18",
+      "bytes": 17994
+    },
+    "OpenBabel/licenses/gettext/COPYING": {
+      "sha256": "e79e9c8a0c85d735ff98185918ec94ed7d175efc377012787aebcf3b80f0d90b",
+      "bytes": 35151
+    },
+    "OpenBabel/licenses/libexpat/COPYING": {
+      "sha256": "122f2c27000472a201d337b9b31f7eb2b52d091b02857061a8880371612d9534",
+      "bytes": 1144
+    },
+    "OpenBabel/licenses/libffi/LICENSE": {
+      "sha256": "a61d06e8f7be57928e71e800eb9273b05cb8868c484108afe41e4305bb320dde",
+      "bytes": 1132
+    },
+    "OpenBabel/licenses/libglib/COPYING": {
+      "sha256": "fa6f36630bb1e0c571d34b2bbdf188d08495c9dbf58f28cac112f303fc1f58fb",
+      "bytes": 25967
+    },
+    "OpenBabel/licenses/libiconv/COPYING": {
+      "sha256": "8ceb4b9ee5adedde47b31e975c1d90c73ad27b6b165a1dcd80c7c545eb65b903",
+      "bytes": 35147
+    },
+    "OpenBabel/licenses/libpng/LICENSE": {
+      "sha256": "dfe5a536b0e5a531f844fb9c101a3089aca60772a503893b8e15f9457e369960",
+      "bytes": 5345
+    },
+    "OpenBabel/licenses/libxml2/Copyright": {
+      "sha256": "7fb0a66f3989f9bd5c7e5438a3de02cd4a7a47dde0aea2f7ea2ba2ff454ee6a4",
+      "bytes": 1289
+    },
+    "OpenBabel/licenses/libzlib/license.txt": {
+      "sha256": "10153bf8ced3236481183e992349ded245210f5a07aa4786b2f303a93505cb1e",
+      "bytes": 1121
+    },
+    "OpenBabel/licenses/pcre2/LICENCE": {
+      "sha256": "87d884eceb7fc54611470ce9f74280d28612b0c877adfc767e9676892a638987",
+      "bytes": 3477
+    },
+    "OpenBabel/licenses/pixman/COPYING": {
+      "sha256": "fac9270f0987b96ff4533fca3548c633e02083cbba4a0172a3b149b2e4019793",
+      "bytes": 2087
+    },
+    "OpenBabel/licenses/tk/tcl8.6.13/license.terms": {
+      "sha256": "c0a69a2bfd757361ec7e6143973b103c90409316b49e9c88db26ad6388e79f16",
+      "bytes": 2255
+    },
+    "OpenBabel/licenses/ucrt/LICENSE.txt": {
+      "sha256": "f4589c739597890dd40bccb6bf20632a99c228bdd20cfbf585b5b30c9e61b3fb",
+      "bytes": 29410
+    },
+    "OpenBabel/licenses/vc14_runtime/LICENSE.RTF": {
+      "sha256": "8099dc3cf9502c335da829e5c755948a12e3e6de490eb492a99deb673d883d8b",
+      "bytes": 9235
+    },
+    "OpenBabel/licenses/vc14_runtime/LICENSE.TXT": {
+      "sha256": "d688b0b0d4a6553fcfa4e399a171fdebe3566d47002630b2215ba6660d3cf286",
+      "bytes": 7515
+    },
+    "OpenBabel/licenses/xz/COPYING": {
+      "sha256": "bcb02973ef6e87ea73d331b3a80df7748407f17efdb784b61b47e0e610d3bb5c",
+      "bytes": 2775
+    },
+    "OpenBabel/licenses/zlib/license.txt": {
+      "sha256": "10153bf8ced3236481183e992349ded245210f5a07aa4786b2f303a93505cb1e",
+      "bytes": 1121
+    },
+    "OpenBabel/msvcp140.dll": {
+      "sha256": "639342ea9a67c0009122238ce070a8257e2e04d367d627509fec29f8442afb42",
+      "bytes": 642720
+    },
+    "OpenBabel/msvcp140_1.dll": {
+      "sha256": "456aebccb449fcba35f1109c259ba0aa10923e660f4de812a490d35f37f54fc9",
+      "bytes": 35920
+    },
+    "OpenBabel/msvcp140_2.dll": {
+      "sha256": "7a403abf753d0bdf09776cf4bcb13b5a6ebe3a47670de124a3c621aa4b952f82",
+      "bytes": 274512
+    },
+    "OpenBabel/msvcp140_atomic_wait.dll": {
+      "sha256": "d759dd381bdbd6142372de4cb57acc382e1b80c106b7414a408816564ee1eb6a",
+      "bytes": 57936
+    },
+    "OpenBabel/msvcp140_codecvt_ids.dll": {
+      "sha256": "f781e1e0133c397c3a2c73fd4dbcdb442378ba20fced56a2f7db5822436ddd2a",
+      "bytes": 31312
+    },
+    "OpenBabel/obabel.exe": {
+      "sha256": "f1cca613c83eae8cf48edd52f7f9eb79851578118ce0e91ffec9b9731166682d",
+      "bytes": 35328
+    },
+    "OpenBabel/openbabel-3.dll": {
+      "sha256": "1392dc8c72bebc1f82b13a7fe63cba1268f1071e4dc934e8fe118ed5f9b9b0bc",
+      "bytes": 2216960
+    },
+    "OpenBabel/pcre2-16.dll": {
+      "sha256": "e183cdaa5b5afb36cf8a3799bc7c35fc62a33178f3425a9c2012122fb6921e84",
+      "bytes": 565760
+    },
+    "OpenBabel/pcre2-32.dll": {
+      "sha256": "f1b04811ae8dcf6bfd4cae6e8f64514c697266fed352182f4331f00013a112ec",
+      "bytes": 547328
+    },
+    "OpenBabel/pcre2-8.dll": {
+      "sha256": "f3226e736a5fb27c2c7dfc792e812afc25fd686037dae225a4ed992427711c12",
+      "bytes": 604672
+    },
+    "OpenBabel/pcre2-posix.dll": {
+      "sha256": "004bba3eab9c368a9a5741bd279e9e4c3f24fb6c053cf5b46489e1d76a74483b",
+      "bytes": 13824
+    },
+    "OpenBabel/pixman-1-0.dll": {
+      "sha256": "f6c9e7dd1f8913fd0869530a100786c31de253d0fe6af31687042403dacadced",
+      "bytes": 600064
+    },
+    "OpenBabel/plugin_charges.obf": {
+      "sha256": "0b36a7939e28787419e09ee28b1cfc1ee7578c20441e82c13842d7b81c272565",
+      "bytes": 235008
+    },
+    "OpenBabel/plugin_descriptors.obf": {
+      "sha256": "e8f204f683ace2e2a4f507da6cc7761f6fa18306d50f6c8d67da9d78bd377be3",
+      "bytes": 64000
+    },
+    "OpenBabel/plugin_fingerprints.obf": {
+      "sha256": "159b1f84827b1befe3870c658c7ba7e134be077694586d0ecaf9d07af7e98d32",
+      "bytes": 77824
+    },
+    "OpenBabel/plugin_forcefields.obf": {
+      "sha256": "3fe39b98f6bdad5e1dee6aff086dcab98c3a6447e2af149f302c8f48ab76715d",
+      "bytes": 338944
+    },
+    "OpenBabel/plugin_ops.obf": {
+      "sha256": "58c7b12f9c5ead8c57e261c486e6fe67fad6c76f4c451376fdc049df84bb9e17",
+      "bytes": 219136
+    },
+    "OpenBabel/tcl86t.dll": {
+      "sha256": "0c172d8c3cfb524d87484d1b771cf0ba7204d7204e76ef133efad5bd92898f7f",
+      "bytes": 1821184
+    },
+    "OpenBabel/tk86t.dll": {
+      "sha256": "4de6f07eb78557497a43089a9adff4f7d478db8560f0cde7b2fa3b4510df2468",
+      "bytes": 1593344
+    },
+    "OpenBabel/ucrtbase.dll": {
+      "sha256": "3239227d27667ba20d10a880751924e5719de0078f9fce232d149d383f7681f6",
+      "bytes": 1362264
+    },
+    "OpenBabel/vcamp140.dll": {
+      "sha256": "4c8272cc59704b1acf67a20fbbff1fad139ca39b331e1de9d207272feeb4236e",
+      "bytes": 417360
+    },
+    "OpenBabel/vccorlib140.dll": {
+      "sha256": "9ce6f235791450717f8e05ecd729e95ec98e9630a9caae661ba6773b669ecbf7",
+      "bytes": 350800
+    },
+    "OpenBabel/vcomp140.dll": {
+      "sha256": "f96f3a14d88d8846f31f3ab38a490304ce7d6e4f70fae4304c63e59c7aea2d30",
+      "bytes": 213072
+    },
+    "OpenBabel/vcruntime140.dll": {
+      "sha256": "19c293ac482fdb882cd29d2b0e6d807419efdcada04068f03e5723670895e17d",
+      "bytes": 178848
+    },
+    "OpenBabel/vcruntime140_1.dll": {
+      "sha256": "a253a12e4a8e9e23ebfe0ced829f7751e4f42c60066986bf20515ced8dcc68cd",
+      "bytes": 50256
+    },
+    "OpenBabel/vcruntime140_threads.dll": {
+      "sha256": "cd05a48a1183b074e81275d6c6472ecb5b09db8a0db8d1850b009ad041907ce9",
+      "bytes": 38560
+    },
+    "OpenBabel/zlib.dll": {
+      "sha256": "85c711c83f96bed93184bede15be6b5a3e5444df09dfffef00564107189dc722",
+      "bytes": 90624
+    },
+    "OpenBabel/zlib1.dll": {
+      "sha256": "955b8aedcef4546f0e9218014f4743047ab9980e882b507177c4348fbc9e0f45",
+      "bytes": 134656
+    },
+    "vina.exe": {
+      "sha256": "5cba7735f6bc2649c3a2a9f0bafbbf95c3ac2b92562254df2e1a6a6e27520df7",
+      "bytes": 1233920
+    }
+  }
+}

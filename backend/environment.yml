@@ -1,0 +1,27 @@
+# Helix Core — native Linux environment for the backend.
+#
+# Keep the two reproducibility layers separate:
+#   * this file supplies Python plus the native Open Babel executable;
+#   * requirements.lock.txt supplies the exact cross-platform Python stack.
+#
+# SciPy 1.15.3 is available on PyPI but was never published on conda-forge
+# (the feedstock moved from 1.15.2 to 1.16.0). Installing the manuscript's
+# Python pins through pip therefore preserves the measured versions on Linux
+# instead of changing the scientific stack to fit the conda package index.
+#
+# Deliberately NOT listed here: AutoDock Vina. The conda-forge `vina` package is
+# a modified build — it self-reports `AutoDock Vina f458505-mod` rather than a
+# release tag. Docker and CI install the official v1.2.6 release asset directly
+# and verify its SHA-256.
+#
+# Open Babel is held to release 3.1.1 and conda build number 9, matching the
+# Windows bundle's upstream build number. Its binary self-reports "3.1.0";
+# that is a known upstream quirk documented in tools/OpenBabel/SOURCE.md.
+
+name: helix
+channels:
+  - conda-forge
+dependencies:
+  - python=3.12
+  - pip
+  - 'openbabel=3.1.1=py312hbfe4552_9'

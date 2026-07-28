@@ -1,0 +1,578 @@
+/* ================================================================
+   Shared CSS Module — Reusable classes for pages & components
+   ================================================================ */
+
+/* ---- Page container ---- */
+.page {
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  height: 100%;
+  overflow-y: auto;
+}
+
+.pageHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.pageTitle {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.pageTitle span {
+  font-size: 1.3rem;
+}
+
+.pageSubtitle {
+  color: var(--text-secondary);
+  font-size: 0.85rem;
+  margin-top: 2px;
+}
+
+/* ---- Cards / Panels ---- */
+.card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px;
+  transition: border-color var(--duration) var(--ease),
+              box-shadow var(--duration) var(--ease);
+}
+
+.card:hover {
+  border-color: var(--border-hover);
+}
+
+.cardHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+.cardTitle {
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-secondary);
+}
+
+/* ---- Forms ---- */
+.formGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  position: relative;
+}
+
+.formGroupFull {
+  composes: formGroup;
+  grid-column: 1 / -1;
+}
+
+.label {
+  font-size: 0.78rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.input {
+  background: var(--bg-input);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 10px 14px;
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+  font-size: 0.9rem;
+  transition: border-color var(--duration) var(--ease);
+  outline: none;
+}
+
+.input:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-glow);
+}
+
+.input::placeholder {
+  color: var(--text-muted);
+}
+
+.input[aria-invalid='true'] {
+  border-color: var(--red);
+  box-shadow: 0 0 0 3px var(--red-dim);
+}
+
+.formHint {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  margin: 0;
+}
+
+.formError {
+  font-size: 0.75rem;
+  color: var(--red);
+  margin: 0;
+}
+
+.inputMono {
+  composes: input;
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+}
+
+.select {
+  composes: input;
+  cursor: pointer;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%2394a3b8'%3E%3Cpath d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  padding-right: 32px;
+}
+
+.fileInput {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.fileInputPath {
+  composes: input;
+  flex: 1;
+  cursor: default;
+  opacity: 0.65;
+  user-select: none;
+  pointer-events: none;
+}
+
+/* ---- Buttons ---- */
+.btnPrimary {
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  border-radius: var(--radius-sm);
+  padding: 10px 20px;
+  font-family: var(--font-sans);
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background var(--duration) var(--ease),
+              box-shadow var(--duration) var(--ease);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.btnPrimary:hover {
+  background: var(--accent-hover);
+  box-shadow: var(--shadow-glow);
+}
+
+.btnPrimary:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.btnPrimary:focus-visible,
+.btnSecondary:focus-visible,
+.btnIcon:focus-visible,
+.btnSmall:focus-visible,
+.btnOrange:focus-visible,
+.linkBtn:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.btnSecondary {
+  background: var(--bg-card);
+  color: var(--text-primary);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 10px 20px;
+  font-family: var(--font-sans);
+  font-size: 0.85rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: border-color var(--duration) var(--ease),
+              background var(--duration) var(--ease);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.btnSecondary:hover {
+  border-color: var(--border-hover);
+  background: var(--bg-card-hover);
+}
+
+.btnOrange {
+  composes: btnPrimary;
+  background: var(--orange);
+}
+
+.btnOrange:hover {
+  background: var(--orange-hover);
+  box-shadow: 0 0 20px var(--orange-glow);
+}
+
+.btnSmall {
+  padding: 6px 14px;
+  font-size: 0.78rem;
+}
+
+.btnIcon {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: var(--text-secondary);
+  transition: all var(--duration) var(--ease);
+}
+
+.btnIcon:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+/* ---- Badges / Pills ---- */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 10px;
+  border-radius: var(--radius-pill);
+  font-size: 0.72rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.badgeGreen {
+  composes: badge;
+  background: var(--green-dim);
+  color: var(--green);
+}
+
+.badgeAmber {
+  composes: badge;
+  background: var(--amber-dim);
+  color: var(--amber);
+}
+
+.badgeRose {
+  composes: badge;
+  background: var(--rose-dim);
+  color: var(--rose);
+}
+
+.errorDetail {
+  display: block;
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  margin-top: 2px;
+  max-width: 320px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.badgeAccent {
+  composes: badge;
+  background: var(--accent-glow);
+  color: var(--accent);
+}
+
+.badgeViolet {
+  composes: badge;
+  background: var(--violet-dim);
+  color: var(--violet);
+}
+
+/* ---- Results table ---- */
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.82rem;
+}
+
+.table th {
+  text-align: left;
+  padding: 10px 14px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-muted);
+  border-bottom: 1px solid var(--border);
+}
+
+.table td {
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--border);
+}
+
+.table tbody tr {
+  transition: background var(--duration) var(--ease);
+}
+
+.table tbody tr:hover {
+  background: var(--accent-glow);
+}
+
+/* ---- Progress bar ---- */
+.progressBar {
+  width: 100%;
+  height: 6px;
+  background: var(--bg-secondary);
+  border-radius: var(--radius-pill);
+  overflow: hidden;
+}
+
+.progressFill {
+  height: 100%;
+  border-radius: var(--radius-pill);
+  transition: width 0.6s var(--ease);
+}
+
+/* ---- Empty state ---- */
+.emptyState {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 48px;
+  color: var(--text-muted);
+  text-align: center;
+}
+
+.emptyStateIcon {
+  font-size: 2.5rem;
+  opacity: 0.5;
+}
+
+/* ---- Loading spinner ---- */
+.spinner {
+  width: 24px;
+  height: 24px;
+  border: 3px solid var(--border);
+  border-top-color: var(--accent);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+.spinnerSmall {
+  composes: spinner;
+  width: 16px;
+  height: 16px;
+  border-width: 2px;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* ---- Grid layouts ---- */
+.statsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px;
+}
+
+/* ---- Floating pills (BioScouter style) ---- */
+.floatingPills {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.pill {
+  padding: 6px 14px;
+  border-radius: var(--radius-pill);
+  font-size: 0.78rem;
+  font-weight: 500;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  color: var(--text-secondary);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* ---- Action bar ---- */
+.actions {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+/* ---- Input with inline button ---- */
+.inputWithBtn {
+  display: flex;
+  gap: 8px;
+  align-items: stretch;
+}
+
+.inputWithBtn .inputMono {
+  flex: 1;
+}
+
+/* ---- Result panel ---- */
+.resultPanel {
+  composes: card;
+  background: var(--bg-secondary);
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+.resultPre {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  line-height: 1.6;
+  white-space: pre-wrap;
+  color: var(--text-secondary);
+}
+
+/* ---- Table scroll wrapper ---- */
+.tableScroll {
+  overflow-x: auto;
+  margin: 0 -20px;
+  padding: 0 20px;
+}
+
+/* ---- Mono text helper ---- */
+.mono {
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+}
+
+/* ---- Sortable table header ---- */
+.sortableHeader {
+  cursor: pointer;
+  user-select: none;
+  transition: color var(--duration) var(--ease);
+  white-space: nowrap;
+}
+
+.sortableHeader:hover {
+  color: var(--accent);
+}
+
+.sortIndicator {
+  font-size: 0.65rem;
+  opacity: 0.5;
+  margin-left: 2px;
+}
+
+.sortIndicator.active {
+  opacity: 1;
+  color: var(--accent);
+}
+
+/* ---- Keyboard shortcut hint ---- */
+.kbdHint {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.68rem;
+  color: var(--text-muted);
+  margin-left: 8px;
+}
+
+.kbd {
+  display: inline-block;
+  padding: 1px 5px;
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  background: var(--bg-secondary);
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  line-height: 1.4;
+}
+
+/* ---- Cancel button ---- */
+.btnDanger {
+  composes: btnPrimary;
+  background: var(--rose);
+}
+
+.btnDanger:hover {
+  background: var(--red);
+  box-shadow: 0 0 20px var(--red-dim);
+}
+
+/* ---- Copy button ---- */
+.copyBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 6px;
+  border: none;
+  border-radius: 4px;
+  background: transparent;
+  color: var(--text-muted);
+  cursor: pointer;
+  font-size: 0.75rem;
+  transition: color 0.15s, background 0.15s;
+}
+
+.copyBtn:hover {
+  color: var(--accent);
+  background: var(--bg-secondary);
+}
+
+.copyLabel {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  max-width: 120px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.copyIcon {
+  font-size: 0.8rem;
+  line-height: 1;
+}
+
+/* ---- Inline link-style button ---- */
+.linkBtn {
+  background: none;
+  border: none;
+  color: var(--accent);
+  font-size: 0.75rem;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 2px 6px;
+  border-radius: 4px;
+  transition: background 0.15s, color 0.15s;
+  white-space: nowrap;
+}
+
+.linkBtn:hover {
+  background: var(--bg-secondary);
+  text-decoration: underline;
+}

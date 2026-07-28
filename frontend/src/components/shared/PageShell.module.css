@@ -1,0 +1,62 @@
+/* ================================================================
+   PageShell — page wrapper styles
+   ================================================================ */
+
+.nextStepBtn {
+  background: var(--bg-card);
+  color: var(--accent);
+  border: 1px solid var(--accent);
+  border-radius: var(--radius-sm);
+  padding: 8px 18px;
+  font-family: var(--font-sans);
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--duration) var(--ease);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.nextStepBtn:hover {
+  background: var(--accent);
+  color: #fff;
+  box-shadow: var(--shadow-glow);
+}
+
+/* Info tooltip icon next to page title */
+.infoIcon {
+  display: inline-block;
+  width: 22px;
+  height: 22px;
+  margin-left: 10px;
+  color: var(--text-muted);
+  opacity: 0.7;
+  cursor: help;
+  vertical-align: middle;
+  transition: opacity var(--duration) var(--ease), color var(--duration) var(--ease);
+}
+.infoIcon:hover {
+  opacity: 1;
+  color: var(--accent);
+}
+
+/* Help link icon */
+.helpLink {
+  display: inline-flex;
+  align-items: center;
+  margin-left: 6px;
+  color: var(--text-muted);
+  opacity: 0.7;
+  text-decoration: none;
+  transition: opacity var(--duration) var(--ease), color var(--duration) var(--ease);
+  vertical-align: middle;
+}
+.helpLink:hover {
+  opacity: 1;
+  color: var(--accent);
+}
+.helpIcon {
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+}

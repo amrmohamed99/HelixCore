@@ -1,0 +1,49 @@
+/* RadarChart styles */
+
+.wrapper {
+  margin-top: 16px;
+}
+
+.title {
+  font-size: 0.78rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-secondary);
+  margin-bottom: 8px;
+}
+
+.svg {
+  width: 100%;
+  max-width: 320px;
+  margin: 0 auto;
+  display: block;
+}
+
+.ring {
+  fill: none;
+  stroke: var(--border);
+  stroke-width: 0.5;
+}
+
+.axis {
+  stroke: var(--border);
+  stroke-width: 0.5;
+  stroke-dasharray: 2 4;
+}
+
+.data {
+  fill-opacity: 0.18;
+  stroke-width: 2;
+}
+
+.dot {
+  stroke: var(--bg-card);
+  stroke-width: 1.5;
+}
+
+.label {
+  font-size: 9px;
+  fill: var(--text-secondary);
+  font-weight: 500;
+}

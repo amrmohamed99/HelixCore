@@ -1,0 +1,80 @@
+/* ================================================================
+   HistogramChart — Vertical bar histogram styles
+   ================================================================ */
+
+.wrapper {
+  padding: 16px 0;
+}
+
+.title {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 12px;
+  padding-left: 4px;
+}
+
+.svg {
+  width: 100%;
+  max-width: 520px;
+  height: auto;
+}
+
+.bar {
+  cursor: pointer;
+  transition: opacity 0.15s ease, filter 0.15s ease;
+}
+
+.bar:hover {
+  opacity: 1 !important;
+  filter: brightness(1.2);
+}
+
+.barActive {
+  stroke: var(--text-primary);
+  stroke-width: 2;
+}
+
+.axisLabel {
+  font-size: 9px;
+  fill: var(--text-muted);
+  font-family: var(--font-mono);
+}
+
+.axisUnit {
+  font-size: 10px;
+  fill: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.countLabel {
+  font-size: 9px;
+  fill: var(--text-secondary);
+  font-family: var(--font-mono);
+}
+
+.tooltip {
+  position: absolute;
+  pointer-events: none;
+  background: var(--surface-elevated);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 6px 10px;
+  font-size: 11px;
+  color: var(--text-primary);
+  white-space: nowrap;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  z-index: 100;
+}
+
+.tooltipRange {
+  font-family: var(--font-mono);
+  color: var(--accent);
+  font-weight: 600;
+}
+
+.tooltipCount {
+  color: var(--text-secondary);
+  margin-left: 6px;
+}

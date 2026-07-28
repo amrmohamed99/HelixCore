@@ -1,0 +1,42 @@
+# Helix Core v3.0.0 — FastAPI Backend
+# requirements.txt
+
+fastapi>=0.111.0
+uvicorn[standard]>=0.30.0
+pydantic>=2.7.0
+python-multipart>=0.0.9
+
+# Science
+# The package is `rdkit`, not the retired `rdkit-pypi` wheel: rdkit-pypi stopped
+# publishing after 2022.9.5, so a >=2024 constraint on it cannot resolve at all.
+rdkit>=2024.3.1
+numpy>=1.26.0
+scipy>=1.11.0
+
+# Receptor PDBQT preparation
+meeko>=0.7.0
+gemmi>=0.7.0
+prody>=2.4.0
+
+# ML
+scikit-learn>=1.4.0
+
+# Monitoring
+psutil>=5.9.0
+
+# HTTP
+requests>=2.31.0
+
+# SSE streaming
+sse-starlette>=2.0.0
+httpx>=0.27.0
+
+# WebSocket
+websockets>=12.0
+
+# Report Generation
+reportlab>=4.0
+jinja2>=3.1.0
+
+# Database
+aiosqlite>=0.19.0

@@ -1,0 +1,36 @@
+.statusbar {
+  height: var(--statusbar-height);
+  background: var(--bg-titlebar);
+  border-top: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 14px;
+  font-size: 0.68rem;
+  color: var(--text-muted);
+  flex-shrink: 0;
+  z-index: 100;
+}
+
+.left,
+.right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+}
+
+.separator {
+  opacity: 0.3;
+}

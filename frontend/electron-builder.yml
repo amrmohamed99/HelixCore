@@ -1,0 +1,113 @@
+appId: com.helixcore.drugdiscovery
+productName: Helix Core
+copyright: Copyright © 2026 Amr Mohamed
+
+directories:
+  output: release
+  buildResources: resources
+
+files:
+  - dist/**/*
+  - dist-electron/**/*
+  - "!node_modules/**"
+
+electronLanguages:
+  - en-US
+
+asar: true
+compression: maximum
+
+extraResources:
+  - from: ../dist/backend
+    to: backend
+    filter:
+      - "**/*"
+  - from: ../LICENSE
+    to: licenses/HelixCore-MIT.txt
+  - from: ../THIRD_PARTY_LICENSES.md
+    to: licenses/THIRD_PARTY_LICENSES.md
+
+win:
+  icon: resources/icon.ico
+  target:
+    - target: portable
+      arch: x64
+  # v26 separates Windows code signing from executable resource editing.
+  # Keep icons/version metadata while producing an intentionally unsigned build.
+  signExecutable: false
+  forceCodeSigning: false
+  # Bundled scientific binaries are Windows builds and ship only with the Windows
+  # artifact. On Linux, Vina and Open Babel are resolved from PATH — see README.
+  #
+  # `../tools` IS NOT IN GIT. It is ~32 MB of prebuilt executables, one of which
+  # (Open Babel) is GPL-2.0, so it ships as a GitHub Release asset instead of
+  # living in the MIT source tree. A fresh clone must populate it before packaging:
+  #
+  #     python scripts/fetch_tools.py          # download + verify + unpack
+  #     python scripts/fetch_tools.py --check  # verify an existing tools/
+  #
+  # Every file is checked against a SHA-256 in `tools_manifest.json` before it is
+  # written, so what lands in the installer is byte-identical to what the manifest
+  # describes.
+  #
+  # WARNING — a missing `../tools` does NOT fail the build. electron-builder logs
+  # `file source doesn't exist` at warn level and carries on (app-builder-lib
+  # `fileMatcher.copyFiles`), so the packaged app ships with no docking engine and
+  # no format converter, and only a single warn line says why. Run the fetch
+  # script first and treat that warning as fatal. Do not commit the binaries.
+  #
+  # The GPL-2.0 obligation rides along in this copy: `tools/OpenBabel/License.txt`
+  # (full GPL-2.0 text) and `tools/OpenBabel/SOURCE.md` (written source offer) are
+  # inside the bundle and must reach the installer. Do not narrow the filter below
+  # to executables only. See THIRD_PARTY_LICENSES.md §1.
+  #
+  # The `!OpenBabel241` exclusion keeps a superseded local-only Open Babel 2.4.1
+  # bundle — kept on some dev machines to reproduce pre-v11 measurements — out of
+  # the installer. It is not part of the release asset and adds 33 MB of a second
+  # GPL copy if it leaks in.
+  extraResources:
+    - from: ../tools
+      to: tools
+      filter:
+        - "**/*"
+        - "!OpenBabel241{,/**/*}"
+
+linux:
+  icon: resources/icon.png
+  category: Science
+  synopsis: Desktop platform for computational drug discovery
+  description: >-
+    Helix Core integrates structure preparation, AutoDock Vina docking,
+    descriptor-based triage, molecular design, and results management into a
+    single desktop application. AutoDock Vina and Open Babel must be available
+    on PATH (for example via conda-forge).
+  target:
+    - target: AppImage
+      arch: x64
+    - target: deb
+      arch: x64
+
+deb:
+  depends:
+    - libgtk-3-0
+    - libnotify4
+    - libnss3
+    - libxss1
+    - libxtst6
+    - xdg-utils
+    - libatspi2.0-0
+    - libsecret-1-0
+    # Navigation and status icons are emoji glyphs, not an icon font. A Linux
+    # host with no colour-emoji font renders every one of them as a tofu box,
+    # which makes the sidebar unreadable. Minimal server images routinely ship
+    # without one.
+    - fonts-noto-color-emoji
+
+portable:
+  artifactName: "HelixCore-${version}-portable.exe"
+
+nsis:
+  oneClick: false
+  allowToChangeInstallationDirectory: true
+  installerHeaderIcon: resources/icon.ico
+  shortcutName: Helix Core

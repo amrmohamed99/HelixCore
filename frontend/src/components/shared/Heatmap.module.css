@@ -1,0 +1,17 @@
+/* ================================================================
+   Heatmap component styles
+   ================================================================ */
+
+.container {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 16px;
+  overflow-x: auto;
+}
+
+.svg {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
