@@ -76,7 +76,6 @@ win:
 linux:
   icon: resources/icon.png
   executableName: helixcore
-  desktopName: com.helixcore.drugdiscovery
   artifactName: "HelixCore-${version}-linux-${arch}.${ext}"
   category: Science
   maintainer: Amr M. Alhfnawy <AAlhfnawy@nu.edu.eg>
