@@ -76,7 +76,11 @@ win:
 linux:
   icon: resources/icon.png
   executableName: helixcore
-  artifactName: "HelixCore-${version}-linux-${arch}.${ext}"
+  syncDesktopName: true
+  # Linux targets expose target-specific architecture labels (x86_64 for
+  # AppImage and amd64 for deb). This release is x64-only, so use one stable
+  # public filename rather than producing two different aliases.
+  artifactName: "HelixCore-${version}-linux-x64.${ext}"
   category: Science
   maintainer: Amr M. Alhfnawy <AAlhfnawy@nu.edu.eg>
   vendor: Helix Core
