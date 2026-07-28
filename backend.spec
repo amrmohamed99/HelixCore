@@ -20,13 +20,14 @@ Build:
 --------------------------------------------------------------------------
 Platform notes
 --------------------------------------------------------------------------
-Docking engines are not bundled here on any platform. On Windows the `tools/`
+Docking engines are not bundled by PyInstaller on any platform. On Windows the `tools/`
 tree (AutoDock Vina + Open Babel) is placed next to the binary by
 electron-builder's `win.extraResources`, and `run_backend.py` points
 HELIX_TOOLS_DIR at it. `tools/` holds Windows executables only, is not in git,
-and has no Linux counterpart: on Linux and macOS `backend/config.py` resolves
-both engines from PATH. Nothing platform-specific is therefore needed here —
-this paragraph exists so the omission reads as deliberate.
+and has no tracked Linux counterpart. The Linux electron-builder target stages
+the verified upstream Vina binary from untracked `linux-tools/`; Open Babel is
+resolved from PATH. Nothing platform-specific is therefore needed inside the
+PyInstaller bundle — this paragraph exists so the omission reads as deliberate.
 
 UPX is applied on Windows only. It is not installed in the Linux build
 environment, and UPX-compressed ELF objects interact badly with the

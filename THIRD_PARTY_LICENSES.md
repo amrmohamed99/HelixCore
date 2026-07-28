@@ -41,11 +41,14 @@ file the manifest does not describe, and refuses to write anything if a single d
 disagrees — so the licensing artefacts below cannot be silently dropped or replaced by a
 mirror.
 
-The Linux artifacts (AppImage, deb) bundle **neither** engine — both are resolved from `PATH`
-— so no redistribution obligation for Vina or Open Babel attaches to them. The container
-image built from `Dockerfile` is different: it *does* contain both engines (Vina fetched from
-the upstream release by SHA-256, Open Babel installed from conda-forge). Publishing that
-image to a registry is a redistribution, and §1.2 applies to whoever publishes it.
+The Linux artifacts (AppImage and deb) bundle the official upstream Vina 1.2.6
+Linux x86-64 release asset, verified from `linux_tools_manifest.json`; the same
+manifest requires its unmodified Apache-2.0 license text. They do **not** bundle
+Open Babel. The Debian package declares `openbabel` as a host dependency, while
+AppImage users install it separately. The container image built from `Dockerfile`
+contains both engines (Vina fetched from upstream by SHA-256, Open Babel installed
+from conda-forge). Publishing that image to a registry is a redistribution, and
+the corresponding upstream license obligations apply.
 
 ### 1.2 GPL-2.0 compliance (Open Babel)
 
@@ -85,12 +88,13 @@ build identifiers, declared licenses, and corresponding license files are record
 
 ### 1.3 Apache-2.0 compliance (AutoDock Vina)
 
-The bundled `vina.exe` is the official upstream v1.2.6 Windows release asset, unmodified.
+The bundled `vina.exe` and Linux `tools/vina` are the official upstream v1.2.6
+Windows and Linux release assets, respectively, and are unmodified.
 Apache-2.0 §4 requires that redistributions carry a copy of the license and retain the
 attribution notices. The unmodified license text from the v1.2.6 source tag is carried as
-`tools/LICENSE.AutoDock-Vina.txt`, is hashed in `tools_manifest.json`, and is included in
-both the standalone tools archive and Windows application. Vina is not modified, so no
-"changed files" notice is required.
+`tools/LICENSE.AutoDock-Vina.txt`. It is hashed in `tools_manifest.json` for Windows and
+`linux_tools_manifest.json` for Linux, and is included in every application package.
+Vina is not modified, so no "changed files" notice is required.
 
 ---
 

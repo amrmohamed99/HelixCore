@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "generated_for": "Helix Core v3.0.0",
+  "platform": "linux-x64",
+  "tools": {
+    "vina": {
+      "version": "1.2.6",
+      "release_tag": "v1.2.6",
+      "filename": "vina",
+      "executable": true,
+      "url": "https://github.com/ccsb-scripps/AutoDock-Vina/releases/download/v1.2.6/vina_1.2.6_linux_x86_64",
+      "sha256": "06dfe473434e666723436f6bc9379d6ea7ba75a19203feb00c1196ec3a1593e0",
+      "license": "Apache-2.0",
+      "source": "https://github.com/ccsb-scripps/AutoDock-Vina/tree/v1.2.6"
+    },
+    "vina_license": {
+      "version": "1.2.6",
+      "filename": "LICENSE.AutoDock-Vina.txt",
+      "executable": false,
+      "url": "https://raw.githubusercontent.com/ccsb-scripps/AutoDock-Vina/v1.2.6/LICENSE",
+      "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+      "license": "Apache-2.0",
+      "source": "https://github.com/ccsb-scripps/AutoDock-Vina/tree/v1.2.6"
+    }
+  }
+}

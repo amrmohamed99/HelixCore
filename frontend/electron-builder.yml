@@ -36,8 +36,9 @@ win:
   # Keep icons/version metadata while producing an intentionally unsigned build.
   signExecutable: false
   forceCodeSigning: false
-  # Bundled scientific binaries are Windows builds and ship only with the Windows
-  # artifact. On Linux, Vina and Open Babel are resolved from PATH — see README.
+  # This Windows-only tool tree carries Vina and Open Babel. Linux uses the
+  # separate, checksum-verified linux-tools/ staging directory declared below
+  # for Vina, and resolves Open Babel from PATH.
   #
   # `../tools` IS NOT IN GIT. It is ~32 MB of prebuilt executables, one of which
   # (Open Babel) is GPL-2.0, so it ships as a GitHub Release asset instead of
@@ -74,13 +75,29 @@ win:
 
 linux:
   icon: resources/icon.png
+  executableName: helixcore
+  desktopName: com.helixcore.drugdiscovery
+  artifactName: "HelixCore-${version}-linux-${arch}.${ext}"
   category: Science
+  maintainer: Amr M. Alhfnawy <AAlhfnawy@nu.edu.eg>
+  vendor: Helix Core
   synopsis: Desktop platform for computational drug discovery
   description: >-
     Helix Core integrates structure preparation, AutoDock Vina docking,
     descriptor-based triage, molecular design, and results management into a
-    single desktop application. AutoDock Vina and Open Babel must be available
-    on PATH (for example via conda-forge).
+    single desktop application. The official AutoDock Vina 1.2.6 Linux binary
+    is bundled; Open Babel 3.1.1 must be installed on the host.
+  # linux-tools/ is populated from linux_tools_manifest.json by
+  # scripts/fetch_linux_tools.py. It is deliberately untracked; the fetcher
+  # verifies the upstream release asset before electron-builder copies it.
+  # The CI packaging job asserts this file exists inside both distributables,
+  # because electron-builder otherwise treats a missing source as a warning.
+  extraResources:
+    - from: ../linux-tools
+      to: tools
+      filter:
+        - vina
+        - LICENSE.AutoDock-Vina.txt
   target:
     - target: AppImage
       arch: x64
@@ -97,6 +114,10 @@ deb:
     - xdg-utils
     - libatspi2.0-0
     - libsecret-1-0
+    # The AppImage cannot express host dependencies, but Debian packages can.
+    # Vina is bundled above; Open Babel remains a system package so its plugins
+    # and data files resolve through the distribution's normal loader paths.
+    - openbabel
     # Navigation and status icons are emoji glyphs, not an icon font. A Linux
     # host with no colour-emoji font renders every one of them as a tofu box,
     # which makes the sidebar unreadable. Minimal server images routinely ship

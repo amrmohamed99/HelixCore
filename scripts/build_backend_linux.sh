@@ -9,13 +9,12 @@
 # frontend/electron/main.ts launches when process.platform is not win32.
 #
 # Notes
-#   * The docking engines are not bundled. tools/ holds Windows executables
-#     only and is not in git; on Linux backend/config.py resolves AutoDock Vina
-#     and Open Babel from PATH. The built binary starts without them — only
-#     docking and format conversion fail, at call time. Install the official
-#     upstream Vina v1.2.6 release asset; do NOT use
-#     `conda install -c conda-forge vina`, which is a modified build that
-#     self-reports `f458505-mod`.
+#   * PyInstaller does not bundle docking engines. The later electron-builder
+#     step copies the official Vina 1.2.6 Linux asset from `linux-tools/`,
+#     populated and hash-verified by scripts/fetch_linux_tools.py. Open Babel
+#     remains a host dependency resolved from PATH. Do NOT use
+#     `conda install -c conda-forge vina`; that is a modified build reporting
+#     `f458505-mod`.
 #   * PyInstaller does not bundle glibc, so a binary built here runs only on a
 #     host whose glibc is at least as new as this machine's. Build on the
 #     oldest supported baseline, or in the container from Dockerfile, before

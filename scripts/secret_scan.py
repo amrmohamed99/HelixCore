@@ -471,6 +471,7 @@ MUST_BE_ABSENT: List[Tuple[str, str]] = [
     ("Knowledge-graph output", "graphify-out"),
     ("Marketing site (holds VITE_WEB3FORMS_KEY)", "landing"),
     ("Bundled GPL binaries (ship as release asset)", "tools"),
+    ("Verified Linux Vina staging directory", "linux-tools"),
     ("Local audit report", "SCIENTIFIC_AUDIT_REPORT.md"),
     ("Local audit report", "SCIENTIFIC_AUDIT_CURRENT_STATUS.md"),
     ("Local audit report", "PAPER_APP_REVIEW.md"),
@@ -499,6 +500,8 @@ MUST_BE_PRESENT: List[Tuple[str, str]] = [
     # repository cannot actually be followed from a clean clone.
     ("Release-asset fetcher that restores tools/ (referenced by THIRD_PARTY_LICENSES.md)",
      "scripts/fetch_tools.py"),
+    ("Linux tool checksum manifest", "linux_tools_manifest.json"),
+    ("Verified Linux tool fetcher", "scripts/fetch_linux_tools.py"),
 ]
 
 # Files that must exist inside the tools/ release asset for the GPL-2.0
@@ -506,6 +509,11 @@ MUST_BE_PRESENT: List[Tuple[str, str]] = [
 RELEASE_ASSET_LICENSE_FILES: List[str] = [
     "tools/OpenBabel/License.txt",
     "tools/OpenBabel/SOURCE.md",
+]
+
+LINUX_PACKAGE_FILES: List[str] = [
+    "vina",
+    "LICENSE.AutoDock-Vina.txt",
 ]
 
 
@@ -1239,6 +1247,49 @@ def verify_index_contents(root: str) -> Tuple[List[Dict[str, object]], List[Find
                     if tools_root_exists
                     else "(manifest entry not found)"
                 ),
+                value_redacted="",
+            ))
+
+    # Linux AppImage/deb obligation: the untracked staging directory may be
+    # absent in a clean clone, but both the official Vina binary and its
+    # Apache-2.0 license must be declared in the tracked checksum manifest.
+    linux_manifest_files: set = set()
+    linux_manifest_path = os.path.join(root, "linux_tools_manifest.json")
+    try:
+        with open(linux_manifest_path, "r", encoding="utf-8") as handle:
+            linux_manifest = json.load(handle)
+        linux_tools = linux_manifest.get("tools", {})
+        if isinstance(linux_tools, dict):
+            linux_manifest_files = {
+                entry.get("filename")
+                for entry in linux_tools.values()
+                if isinstance(entry, dict) and isinstance(entry.get("filename"), str)
+            }
+    except (OSError, ValueError, TypeError):
+        linux_manifest_files = set()
+
+    for filename in LINUX_PACKAGE_FILES:
+        ok = filename in linux_manifest_files
+        rows.append({
+            "check": "linux_package_file",
+            "label": "Linux package payload declared in checksum manifest",
+            "pathspec": "linux-tools/%s" % filename,
+            "ok": ok,
+            "tracked_files": 0,
+            "examples": [],
+        })
+        if not ok:
+            findings.append(Finding(
+                scope="index",
+                path="linux-tools/%s" % filename,
+                line=0,
+                rule_id="phase6-linux-package-manifest",
+                severity=HIGH,
+                description=(
+                    "Required Linux package payload is not declared in "
+                    "linux_tools_manifest.json."
+                ),
+                match_preview="(manifest entry not found)",
                 value_redacted="",
             ))
 

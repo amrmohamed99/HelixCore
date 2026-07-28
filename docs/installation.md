@@ -13,7 +13,7 @@ install anything on Linux or macOS.
 |---|---|---|---|---|
 | Backend + HTTP API | supported | supported | best-effort | supported |
 | Electron GUI | supported | supported | best-effort | not included |
-| Bundled engines | yes, fetched by script | no — install yourself | no — install yourself | Vina pinned in the image |
+| Bundled engines | Vina + Open Babel | Vina in release packages | no — install yourself | Vina pinned in the image |
 
 **Prerequisites on every platform:** Python 3.12, Node.js 20 or newer (22 is what
 CI uses), and git.
@@ -134,8 +134,10 @@ tools/OpenBabel/obabel.exe -V     # expect: Open Babel 3.1.0 -- ...   (see the q
 ## Linux
 
 The Electron GUI, the backend, and the full Playwright end-to-end suite all run on
-Linux. `tools/` is Windows-only and is deliberately not used here — both engines
-resolve from `PATH`.
+Linux. `tools/` is Windows-only and is deliberately not used here. In development,
+both engines resolve from `PATH`; the AppImage and Debian release packages instead
+bundle the checksum-verified Vina binary while still resolving Open Babel from
+`PATH`.
 
 ### 1. Python environment
 
@@ -377,15 +379,39 @@ so the build script rejects it before spending time on PyInstaller. Use
 ### Linux AppImage and deb
 
 ```bash
+python -m pip install -r backend/requirements.lock.txt pyinstaller==6.20.0
+python scripts/fetch_linux_tools.py    # verified Vina + Apache-2.0 license
 bash scripts/build_backend_linux.sh    # PyInstaller → dist/backend/backend
-cd frontend && npx electron-builder --linux --config electron-builder.yml
+cd frontend
+npm ci
+npm run package:linux
 ```
 
-Two caveats the script itself documents: PyInstaller does not bundle glibc, so build
-on the oldest glibc you intend to support (or inside the container); and PyInstaller
-is deliberately absent from `backend/environment.yml`, because it is a packaging tool
-and does not belong inside the environment the measurements come from — pass
-`--install-deps` to have the script add it.
+This produces:
+
+- `frontend/release/HelixCore-3.0.0-linux-x64.AppImage`
+- `frontend/release/HelixCore-3.0.0-linux-x64.deb`
+
+Build release artifacts on Ubuntu 22.04 (glibc 2.35). PyInstaller does not bundle
+glibc, so building on a newer system raises the minimum runtime version. PyInstaller
+is deliberately absent from `backend/environment.yml`, because it is a packaging
+tool rather than part of the measured scientific environment.
+
+Both packages bundle the official AutoDock Vina 1.2.6 Linux release binary recorded
+in `linux_tools_manifest.json`. Open Babel remains a host dependency. Installing the
+`.deb` pulls the distribution's `openbabel` package automatically:
+
+```bash
+sudo apt install ./frontend/release/HelixCore-3.0.0-linux-x64.deb
+```
+
+For the AppImage, install Open Babel and the colour-emoji font first:
+
+```bash
+sudo apt-get install -y openbabel fonts-noto-color-emoji
+chmod +x frontend/release/HelixCore-3.0.0-linux-x64.AppImage
+./frontend/release/HelixCore-3.0.0-linux-x64.AppImage
+```
 
 ---
 

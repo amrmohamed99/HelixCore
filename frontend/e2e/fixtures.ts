@@ -13,6 +13,9 @@ import fs from 'fs'
 const MAIN_JS = path.resolve(__dirname, '..', 'dist-electron', 'main.js')
 const TEST_RESULTS_DIR = path.resolve(__dirname, '..', 'test-results')
 const E2E_USER_DATA_DIR = path.join(TEST_RESULTS_DIR, 'electron-user-data')
+const PACKAGED_EXECUTABLE = process.env.HELIX_E2E_EXECUTABLE
+  ? path.resolve(process.env.HELIX_E2E_EXECUTABLE)
+  : null
 
 /**
  * Find the main BrowserWindow (not the splash).
@@ -68,8 +71,11 @@ export const test = base.extend<
       fs.rmSync(resolvedUserData, { recursive: true, force: true })
       fs.mkdirSync(resolvedUserData, { recursive: true })
 
-      const app = await electron.launch({
-        args: [
+      if (PACKAGED_EXECUTABLE && !fs.existsSync(PACKAGED_EXECUTABLE)) {
+        throw new Error(`HELIX_E2E_EXECUTABLE does not exist: ${PACKAGED_EXECUTABLE}`)
+      }
+
+      const commonArgs = [
           `--user-data-dir=${resolvedUserData}`,
           '--disable-gpu',
           /* Restricted Windows runners can deny Chromium child sandboxes
@@ -77,8 +83,12 @@ export const test = base.extend<
              file:// renderer. This affects only the automated test process;
              production BrowserWindows retain sandbox: true. */
           '--no-sandbox',
-          MAIN_JS,
-        ],
+      ]
+
+      const app = await electron.launch({
+        ...(PACKAGED_EXECUTABLE
+          ? { executablePath: PACKAGED_EXECUTABLE, args: commonArgs }
+          : { args: [...commonArgs, MAIN_JS] }),
         env: {
           ...process.env,
           NODE_ENV: 'production',
@@ -102,7 +112,7 @@ export const test = base.extend<
         }
       })
       let closedGracefully = false
-      const closeAttempt = app.close({ runBeforeUnload: false })
+      const closeAttempt = app.close()
         .then(() => { closedGracefully = true })
         .catch(() => { /* The process-level fallback handles this below. */ })
 

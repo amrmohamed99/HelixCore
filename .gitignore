@@ -66,6 +66,9 @@ scripts/update_graphify_publication_checkpoint.py
 # `SOURCE.md`); THIRD_PARTY_LICENSES.md, which IS tracked, points to it.
 tools/
 
+# Verified official Linux Vina release asset, staged only for packaging.
+linux-tools/
+
 # Marketing site — not part of the application, and landing/.env holds
 # VITE_WEB3FORMS_KEY while landing/.gitignore covers only .env.local.
 landing/

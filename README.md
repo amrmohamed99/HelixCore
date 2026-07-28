@@ -93,7 +93,7 @@ automated orchestration.
 | **Frontend** | React 18, TypeScript 5.6, Electron 43, Vite 6, Mol\*, D3 |
 | **Backend** | FastAPI, Uvicorn, Pydantic 2, SSE + WebSocket streaming |
 | **Science** | RDKit, AutoDock Vina, Open Babel, Meeko, NumPy, SciPy, scikit-learn, ProDy, Gemmi |
-| **Packaging** | PyInstaller (backend), electron-builder + NSIS (portable launcher) |
+| **Packaging** | PyInstaller backend; electron-builder Windows portable, Linux AppImage and deb |
 
 ## Getting Started
 
@@ -101,12 +101,15 @@ automated orchestration.
 
 - **Python 3.12+** with `pip`
 - **Node.js 20+** with `npm`
-- **Windows 10/11 (64-bit)** — the bundled `tools/` binaries are Windows builds
-  (see [Bundled Tools](#bundled-tools--third-party-licenses))
+- **Windows 10/11 (64-bit)** — the portable application bundles the verified Windows
+  tool set (see [Bundled Tools](#bundled-tools--third-party-licenses)).
+- **Linux x86-64 with glibc 2.35+** — the AppImage and Debian package bundle the
+  official AutoDock Vina 1.2.6 Linux binary. Open Babel 3.1.1 must be installed
+  on the host; the `.deb` declares it as a package dependency.
 
-> The FastAPI backend and React frontend are themselves platform-independent. Running on
-> Linux or macOS requires supplying native AutoDock Vina and Open Babel binaries and
-> pointing `HELIX_TOOLS_DIR` at them; this configuration is not yet officially tested.
+> Ubuntu Electron execution is covered by CI, and the Linux packaging workflow runs
+> the full end-to-end suite against the production AppImage payload. macOS remains
+> best-effort and is not currently a release target.
 
 ### Install & run (development)
 
@@ -170,8 +173,9 @@ pyinstaller backend.spec
 ### Frontend (electron-builder)
 
 ```bash
-cd frontend && npm run package
-# → frontend/release/win-unpacked/
+cd frontend
+npm run package:win       # Windows portable executable
+npm run package:linux     # Linux AppImage + deb (run on Linux)
 ```
 
 ### Full portable installer
@@ -180,6 +184,27 @@ cd frontend && npm run package
 .\build_portable.ps1
 # → frontend/release/HelixCore-3.0.0-portable.exe
 ```
+
+### Linux AppImage and Debian package
+
+Build on Ubuntu 22.04 or another glibc 2.35 baseline:
+
+```bash
+micromamba env create -f backend/environment.yml
+micromamba activate helix
+python -m pip install -r backend/requirements.lock.txt pyinstaller==6.20.0
+python scripts/fetch_linux_tools.py
+bash scripts/build_backend_linux.sh
+cd frontend
+npm ci
+npm run package:linux
+```
+
+The outputs are `frontend/release/HelixCore-3.0.0-linux-x64.AppImage` and
+`frontend/release/HelixCore-3.0.0-linux-x64.deb`. The official Vina binary and
+license are fetched and hash-verified from `linux_tools_manifest.json` before
+packaging. See [Installation](docs/installation.md#linux-appimage-and-deb) for
+Open Babel and font requirements.
 
 ## Project Structure
 

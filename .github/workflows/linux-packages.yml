@@ -1,0 +1,186 @@
+name: Linux packages
+
+on:
+  workflow_dispatch:
+  push:
+    tags: ['v*']
+
+permissions:
+  contents: read
+
+concurrency:
+  group: linux-packages-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  package-linux:
+    name: AppImage + deb (Ubuntu 22.04)
+    runs-on: ubuntu-22.04
+    timeout-minutes: 90
+
+    steps:
+      - uses: actions/checkout@v6
+
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '22'
+          cache: npm
+          cache-dependency-path: frontend/package-lock.json
+
+      # Build on Ubuntu 22.04 rather than ubuntu-latest (24.04). PyInstaller
+      # does not bundle glibc, so this lowers the runtime floor from glibc 2.39
+      # to 2.35 and makes the packages usable on both supported runner images.
+      - uses: mamba-org/setup-micromamba@ce51e99f4bb8a82ab7158c4dc59ef4634c59c4f9
+        with:
+          environment-file: backend/environment.yml
+          cache-environment: false
+          generate-run-shell: false
+          micromamba-version: '2.8.1-0'
+
+      - name: Install desktop test dependencies
+        shell: bash
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends \
+            file fonts-noto-color-emoji libfuse2 xvfb
+
+      - name: Install pinned backend and packaging dependencies
+        shell: bash -el {0}
+        run: |
+          python -m pip install --disable-pip-version-check \
+            -r backend/requirements.lock.txt \
+            pyinstaller==6.20.0
+          python -m pip check
+
+      - name: Stage the verified official AutoDock Vina binary
+        shell: bash
+        run: |
+          python3 scripts/fetch_linux_tools.py
+          python3 scripts/fetch_linux_tools.py --check
+          ./linux-tools/vina --version
+
+      - name: Build and smoke-test the frozen backend
+        shell: bash -el {0}
+        run: |
+          HELIX_PYTHON="$CONDA_PREFIX/bin/python" \
+            bash scripts/build_backend_linux.sh
+
+      - name: Build AppImage and Debian packages
+        working-directory: frontend
+        shell: bash -el {0}
+        run: |
+          npm ci
+          npm run package:linux
+
+      - name: Validate package structure and checksums
+        id: packages
+        shell: bash
+        run: |
+          set -euo pipefail
+          shopt -s nullglob
+          appimages=(frontend/release/HelixCore-*-linux-x64.AppImage)
+          debs=(frontend/release/HelixCore-*-linux-x64.deb)
+          [ "${#appimages[@]}" -eq 1 ] || {
+            printf 'Expected one AppImage, found %s\n' "${#appimages[@]}"; exit 1; }
+          [ "${#debs[@]}" -eq 1 ] || {
+            printf 'Expected one deb, found %s\n' "${#debs[@]}"; exit 1; }
+
+          appimage="$(realpath "${appimages[0]}")"
+          deb="$(realpath "${debs[0]}")"
+          chmod +x "$appimage"
+          file "$appimage" "$deb"
+          dpkg-deb --info "$deb"
+          dpkg-deb -f "$deb" Depends | tr ',' '\n' | grep -Eq '^[[:space:]]*openbabel([[:space:]]|$)'
+
+          sha256sum "$appimage" "$deb" \
+            | sed 's#  .*/#  #' \
+            > frontend/release/linux-SHA256SUMS.txt
+          cat frontend/release/linux-SHA256SUMS.txt
+
+          smoke_root="$RUNNER_TEMP/helixcore-package-smoke"
+          rm -rf "$smoke_root"
+          mkdir -p "$smoke_root/appimage" "$smoke_root/deb"
+          (
+            cd "$smoke_root/appimage"
+            "$appimage" --appimage-extract >/dev/null
+          )
+          dpkg-deb --extract "$deb" "$smoke_root/deb"
+
+          app_root="$smoke_root/appimage/squashfs-root"
+          test -x "$app_root/helixcore"
+          test -x "$app_root/resources/backend/backend"
+          test -x "$app_root/resources/tools/vina"
+          test -f "$app_root/resources/tools/LICENSE.AutoDock-Vina.txt"
+          test -f "$app_root/resources/app.asar"
+
+          mapfile -t deb_apps < <(find "$smoke_root/deb/opt" -type f -name app.asar)
+          [ "${#deb_apps[@]}" -eq 1 ] || {
+            printf 'Expected one app.asar in deb, found %s\n' "${#deb_apps[@]}"; exit 1; }
+          deb_resources="$(dirname "${deb_apps[0]}")"
+          test -x "$deb_resources/backend/backend"
+          test -x "$deb_resources/tools/vina"
+          test -f "$deb_resources/tools/LICENSE.AutoDock-Vina.txt"
+
+          # Both target formats came from the same builder invocation. Comparing
+          # the application archive and frozen backend proves the wrappers carry
+          # the same executable payload.
+          cmp "$app_root/resources/app.asar" "$deb_resources/app.asar"
+          cmp "$app_root/resources/backend/backend" "$deb_resources/backend/backend"
+
+          {
+            echo "appimage=$appimage"
+            echo "deb=$deb"
+            echo "executable=$app_root/helixcore"
+          } >> "$GITHUB_OUTPUT"
+
+      # The normal Ubuntu E2E job launches dist-electron/main.js, which leaves
+      # app.isPackaged false. This run supplies the executable extracted from
+      # the AppImage, exercising the production resource layout and bundled
+      # PyInstaller backend.
+      - name: Run Electron E2E against the packaged AppImage payload
+        working-directory: frontend
+        shell: bash -el {0}
+        env:
+          HELIX_E2E_EXECUTABLE: ${{ steps.packages.outputs.executable }}
+          XDG_DATA_HOME: ${{ runner.temp }}/helixcore-xdg
+        run: |
+          mkdir -p "$XDG_DATA_HOME"
+          xvfb-run --auto-servernum npm run test:e2e
+
+      - name: Record resolved build environment
+        shell: bash -el {0}
+        run: |
+          micromamba list > frontend/release/linux-conda-packages.txt
+          python -m pip list --format=freeze > frontend/release/linux-pip-packages.txt
+          {
+            echo "runner_image=${ImageOS:-unknown}"
+            echo "kernel=$(uname -srmo)"
+            echo "glibc=$(ldd --version | head -1)"
+            echo "node=$(node --version)"
+            echo "npm=$(npm --version)"
+          } > frontend/release/linux-build-environment.txt
+
+      - name: Upload validated Linux packages
+        uses: actions/upload-artifact@v6
+        with:
+          name: helixcore-linux-${{ github.sha }}
+          path: |
+            frontend/release/HelixCore-*-linux-x64.AppImage
+            frontend/release/HelixCore-*-linux-x64.deb
+            frontend/release/linux-SHA256SUMS.txt
+            frontend/release/linux-conda-packages.txt
+            frontend/release/linux-pip-packages.txt
+            frontend/release/linux-build-environment.txt
+          if-no-files-found: error
+          retention-days: 30
+
+      - name: Upload packaged-app E2E diagnostics on failure
+        if: failure()
+        uses: actions/upload-artifact@v6
+        with:
+          name: linux-package-e2e-failure-${{ github.sha }}
+          path: |
+            frontend/playwright-report/
+            frontend/test-results/
+          if-no-files-found: ignore
+          retention-days: 7

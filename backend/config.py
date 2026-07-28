@@ -51,8 +51,8 @@ def find_vina() -> str | None:
     """Locate the AutoDock Vina executable.
 
     Resolution order: HELIX_VINA override, bundled tools/, the frozen executable
-    directory, then PATH. Windows ships bundled binaries; on Linux and macOS the
-    binary normally comes from PATH (conda-forge, distro package, or upstream release).
+    directory, then PATH. Release packages bundle Vina on Windows and Linux;
+    development installs and macOS can resolve an upstream binary from PATH.
     """
     override = os.environ.get("HELIX_VINA")
     if override:
