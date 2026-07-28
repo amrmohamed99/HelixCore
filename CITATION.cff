@@ -13,6 +13,7 @@ authors:
     email: "AAlhfnawy@nu.edu.eg"
     affiliation: "Nile University"
 version: "3.0.0"
+doi: "10.5281/zenodo.21646166"
 date-released: 2026-07-28
 license: MIT
 repository-code: "https://github.com/amrmohamed99/HelixCore"
@@ -24,4 +25,3 @@ keywords:
   - AutoDock Vina
   - RDKit
   - ADMET
-# A software/paper DOI will be added once the release is archived (e.g. via Zenodo).

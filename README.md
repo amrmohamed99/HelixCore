@@ -13,9 +13,10 @@
 <p align="center">
   <img src="https://img.shields.io/badge/license-MIT-blue?style=flat-square" alt="License: MIT" />
   <img src="https://img.shields.io/badge/version-3.0.0-informational?style=flat-square" alt="Version 3.0.0" />
-  <img src="https://img.shields.io/badge/platform-Windows%2010%2F11-lightgrey?style=flat-square" alt="Platform" />
+  <img src="https://img.shields.io/badge/platform-Windows%20%7C%20Linux-lightgrey?style=flat-square" alt="Platforms: Windows and Linux" />
   <img src="https://img.shields.io/badge/python-3.12%2B-green?style=flat-square" alt="Python 3.12+" />
   <img src="https://img.shields.io/badge/node-20%2B-green?style=flat-square" alt="Node 20+" />
+  <a href="https://doi.org/10.5281/zenodo.21646166"><img src="https://zenodo.org/badge/DOI/10.5281/zenodo.21646166.svg" alt="DOI: 10.5281/zenodo.21646166" /></a>
 </p>
 
 ---
@@ -273,7 +274,12 @@ Participation is covered by the **[Code of Conduct](CODE_OF_CONDUCT.md)**.
 ## Citation
 
 If you use Helix Core in academic work, please cite it. Machine-readable metadata is in
-**[CITATION.cff](CITATION.cff)**. A formal software/paper DOI will be added on publication.
+**[CITATION.cff](CITATION.cff)**. The evaluated v3.0.0 source release is permanently
+archived on Zenodo:
+
+> Alhfnawy, A. M. (2026). *Helix Core: an open-source desktop platform for
+> computational drug discovery* (Version 3.0.0) [Computer software]. Zenodo.
+> https://doi.org/10.5281/zenodo.21646166
 
 ## License
 
